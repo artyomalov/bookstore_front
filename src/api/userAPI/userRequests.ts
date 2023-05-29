@@ -1,29 +1,28 @@
 import baseUrl from './httpCommonUser';
-import { AxiosRequestConfig } from 'axios';
-import {UserType, CreateUserType} from '../../types/userTypes';
+import { UserType, CreateUserType } from '../../types/userTypes';
 
-const userPrefix = 'user'
+const userPrefix = 'user';
+
 const createUser = (createUserData: CreateUserType) => {
-  const requestConfig: AxiosRequestConfig = {};
-  return baseUrl.post<UserType>(`${userPrefix}`, {
+  return baseUrl.post<{email: string}>(`${userPrefix}`, {
     email: createUserData.email,
     password: createUserData.password,
     confirm_password: createUserData.confirmPassword,
-    full_name: createUserData.fullName
   });
-}
+};
 
-// const signInUser = ()
+const signInUser = (email: string, password: string) => {
+  return baseUrl.post<UserType>(`signup`, {
+    email,
+    password,
+  });
+};
 
-const getUser = (id: number) => {
+const getUser = (id: string) => {
   return baseUrl.get<UserType>(`/${id}`);
 };
 
-const updateUserData = (
-  id: number,
-  full_name: string,
-  avatar: string,
-) => {
+const updateUserData = (id: number, full_name: string | undefined = undefined, avatar: string | undefined = undefined) => {
   return baseUrl.patch<UserType>(`${userPrefix}/${id}`, {
     full_name,
     avatar,
@@ -34,13 +33,9 @@ const updateUserPassword = (id: number, password: string) => {
   return baseUrl.patch<UserType>(`${userPrefix}/${id}`, { password });
 };
 
-// const deleteUser = (id: number, password: string) => {
-//   const requestConfig: AxiosRequestConfig = {};
-//   return userOperations.delete<number>(`/${id}`, {password});
-// };
-// при удалении нужно указать объект в который поместить объект с полем которое я хочу передать т.е. объект в объекте.
-
 const userRequests = {
+  createUser,
+  signInUser,
   getUser,
   updateUserData,
   updateUserPassword,

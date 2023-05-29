@@ -5,12 +5,16 @@ import FormInput from './FormInput';
 import authMail from '../assets/img/auth_mail.svg';
 import authHide from '../assets/img/auth_hide.svg';
 import validationSchema from '../validationSchemas/loginSignupSchema';
-
+import { useAppDispatch } from '../store/userHooks';
+import userRequests from '../api/userAPI/userRequests';
+import { useLocation, useNavigate } from 'react-router';
 
 const logIn = 'Log in';
 
-
 const AuthFormSignUp: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromPage = location.state?.state?.pathname || '/';
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -19,7 +23,15 @@ const AuthFormSignUp: React.FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values.email, values.password);
+      const email = values.email;
+      const password = values.password;
+      const confirmPassword = values.repeatPassword;
+      userRequests.createUser({
+        email,
+        password,
+        confirmPassword,
+      });
+      navigate(fromPage, { replace: true });
     },
   });
   return (

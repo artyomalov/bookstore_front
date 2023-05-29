@@ -2,72 +2,161 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userRequests from '../api/userAPI/userRequests';
 import {
   UserType,
-  UpdateUseDataType,
+  UpdateUserDataType,
   UpdateDeleteUserPasswordType,
 } from '../types/userTypes';
+import { AxiosError } from 'axios';
+import { stat } from 'fs';
+
+type SignInDataType = {
+  email: string;
+  password: string;
+};
+
+export const signInUser = createAsyncThunk<
+  UserType,
+  SignInDataType,
+  { rejectValue: Error | AxiosError }
+>('user/signInUser', async function (signInData, { rejectWithValue }) {
+  try {
+    const response = await userRequests.signInUser(
+      signInData.email,
+      signInData.password
+    );
+    return response.data;
+  } catch (error: any) {
+    return rejectWithValue(error.toJSON);
+  }
+});
 
 export const getUser = createAsyncThunk<
   UserType,
-  number,
-  { rejectValue: string }
+  string,
+  { rejectValue: Error | AxiosError }
 >('user/getUser', async function (id, { rejectWithValue }) {
-  
-  const response = await userRequests.getUser(id);
-
-  if (response.status !== 200) {
-    return rejectWithValue(response.statusText);
+  try {
+    const response = await userRequests.getUser(id);
+    return response.data;
+  } catch (error: any) {
+    return rejectWithValue(error.toJson());
   }
-
-  return response.data;
 });
 
-export const patchUserData = createAsyncThunk<
+export const updateUserData = createAsyncThunk<
   UserType,
-  UpdateUseDataType,
-  { rejectValue: string }
->('user/patchUserData', async function (updateUserData, { rejectWithValue }) {
-  const response = await userRequests.updateUserData(
-    updateUserData.id,
-    updateUserData.fullName,
-    updateUserData.avatar
-  );
-
-  if (response.status !== 200) {
-    return rejectWithValue(response.statusText);
+  UpdateUserDataType,
+  { rejectValue: Error | AxiosError }
+>('user/updateUserData', async function (updateUserData, { rejectWithValue }) {
+  try {
+    const response = await userRequests.updateUserData(
+      updateUserData.id,
+      updateUserData.fullName,
+      updateUserData.avatar
+    );
+    return response.data;
+  } catch (error: any) {
+    return rejectWithValue(error.toJSON);
   }
-  return response.data;
 });
 
-export const patchUserPassword = createAsyncThunk<
+export const updateUserPassword = createAsyncThunk<
   UserType,
   UpdateDeleteUserPasswordType,
-  { rejectValue: string }
+  { rejectValue: Error | AxiosError }
 >(
-  'user/patchUserPassword',
+  'user/updateUserPassword',
   async function (updateUserPasswordData, { rejectWithValue }) {
-    const response = await userRequests.updateUserPassword(
-      updateUserPasswordData.id,
-      updateUserPasswordData.password
-    );
-
-    if (response.status !== 200) {
-      return rejectWithValue(response.statusText);
+    try {
+      const response = await userRequests.updateUserPassword(
+        updateUserPasswordData.id,
+        updateUserPasswordData.password
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.toJSON);
     }
-    return response.data;
   }
 );
 
-// export const deleteUser = createAsyncThunk<
-//   number,
-//   UpdateDeleteUserPasswordType,
-//   { rejectValue: string }
-// >('user/deleteUser', async function (deleteUserData, { rejectWithValue }) {
-//   const response = await userRequests.deleteUser(
-//     deleteUserData.id,
-//     deleteUserData.password
-//   );
+type InitialStateType = {
+  user: UserType;
+  status: string | null;
+  message: string | null;
+};
 
-//   if (response.status !== 204) return rejectWithValue(response.statusText);
+const initialState: InitialStateType = {
+  user: {
+    id: 0,
+    fullName: 'Name',
+    avatar: 'avatar',
+    userCart: [],
+    likedByUser: [],
+    listOfUsersPurchases: [],
+  },
+  status: null,
+  message: null,
+};
 
-//   return response.data;
-// });
+const userSlice = createSlice({
+  name: 'user',
+  initialState: initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(signInUser.pending, (state, action) => {
+        state.status = 'pending';
+      })
+      .addCase(signInUser.fulfilled, (state, action) => {
+        state.status = 'fullfilled';
+        state.user.id = action.payload.id;
+        state.user.fullName = action.payload.fullName;
+        state.user.avatar = action.payload.avatar;
+        state.user.userCart = [...action.payload.userCart];
+        state.user.likedByUser = [...action.payload.likedByUser];
+        state.user.listOfUsersPurchases = [
+          ...action.payload.listOfUsersPurchases,
+        ];
+        state.message = 'Got user';
+      })
+      .addCase(signInUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.message = 'Something went wrong. Please try again later';
+      })
+      .addCase(getUser.pending, (state, action) => {
+        state.status = 'pending';
+      })
+      .addCase(signInUser.fulfilled, (state, action) => {
+        state.status = 'fullfilled';
+        state.user.id = action.payload.id;
+        state.user.fullName = action.payload.fullName;
+        state.user.avatar = action.payload.avatar;
+        state.user.userCart = [...action.payload.userCart];
+        state.user.likedByUser = [...action.payload.likedByUser];
+        state.user.listOfUsersPurchases = [
+          ...action.payload.listOfUsersPurchases,
+        ];
+        state.message = 'Got user';
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.message = 'Something went wrong. Please try again later';
+      })
+      .addCase(updateUserData.pending, (state, action) => {
+        state.status = 'rending';
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.user.fullName = action.payload.fullName;
+        state.user.avatar = action.payload.avatar;
+        state.status = 'fullfilled';
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.message = 'Something went wrong. Please try again later';
+      })
+      .addCase(updateUserPassword.pending, (state, action) => {
+        state.status = 'pending';
+      });
+  },
+});
+
+export default userSlice.reducer;
