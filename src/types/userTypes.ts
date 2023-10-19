@@ -1,25 +1,15 @@
-export type AuthorType = {
-  firstName: string;
-  lastName: string;
-  biography: string;
-}
+import { BookType, AuthorType } from './bookTypes';
 
-export type BookType = {
-  title: string;
-  annotation: string;
-  inStockQuantity: number;
-  genre: string;
-  price: number;
-  coverImage: string;
-  authors: AuthorType[];
-}
-
+export type CartItemType = {
+  book: BookType;
+  quantity: string;
+};
 
 export type UserType = {
-  id: number;
+  email: string;
   fullName: string;
   avatar: string;
-  userCart: BookType[];
+  userCart: CartItemType[];
   likedByUser: BookType[];
   listOfUsersPurchases: BookType[];
 };
@@ -31,12 +21,17 @@ export type CreateUserType = {
 };
 
 export type UpdateUserDataType = {
-  id: number;
+  email: string;
   fullName: string;
-  avatar: string;
+  avatar: any;
+  oldPassword: string;
+  newPassword: string;
+};
+export type UpdateUserAvatarType = {
+  avatar: ImageBitmap;
 };
 
 export type UpdateDeleteUserPasswordType = {
-  id: number;
+  email: string;
   password: string;
 };

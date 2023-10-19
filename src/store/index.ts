@@ -1,8 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
-
+import filterReducer from './filtersSlice';
 const rootReducer = combineReducers({
   user: userReducer,
+  filters: filterReducer,
 });
 
 const store = configureStore({

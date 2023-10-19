@@ -1,41 +1,44 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8000/api/v1/';
+const baseURL = 'http://localhost:8000/api/v1/user/';
 
 const options = {
   baseURL: baseURL,
   timeout: 300000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 };
 
-const axiosInstance = axios.create(options);
+const axiosInstanceUser = axios.create(options);
 
-axiosInstance.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('Token');
+axiosInstanceUser.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem('access');
   if (accessToken) {
-    config.headers.Authorization = 'Token ' + accessToken;
+    config.headers.Authorization = 'Bearer ' + accessToken;
   }
   return config;
 });
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const { response, config } = error;
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const { response, config } = error;
+//     console.log('>>>>>>>>>>>>>>>>>>>')
+//     if (response.status !== 401) {
+//       return Promise.reject(error);
+//     }
+//     try {
+//       localStorage.removeItem('access')
+//       const refresh = localStorage.getItem('refresh');
+//       if (refresh !== null) {
+//         await axios.post('http://localhost:8000/api/v1/token/refresh/', {
+//           refresh: refresh,
+//         });
+//         localStorage.setItem('access', response.headers.Token);
+//         return await axiosInstance(config);
+//       }
+//     } catch {
+//       Promise.reject(error);
+//     }
+//   }
+// );
 
-    if (response.status !== 401) {
-      return Promise.reject(error);
-    }
-    try {
-      await axios.get('/token/refresh/', options);
-      localStorage.setItem('accessToken', response.headers.Token);
-      return await axiosInstance(config);
-    } catch {
-      Promise.reject(error);
-    }
-  }
-);
-
-export default axiosInstance;
+export default axiosInstanceUser;

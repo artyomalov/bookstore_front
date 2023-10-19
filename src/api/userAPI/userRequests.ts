@@ -1,10 +1,20 @@
-import baseUrl from './httpCommonUser';
-import { UserType, CreateUserType } from '../../types/userTypes';
+import axiosInstanceUser from './httpCommonUser';
+import {
+  UserType,
+  CreateUserType,
+  UpdateUserDataType,
+} from '../../types/userTypes';
 
-const userPrefix = 'user';
+type SigninResponseType = {
+  token_data: {
+    access: string;
+    refresh: string;
+  };
+  user_data: UserType;
+};
 
 const createUser = (createUserData: CreateUserType) => {
-  return baseUrl.post<{email: string}>(`${userPrefix}`, {
+  return axiosInstanceUser.post<{ response: string }>('/signup/', {
     email: createUserData.email,
     password: createUserData.password,
     confirm_password: createUserData.confirmPassword,
@@ -12,26 +22,42 @@ const createUser = (createUserData: CreateUserType) => {
 };
 
 const signInUser = (email: string, password: string) => {
-  return baseUrl.post<UserType>(`signup`, {
+  return axiosInstanceUser.post<SigninResponseType>(`/signin/`, {
     email,
     password,
   });
 };
 
-const getUser = (id: string) => {
-  return baseUrl.get<UserType>(`/${id}`);
+const profilePath = '/profile/';
+
+const getUser = () => {
+  return axiosInstanceUser.get<UserType>(profilePath);
 };
 
-const updateUserData = (id: number, full_name: string | undefined = undefined, avatar: string | undefined = undefined) => {
-  return baseUrl.patch<UserType>(`${userPrefix}/${id}`, {
-    full_name,
-    avatar,
-  });
+const updateUserData = (updatedUserData: UpdateUserDataType) => {
+  const data = new FormData();
+  data.append('email', updatedUserData.email);
+  data.append('full_name', updatedUserData.fullName);
+  data.append('avatar', updatedUserData.avatar);
+  data.append('old_password', updatedUserData.oldPassword);
+  data.append('new_password', updatedUserData.newPassword);
+  console.log(data)
+  return axiosInstanceUser.put<UserType>(profilePath, data);
 };
 
-const updateUserPassword = (id: number, password: string) => {
-  return baseUrl.patch<UserType>(`${userPrefix}/${id}`, { password });
+type UpdatePasswordType = {
+  oldPassword: string;
+  newPassword: string;
 };
+
+const updateUserPassword = (updatePassword: UpdatePasswordType) => {
+  const passwordData = {
+    old_password: updatePassword.oldPassword,
+    new_password: updatePassword.newPassword,
+  };
+  return axiosInstanceUser.put<UserType>(profilePath, passwordData);
+};
+
 
 const userRequests = {
   createUser,

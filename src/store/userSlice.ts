@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userRequests from '../api/userAPI/userRequests';
 import {
   UserType,
@@ -6,39 +6,19 @@ import {
   UpdateDeleteUserPasswordType,
 } from '../types/userTypes';
 import { AxiosError } from 'axios';
-import { stat } from 'fs';
-
-type SignInDataType = {
-  email: string;
-  password: string;
-};
-
-export const signInUser = createAsyncThunk<
-  UserType,
-  SignInDataType,
-  { rejectValue: Error | AxiosError }
->('user/signInUser', async function (signInData, { rejectWithValue }) {
-  try {
-    const response = await userRequests.signInUser(
-      signInData.email,
-      signInData.password
-    );
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(error.toJSON);
-  }
-});
 
 export const getUser = createAsyncThunk<
   UserType,
   string,
   { rejectValue: Error | AxiosError }
->('user/getUser', async function (id, { rejectWithValue }) {
+>('user/getUser', async function (empty, { rejectWithValue, dispatch }) {
   try {
-    const response = await userRequests.getUser(id);
+    const response = await userRequests.getUser();
+    dispatch(setUser(response.data));
+    
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error.toJson());
+    return rejectWithValue(error());
   }
 });
 
@@ -46,95 +26,68 @@ export const updateUserData = createAsyncThunk<
   UserType,
   UpdateUserDataType,
   { rejectValue: Error | AxiosError }
->('user/updateUserData', async function (updateUserData, { rejectWithValue }) {
+>('user/updateUserData', async function (updatedUserData, { rejectWithValue }) {
   try {
-    const response = await userRequests.updateUserData(
-      updateUserData.id,
-      updateUserData.fullName,
-      updateUserData.avatar
-    );
+    const response = await userRequests.updateUserData(updatedUserData);
+    if (response.status !== 200) {
+      throw new Error(response.statusText);
+    }
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error.toJSON);
+    if (error instanceof AxiosError) {
+      rejectWithValue(error.response?.data);
+    }
+    return rejectWithValue(error);
   }
 });
-
-export const updateUserPassword = createAsyncThunk<
-  UserType,
-  UpdateDeleteUserPasswordType,
-  { rejectValue: Error | AxiosError }
->(
-  'user/updateUserPassword',
-  async function (updateUserPasswordData, { rejectWithValue }) {
-    try {
-      const response = await userRequests.updateUserPassword(
-        updateUserPasswordData.id,
-        updateUserPasswordData.password
-      );
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.toJSON);
-    }
-  }
-);
 
 type InitialStateType = {
   user: UserType;
   status: string | null;
   message: string | null;
+  isError: boolean;
 };
 
 const initialState: InitialStateType = {
   user: {
-    id: 0,
-    fullName: 'Name',
+    email: 'email',
+    fullName: 'name',
     avatar: 'avatar',
     userCart: [],
     likedByUser: [],
     listOfUsersPurchases: [],
   },
   status: null,
-  message: null,
+  message: 'Something went wrong. Please try again later',
+  isError: false,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setUser(state, action: PayloadAction<UserType>) {
+      const user = { ...action.payload };
+      if (user.fullName===null) {
+        user.fullName = 'Not set';
+      }
+      state.user = user;
+      
+    },
+    setMessage(state, action: PayloadAction<string>) {
+      state.message = action.payload;
+    },
+    setIsError(state, action: PayloadAction<boolean>) {
+      state.isError = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(signInUser.pending, (state, action) => {
-        state.status = 'pending';
-      })
-      .addCase(signInUser.fulfilled, (state, action) => {
-        state.status = 'fullfilled';
-        state.user.id = action.payload.id;
-        state.user.fullName = action.payload.fullName;
-        state.user.avatar = action.payload.avatar;
-        state.user.userCart = [...action.payload.userCart];
-        state.user.likedByUser = [...action.payload.likedByUser];
-        state.user.listOfUsersPurchases = [
-          ...action.payload.listOfUsersPurchases,
-        ];
-        state.message = 'Got user';
-      })
-      .addCase(signInUser.rejected, (state, action) => {
-        state.status = 'rejected';
-        state.message = 'Something went wrong. Please try again later';
-      })
       .addCase(getUser.pending, (state, action) => {
         state.status = 'pending';
       })
-      .addCase(signInUser.fulfilled, (state, action) => {
+      .addCase(getUser.fulfilled, (state, action) => {
         state.status = 'fullfilled';
-        state.user.id = action.payload.id;
-        state.user.fullName = action.payload.fullName;
-        state.user.avatar = action.payload.avatar;
-        state.user.userCart = [...action.payload.userCart];
-        state.user.likedByUser = [...action.payload.likedByUser];
-        state.user.listOfUsersPurchases = [
-          ...action.payload.listOfUsersPurchases,
-        ];
         state.message = 'Got user';
       })
       .addCase(getUser.rejected, (state, action) => {
@@ -146,17 +99,17 @@ const userSlice = createSlice({
       })
       .addCase(updateUserData.fulfilled, (state, action) => {
         state.user.fullName = action.payload.fullName;
+        state.user.email = action.payload.email;
         state.user.avatar = action.payload.avatar;
         state.status = 'fullfilled';
       })
       .addCase(updateUserData.rejected, (state, action) => {
         state.status = 'rejected';
         state.message = 'Something went wrong. Please try again later';
-      })
-      .addCase(updateUserPassword.pending, (state, action) => {
-        state.status = 'pending';
       });
   },
 });
+
+export const { setUser, setMessage, setIsError } = userSlice.actions;
 
 export default userSlice.reducer;

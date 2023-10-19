@@ -14,6 +14,7 @@
     "axios": "^1.4.0",
     "formik": "^2.2.9",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router": "^6.11.2",
@@ -47,5 +48,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-no-inline-styles": "^1.0.5",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-styled-components-config": "^0.0.2"
+  },
+  "lint": "./node_modules/.bin/eslint . -c .eslintrc.js --quiet --ext .js,.jsx,.ts,.tsx",
+  "lint:fix": "./node_modules/.bin/eslint . -c .eslintrc.js --quiet --fix --ext .js,.jsx,.ts,.tsx"
 }
