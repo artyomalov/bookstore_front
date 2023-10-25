@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthFormSignUp from '../../components/authForm/AuthFormSignUp';
+import AuthFormSignUp from '../../components/formAuthenticationRegistration/FormSignUp';
 import authImage from '../../assets/img/auth_image.svg';
 import authMail from '../../assets/img/auth_mail.svg';
 import authHide from '../../assets/img/auth_hide.svg';

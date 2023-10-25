@@ -1,18 +1,18 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, useLocation } from 'react-router';
-import StyledAuthForm from './AuthForm.style';
+import StyledForm from './Form.style';
 import FormInput from '../formInput/FormInput';
 import authMail from '../../assets/img/auth_mail.svg';
 import authHide from '../../assets/img/auth_hide.svg';
-import { validationSchemaLogIn } from '../../validationSchemas/loginSignupSchema'; 
+import { validationSchemaLogIn } from '../../validationSchemas/loginSignupSchema';
 import { useAppDispatch } from '../../store/typedHooks';
 import { setIsError, setMessage, setUser } from '../../store/userSlice';
 import userRequests from '../../api/userAPI/userRequests';
 
 const logIn = 'Log in';
 
-const AuthFormLogin: React.FC = () => {
+const FormLogin: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || '/';
@@ -28,7 +28,9 @@ const AuthFormLogin: React.FC = () => {
       const response = await userRequests.signInUser(
         values.email,
         values.password
-      );
+        );
+        console.log(response);
+      
       if (response.status !== 200) {
         throw new Error(response.statusText);
       }
@@ -57,9 +59,13 @@ const AuthFormLogin: React.FC = () => {
     },
   });
   return (
-    <StyledAuthForm>
+    <StyledForm>
       <h2 className="auth-component__header">{logIn}</h2>
-      <form className="auth-component__form" onSubmit={formik.handleSubmit} autoComplete="new-password">
+      <form
+        className="auth-component__form"
+        onSubmit={formik.handleSubmit}
+        autoComplete="new-password"
+      >
         <FormInput
           title="email"
           type="email"
@@ -90,8 +96,8 @@ const AuthFormLogin: React.FC = () => {
           {logIn}
         </button>
       </form>
-    </StyledAuthForm>
+    </StyledForm>
   );
 };
 
-export default AuthFormLogin;
+export default FormLogin;

@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledSortByList from './FilterSortByList.style';
+import StyledFilterSortByList from './FilterSortByList.style';
 import FilterSortByListItem from '../filterSortByListItem/FilterSortByListItem';
 import { useAppDispatch } from '../../store/typedHooks';
 import { setSelectedSortType } from '../../store/filtersSlice';
@@ -33,7 +33,7 @@ const FilterSortByList: React.FC<Props> = (props) => {
     }
   };
   return (
-    <StyledSortByList showchoiceslist={props.showchoiceslist ? '236px' : '0px'}>
+    <StyledFilterSortByList >
       {sortChoicesArray.map((choice) => {
         return (
           <FilterSortByListItem
@@ -45,7 +45,7 @@ const FilterSortByList: React.FC<Props> = (props) => {
           />
         );
       })}
-    </StyledSortByList>
+    </StyledFilterSortByList>
   );
 };
 

@@ -28,10 +28,8 @@ const signInUser = (email: string, password: string) => {
   });
 };
 
-const profilePath = '/profile/';
-
 const getUser = () => {
-  return axiosInstanceUser.get<UserType>(profilePath);
+  return axiosInstanceUser.get<UserType>('/profile/');
 };
 
 const updateUserData = (updatedUserData: UpdateUserDataType) => {
@@ -41,8 +39,11 @@ const updateUserData = (updatedUserData: UpdateUserDataType) => {
   data.append('avatar', updatedUserData.avatar);
   data.append('old_password', updatedUserData.oldPassword);
   data.append('new_password', updatedUserData.newPassword);
-  console.log(data)
-  return axiosInstanceUser.put<UserType>(profilePath, data);
+  // console.log(updatedUserData);
+  console.log(data);
+  
+  return axiosInstanceUser.put<UserType>('/profile/', data);
+  // return axiosInstanceUser.put<UserType>('/profile/', updateUserData);
 };
 
 type UpdatePasswordType = {
@@ -55,9 +56,8 @@ const updateUserPassword = (updatePassword: UpdatePasswordType) => {
     old_password: updatePassword.oldPassword,
     new_password: updatePassword.newPassword,
   };
-  return axiosInstanceUser.put<UserType>(profilePath, passwordData);
+  return axiosInstanceUser.put<UserType>('/profile/', passwordData);
 };
-
 
 const userRequests = {
   createUser,

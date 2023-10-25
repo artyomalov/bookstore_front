@@ -2,9 +2,6 @@ import { DefaultTheme } from 'styled-components';
 
 const baseTheme: DefaultTheme = {
   mainWidth: '1280px',
-  fontWeightThin: 400,
-  fontWeightNormal: 500,
-  fontWeightBold: 700,
   colorDark: '#0D1821',
   colorDarkBlue: '#344966',
   colorLight: '#F0F4EF',
@@ -12,8 +9,12 @@ const baseTheme: DefaultTheme = {
   colorDarkGray: '#B9BAC3',
   colorGreen: '#bfcc94',
   colorWhite: '#F7F7FC',
+  fontWeightThin: 400,
+  fontWeightNormal: 500,
+  fontWeightBold: 700,
   fontSizeLittle: '14px',
   fontSizeSmall: '16px',
+  fontSizeMedium: '18px',
   fontSizeNormal: '20px',
   fontSizeBig: '40px',
   borderRadius: '16px',

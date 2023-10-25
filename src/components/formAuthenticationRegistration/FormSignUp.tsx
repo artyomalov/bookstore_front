@@ -1,18 +1,18 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import StyledAuthForm from './AuthForm.style';
+import StyledhForm from './Form.style';
 import FormInput from '../formInput/FormInput';
 import authMail from '../../assets/img/auth_mail.svg';
 import authHide from '../../assets/img/auth_hide.svg';
 import { validationSchemaSignUp } from '../../validationSchemas/loginSignupSchema';
 import userRequests from '../../api/userAPI/userRequests';
 import { useLocation, useNavigate } from 'react-router';
-const Signup = 'Sign in';
+const Signup = 'Sign up';
 
-const AuthFormSignUp: React.FC = () => {
+const FormSignUp: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const fromPage = location.state?.state?.pathname || '/';
+  // const fromPage = location.state?.state?.pathname || '/';
   type ValuesType = {
     email: string;
     password: string;
@@ -43,7 +43,7 @@ const AuthFormSignUp: React.FC = () => {
     onSubmit: onSubmitHandler,
   });
   return (
-    <StyledAuthForm>
+    <StyledhForm>
       <h2 className="auth-component__header">{Signup}</h2>
       <form
         className="auth-component__form "
@@ -93,8 +93,8 @@ const AuthFormSignUp: React.FC = () => {
           {Signup}
         </button>
       </form>
-    </StyledAuthForm>
+    </StyledhForm>
   );
 };
 
-export default AuthFormSignUp;
+export default FormSignUp;

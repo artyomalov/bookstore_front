@@ -1,9 +1,10 @@
 import React from 'react';
-import StyledCatalogHeader from './CatalogHeader.style';
-import SortByGenreDropdownMenu from '../sortByGenreDropdownMenu/SortByGenreDropdownMenu';
-import PriceRange from '../../components/priceRange/PriceRange';
+import StyledFilterCatalogHeader from './FilterCatalogHeader.style';
+import FilterGenre from '../filterGenre/FilterGenre';
+import FilterPriceRange from '../filterPriceRange/FilterPriceRange';
 import FilterSortBy from '../filterSortBy/FilterSortBy';
-const CatalogHeader: React.FC = () => {
+
+const FilterCatalogHeader: React.FC = () => {
   const [openFilterId, setOpenFilterId] = React.useState<null | string>(null);
   const genreId = 'genre';
   const priceRangeId = 'priceRangeId';
@@ -15,15 +16,15 @@ const CatalogHeader: React.FC = () => {
       : setOpenFilterId(filterId);
   };
   return (
-    <StyledCatalogHeader>
+    <StyledFilterCatalogHeader>
       <h2 className="catalog-header__header">Catalog</h2>
       <div className="catalog-header__filters">
-        <SortByGenreDropdownMenu
+        <FilterGenre
           filterId={genreId}
           isOpen={genreId === openFilterId}
           openFilterButtonClickHandler={openFilterButtonClickHandler}
         />
-        <PriceRange
+        <FilterPriceRange
           filterId={priceRangeId}
           isOpen={priceRangeId === openFilterId}
           openFilterButtonClickHandler={openFilterButtonClickHandler}
@@ -34,8 +35,8 @@ const CatalogHeader: React.FC = () => {
           openFilterButtonClickHandler={openFilterButtonClickHandler}
         />
       </div>
-    </StyledCatalogHeader>
+    </StyledFilterCatalogHeader>
   );
 };
 
-export default CatalogHeader;
+export default FilterCatalogHeader;

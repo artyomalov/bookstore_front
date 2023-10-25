@@ -8,7 +8,7 @@ const passwordIsTooShortErrorMessage =
   'Password is too short - should be 8 chars minimum.';
 
 const validationSchemaSignUp = yup.object({
-  email: yup.string().email('Invalid email address').required('Required'),
+  email: yup.string().email('Invalid email address').required('Enter your email'),
   password: yup
     .string()
     // .required('No password provided.')

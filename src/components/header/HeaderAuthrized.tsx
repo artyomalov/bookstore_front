@@ -5,18 +5,27 @@ import headerSearch from '../../assets/img/header_search.svg';
 import userCart from '../../assets/img/user_cart.svg';
 import userProfile from '../../assets/img/user_profile.svg';
 import userLiked from '../../assets/img/user_liked.svg';
+import userExit from '../../assets/img/user_exit.svg';
+import { useAppDispatch } from '../../store/typedHooks';
+import { setUserUnauthrized } from '../../store/userSlice';
 import StyledHeader from './Header.style';
 
 const HeaderAuthorized: React.FC = () => {
   const [searchInputData, setSearchInputData] = React.useState('');
-
+  const dispatch = useAppDispatch();
   const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputData(e.target.value);
   };
 
+  const exitUserProfileButtonClickHandler = () => {
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    dispatch(setUserUnauthrized(''));
+  };
+
   return (
     <StyledHeader>
-      <div className='header__link-input-container'>
+      <div className="header__link-input-container">
         <Link className="header__logo" to="/">
           <img src={headerLogo} alt="header__logo" />
         </Link>
@@ -44,6 +53,13 @@ const HeaderAuthorized: React.FC = () => {
         </Link>
         <Link className="header__user-button" to="profile">
           <img src={userProfile} alt="user_profile" />
+        </Link>
+        <Link
+          className="header__user-button"
+          to=""
+          onClick={exitUserProfileButtonClickHandler}
+        >
+          <img src={userExit} alt="user_exit" />
         </Link>
       </div>
     </StyledHeader>

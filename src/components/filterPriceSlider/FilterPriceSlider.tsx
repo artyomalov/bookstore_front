@@ -1,11 +1,7 @@
 import React from 'react';
-import StyledSlider from './PriceSlider.style';
 import { useAppDispatch } from '../../store/typedHooks';
 import { setSelectedPriceRange } from '../../store/filtersSlice';
-
-type Props = {
-  showSlider: boolean;
-};
+import StyledFilterPriceSlider from './FilterPriceSlider.style';
 
 //Calculating left position of slider price range
 const calculateSliderRangeLeft = (sliderMinValue: number, maxValue: number) => {
@@ -19,7 +15,7 @@ const calculateSliderRangeRight = (
   return `${100 - (sliderMaxValue / maxValue) * 100}%`;
 };
 
-const PriceSlider: React.FC<Props> = (props) => {
+const FilterPriceSlider: React.FC = () => {
   const maxValue = 1000;
   const [sliderMinValue, setSliderMinValue] = React.useState<number>(6);
   const [sliderMaxValue, setSliderMaxValue] = React.useState<number>(200);
@@ -70,7 +66,7 @@ const PriceSlider: React.FC<Props> = (props) => {
   };
 
   return (
-    <StyledSlider height={props.showSlider ? '151px' : '0'}>
+    <StyledFilterPriceSlider>
       <div className="slider__slider-body">
         <span className="slider__selected-range" ref={sliderRangeRef}></span>
         <input
@@ -96,8 +92,8 @@ const PriceSlider: React.FC<Props> = (props) => {
         <span className="slider__min-value">$ {sliderMinValue}</span>
         <span className="slider__max-value">$ {sliderMaxValue}</span>
       </div>
-    </StyledSlider>
+    </StyledFilterPriceSlider>
   );
 };
 
-export default PriceSlider;
+export default FilterPriceSlider;

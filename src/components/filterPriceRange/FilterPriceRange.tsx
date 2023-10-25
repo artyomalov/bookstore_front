@@ -1,30 +1,31 @@
 import React from 'react';
+import PriceSlider from '../filterPriceSlider/FilterPriceSlider';
 import FilterShowHideFilterButton from '../filterShowHideFilterButton/FilterShowHideFilterButton';
-import FilterSortByList from '../filterSortByList/FilterSortByList';
-import StyledFilterSortBy from './FilterSortBy.style';
+import StyledFilterPriceRange from './FilterPriceRange.style';
 import FilterArrow from '../filterArrow/FilterArrow';
+
 type Props = {
   filterId: string;
   isOpen: boolean;
   openFilterButtonClickHandler: (id: string) => void;
 };
 
-const FilterSortBy: React.FC<Props> = (props) => {
+const FilterPriceRange: React.FC<Props> = (props) => {
   return (
-    <StyledFilterSortBy showchoiceslist={props.isOpen ? '236px' : '0px'}>
+    <StyledFilterPriceRange height={props.isOpen ? '200px' : '0px'}>
       <FilterShowHideFilterButton
-        buttonText="Sort by"
+        buttonText="Price"
         clickButtonHandler={props.openFilterButtonClickHandler}
         filterId={props.filterId}
         isOpen={props.isOpen}
-        buttonBackgroundColor="none"
+        buttonBackgroundColor="green"
       />
-      <div className="sort-by__filter-list-container">
+      <div className="price-range__container">
         <FilterArrow />
-        <FilterSortByList showchoiceslist={props.isOpen} />
+        <PriceSlider />
       </div>
-    </StyledFilterSortBy>
+    </StyledFilterPriceRange>
   );
 };
 
-export default FilterSortBy;
+export default FilterPriceRange;

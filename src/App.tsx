@@ -7,31 +7,31 @@ import Signup from './pages/login/Signup';
 import RequireAuth from './serviceComponents/RequireAuth';
 import Profile from './pages/profile/Profile';
 import { useAppDispatch, useAppSelector } from './store/typedHooks';
-import { getUser } from './store/userSlice';
+import { getUser, setUser } from './store/userSlice';
 import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
 import Liked from './pages/liked/Liked';
 import { getGenres } from './store/filtersSlice';
+import { UserType } from './types/userTypes';
+import { GenreType } from './types/filtersTypes';
+import userRequests from './api/userAPI/userRequests';
 
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
   const dispatch = useAppDispatch();
-  const getUserHandler = async () => {
-    await dispatch(getUser('empty'));
-    setIsInitialized(true);
-  };
 
   React.useEffect(() => {
-    // Здесь будет запрос на получение книжек
-    const userData = localStorage.getItem('access');
     (async () => {
-      if (userData !== null) {
-        await getUserHandler();
+      try {
+        await dispatch(getUser('empty'));
+        await dispatch(getGenres('empty'));
+        setIsInitialized(true);
+      } catch (error) {
+        setIsInitialized(false);
+        console.error(error);
       }
-      await dispatch(getGenres('empty'));
     })();
   }, []);
-
   return isInitialized ? (
     <Routes>
       <Route path="/" element={<MainLayout />}>

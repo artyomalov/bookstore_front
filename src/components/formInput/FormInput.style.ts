@@ -94,6 +94,7 @@ const StyledFormInput = styled.div<FormInputType>`
   }
 
   .form-input__explanation {
+    margin-top: 9px;
     font-size: ${(props) => props.theme.fontSizeLittle};
     font-weight: ${(props) => props.theme.fontWeightNormal};
   }

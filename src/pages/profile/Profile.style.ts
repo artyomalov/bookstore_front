@@ -1,17 +1,12 @@
 import { styled } from 'styled-components';
 
-type StyledProfileDataContainerType = {
-  passwordflag: number;
-};
-
-const StyledProfileDataContainer = styled.form<StyledProfileDataContainerType>`
+const StyledProfileDataContainer = styled.form`
   display: flex;
   width: ${(props) => props.theme.mainWidth};
   margin: 0 auto;
   justify-content: flex-start;
   align-items: flex-start;
   margin-top: 70px;
-
 
   .user-page__container {
     width: 80%;
@@ -29,6 +24,9 @@ const StyledProfileDataContainer = styled.form<StyledProfileDataContainerType>`
   }
 
   .user-page__avatar-image {
+    width: 100%;
+    height: auto;
+
   }
 
   .user-page__add-photo-icon-container {
@@ -47,17 +45,23 @@ const StyledProfileDataContainer = styled.form<StyledProfileDataContainerType>`
   }
 
   .user-page__text-form {
-    margin-left: 15%;
-    width: 40%;
+    width: 522px;
+    height: fit-content;
   }
 
   .user-page__header-container {
+    /* margin-top: 40px; */
     width: 100%;
-    height: 30px;
+    height: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    &:first-of-type {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
   }
 
   .user-page__add-photo-input {
@@ -66,7 +70,7 @@ const StyledProfileDataContainer = styled.form<StyledProfileDataContainerType>`
 
   .user-page__header {
     font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontSizeNormal};
+    font-weight: ${(props) => props.theme.fontWeightNormal};
   }
 
   .user-page__change-data-button {
@@ -74,22 +78,19 @@ const StyledProfileDataContainer = styled.form<StyledProfileDataContainerType>`
     text-decoration: underline;
     border: none;
     color: #8d9f4f;
+    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-weight: ${(props) => props.theme.fontWeightNormal};
     cursor: pointer;
-  }
-
-  .user-page__password-update-fields {
-    display: ${(props) => (props.passwordflag === 1 ? 'block' : 'none')};
   }
 
   .user-page__confirm {
     width: 30.5%;
     height: 44px;
-    margin-top: 30px;
+    margin-top: 50px;
     border-radius: ${(props) => props.theme.borderRadius};
     background-color: ${(props) => props.theme.colorDarkBlue};
     border: none;
     color: ${(props) => props.theme.colorLight};
-
     &:hover {
       cursor: pointer;
     }

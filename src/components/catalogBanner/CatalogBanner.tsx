@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledBanner from './Banner.style';
+import StyledBanner from './CatalogBanner.style';
 
 type Props = {
   imageLink: string;

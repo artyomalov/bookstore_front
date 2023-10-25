@@ -1,5 +1,4 @@
 import React from 'react';
-// import ChildrenPropsType from '../types/serviceTypes';
 import { useAppSelector } from '../store/typedHooks';
 
 type ChildrenPropsType = {
@@ -9,7 +8,7 @@ type ChildrenPropsType = {
 const AlreadyAuthorized: React.FC<ChildrenPropsType> = (props) => {
   const email = useAppSelector((state) => state.user.user.email);
 
-  if (email === 'email') {
+  if (email === 'not set') {
     return props.children[0];
   }
   return props.children[1];

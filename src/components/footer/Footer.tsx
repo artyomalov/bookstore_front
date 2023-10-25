@@ -1,53 +1,63 @@
 import React from 'react';
-import styled from 'styled-components';
-import headerLogo from '../../assets/img/header_logo.svg';
+import footerLogo from '../../assets/img/footer_logo.svg';
 import { Link } from 'react-router-dom';
-const StyledFooter = styled.div`
-  width: 100%;
-  /* height: 341px; */
-  /* background-color: ${(props) => props.theme.colorDark}; */
-  background-color: gray;
-  margin-top: 110px;
-  width: 100%;
-  padding: 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+import StyledFooter from './Footer.style';
 
 const Footer: React.FC = () => {
   return (
     <StyledFooter>
-      <div className="footer__info-container">
-        <img src={headerLogo} alt="header_logo" className="footer__logo" />
-        <p className="footer__mail-to">
-          <a href="mailto:tranthuy.nute@gmail.com">tranthuy.nute@gmail.com</a>
-        </p>
-        <p className="footer__phote-number">(480) 555-0103</p>
-      </div>
-      <div className="footer__links-container">
-        <ul>
-          <li>
-            <Link to="/">Home Page</Link>
-          </li>
-          <li>
-            <Link to="/">Catalog</Link>
-          </li>
-          <li>
-            <Link to="profile">My Account</Link>
-          </li>
-          <li>
-            <Link to="cart">Cart</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="footer__adress-container">
-        <p className="footer__past-adress">
-          6391 Elgin St. Celina, Delaware 10299
-        </p>
-        <div>
-          ДОБАВИТЬ ГУГЛ МЭП КАРТУ
-          https://developers.google.com/maps/documentation/javascript/react-map?hl=ru
+      <div className="footer__container">
+        <div className="footer__info-container">
+          <Link to="/" className="footer__logo">
+            <img
+              src={footerLogo}
+              alt="footer_logo"
+              className="footer__logo-img"
+            />
+          </Link>
+          <a className="footer__mail-to" href="mailto:tranthuy.nute@gmail.com">
+            tranthuy.nute@gmail.com
+          </a>
+          <p className="footer__phone-number">(480) 555-0103</p>
+        </div>
+        <div className="footer__links-container">
+          <nav className="footer__nav">
+            <ul className="footer__nav-links-container">
+              <li className="footer__nav-link-item">
+                <Link className="footer__nav-link-item-link" to="/">
+                  Home Page
+                </Link>
+              </li>
+              <li className="footer__nav-link-item">
+                <Link className="footer__nav-link-item-link" to="/">
+                  Catalog
+                </Link>
+              </li>
+              <li className="footer__nav-link-item">
+                <Link className="footer__nav-link-item-link" to="profile">
+                  My Account
+                </Link>
+              </li>
+              <li className="footer__nav-link-item">
+                <Link className="footer__nav-link-item-link" to="cart">
+                  Cart
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className="footer__adress-container">
+          <p className="footer__post-adress">
+            6391 Elgin St. Celina, Delaware 10299
+          </p>
+          <div>
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A109e7da959b4fc3231e27202f4950ae2b013a4621443e1edf5fea7b9bd1efb75&amp;source=constructor"
+              width="413 "
+              height="160"
+              className='footer__map'
+            ></iframe>
+          </div>
         </div>
       </div>
     </StyledFooter>

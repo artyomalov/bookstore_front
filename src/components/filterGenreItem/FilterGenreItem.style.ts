@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-type StyledSingleGenreProps = {
+type StyledFilterGenreItemType = {
   checked: string;
 };
 
-const StyledSingleGenre = styled.li<StyledSingleGenreProps>`
+const StyledFilterGenreItem = styled.li<StyledFilterGenreItemType>`
   .genres__genre-label {
     display: flex;
     justify-content: space-between;
@@ -36,6 +36,7 @@ const StyledSingleGenre = styled.li<StyledSingleGenreProps>`
   }
   .genres__genre-name {
     margin-left: 10px;
+    font-size: ${(props)=>props.theme.fontSizeSmall};
   }
 `;
-export default StyledSingleGenre;
+export default StyledFilterGenreItem;

@@ -1,24 +1,16 @@
 import styled from 'styled-components';
 
-type StyledSliderType = {
-  height: string;
-};
-
-const StyledSlider = styled.div<StyledSliderType>`
+const StyledFilterPriceSlider = styled.div`
   width: 413px;
-  padding-left: 40px;
-  padding-right: 40px;
-  height: ${(props) => props.height};
+  height: 151px;
+  padding-left: 23px;
+  padding-right: 23px;
   background-color: ${(props) => props.theme.colorLight};
   border-radius: ${(props) => props.theme.borderRadius};
-  position: absolute;
-  top: 64px;
-  overflow: hidden;
-  transition: ${(props) => props.theme.transitionStyle};
 
   .slider__slider-body {
     position: relative;
-    margin-top: 40px;
+    top: 50px;
     width: 100%;
     height: 12px;
     background-color: ${(props) => props.theme.colorGray};
@@ -70,9 +62,9 @@ const StyledSlider = styled.div<StyledSliderType>`
     align-items: center;
     width: 100%;
     height: 34px;
-    margin-top: 15px;
+    margin-top: 65px;
     color: ${(props) => props.theme.colorDarkBlue};
   }
 `;
 
-export default StyledSlider;
+export default StyledFilterPriceSlider;

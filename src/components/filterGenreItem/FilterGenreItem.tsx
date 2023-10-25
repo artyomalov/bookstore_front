@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledSingleGenre from './SingleGenre.style';
+import StyledFilterGenreItem from './FilterGenreItem.style';
 
 type Props = {
   genreId: number;
@@ -7,7 +7,7 @@ type Props = {
   setGenresStateHandler: (id: number) => void;
 };
 
-const SingleGenre: React.FC<Props> = (props) => {
+const FilterGenreItem: React.FC<Props> = (props) => {
   const [checked, setChecked] = React.useState(false);
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +16,7 @@ const SingleGenre: React.FC<Props> = (props) => {
   };
 
   return (
-    <StyledSingleGenre checked={checked ? '1' : '0'}>
+    <StyledFilterGenreItem checked={checked ? '1' : '0'}>
       <label className="genres__genre-label">
         <input
           className="genres__checkboks"
@@ -29,8 +29,8 @@ const SingleGenre: React.FC<Props> = (props) => {
         </p>
         <p className="genres__genre-name">{props.genreName}</p>
       </label>
-    </StyledSingleGenre>
+    </StyledFilterGenreItem>
   );
 };
 
-export default SingleGenre;
+export default FilterGenreItem;

@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledSortByFilterListItem from './FilterSortByListItem.style';
+import StyledFilterSortByListItem from './FilterSortByListItem.style';
 
 type Props = {
   choice: {
@@ -17,14 +17,14 @@ type Props = {
 
 const FilterSortByListItem: React.FC<Props> = (props) => {
   return (
-    <StyledSortByFilterListItem
+    <StyledFilterSortByListItem
       onClick={() =>
         props.clickOnChoiceHandler(props.choice.sortItemSlug, props.choiceSlug)
       }
-      style={{color: props.isSelected?'#344966': '#B9BAC3'}}
+      style={{ color: props.isSelected ? '#344966' : '#B9BAC3' }}
     >
       {props.choice.sortByTitle}
-    </StyledSortByFilterListItem>
+    </StyledFilterSortByListItem>
   );
 };
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledAuthForm = styled.div`
+const StyledForm = styled.div`
   width: 40%;
   .auth-component__header {
     font-weight: ${(props) => props.theme.fontWeightBold};
@@ -28,4 +28,4 @@ const StyledAuthForm = styled.div`
   }
 `;
 
-export default StyledAuthForm;
+export default StyledForm;

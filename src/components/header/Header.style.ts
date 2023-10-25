@@ -84,7 +84,7 @@ const StyledHeader = styled.div`
   }
 
   .header__user-container {
-    width: 12%;
+    width: 16%;
     display: flex;
     justify-content: space-between;
     align-items: center;

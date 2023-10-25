@@ -5,25 +5,20 @@ type FormInputType = {
   blocked: number;
 };
 
-const deleteButtonProps = {
-  top: '14px',
-  right: '5px',
-  crossColor: 'rgb(185, 186, 196)',
-  crossWidth: '20px',
-  crossHeight: '3px',
-};
+
 
 const StyledFormInputUser = styled.div<FormInputType>`
   display: flex;
   flex-direction: column;
-  margin-bottom: 5px;
+  margin-top: 20px;
   position: relative;
 
   .form-input__input-item {
     width: 100%;
-    height: 84px;
+    height: 64px;
     display: flex;
     align-items: center;
+    position: relative;
     background-color: ${(props) => props.theme.colorLight};
     border-radius: ${(props) => props.theme.borderRadius};
     pointer-events: ${(props) => (props.blocked === 1 ? 'none' : 'auto')};
@@ -33,58 +28,17 @@ const StyledFormInputUser = styled.div<FormInputType>`
     cursor: not-allowed;
   }
 
-  .form-input__clear-button {
-    opacity: ${(props) =>
-      props.value.length > 0 && props.blocked !== 1 ? 1 : 0};
-    border: none;
-    width: 30px;
-    height: 30px;
-    transition: ${(props) => props.theme.transitionStyle};
-    position: absolute;
-    top: 22%;
-    right: 5%;
-    z-index: 999;
-    pointer-events: ${(props) => (props.blocked === 1 ? 'none' : 'auto')};
-
-    cursor: pointer;
-    &::before,
-    &::after {
-      content: '';
-      display: inline-block;
-      width: ${deleteButtonProps.crossWidth};
-      height: ${deleteButtonProps.crossHeight};
-      background-color: ${deleteButtonProps.crossColor};
-      position: absolute;
-      top: ${deleteButtonProps.top};
-      right: ${deleteButtonProps.right};
-      transition: ${(props) => props.theme.transitionStyle};
-    }
-    &::after {
-      transform: rotate(-45deg);
-    }
-    &::before {
-      transform: rotate(45deg);
-    }
-
-    &:hover {
-      &::before {
-        transform: rotate(0deg);
-      }
-      &::after {
-        transform: rotate(0deg);
-      }
-    }
-  }
+  
 
   .form-input__input {
     width: 95%;
     height: 50%;
     position: absolute;
-    top: ${(props) => (props.value.length > 0 ? '20%' : '11%')};
-    left: 16%;
+    top: ${(props) => (props.value.length > 0 ? '30px' : '16px')};
+    left: 84px;
     background: none;
     border: none;
-    font-size: ${(props) => props.theme.fontSizeNormal};
+    font-size: ${(props) => props.theme.fontSizeSmall};
     font-weight: ${(props) => props.theme.fontWeightThin};
     font-size: ${(props) => props.theme.fontSizeSmall};
     transition: ${(props) => props.theme.transitionStyle};
@@ -105,13 +59,15 @@ const StyledFormInputUser = styled.div<FormInputType>`
     opacity: ${(props) => (props.value.length > 0 ? 1 : 0)};
     position: absolute;
     font-weight: ${(props) => props.theme.fontWeightNormal};
-    top: 15%;
-    left: 16%;
+    font-size: ${(props)=>props.theme.fontSizeLittle};
+    top: 8px;
+    left: 84px;
     font-size: 14px;
     transition: ${(props) => props.theme.transitionStyle};
   }
 
-  .form-input-explanation {
+  .form-input__explanation {
+    margin-top: 9px;
     font-size: ${(props) => props.theme.fontSizeLittle};
     font-weight: ${(props) => props.theme.fontWeightNormal};
   }

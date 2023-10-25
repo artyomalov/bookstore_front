@@ -12,14 +12,22 @@ export const getUser = createAsyncThunk<
   string,
   { rejectValue: Error | AxiosError }
 >('user/getUser', async function (empty, { rejectWithValue, dispatch }) {
-  try {
-    const response = await userRequests.getUser();
-    dispatch(setUser(response.data));
-    
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(error());
+  const response = await userRequests.getUser();
+
+  if (response.data.email === undefined) {
+    const dummy: UserType = {
+      email: 'not set',
+      fullName: 'not set',
+      avatar: 'not set',
+      userCart: [],
+      likedByUser: [],
+      listOfUsersPurchases: [],
+    };
+    dispatch(setUser(dummy));
+    return dummy;
   }
+  dispatch(setUser(response.data));
+  return response.data;
 });
 
 export const updateUserData = createAsyncThunk<
@@ -48,15 +56,17 @@ type InitialStateType = {
   isError: boolean;
 };
 
+const unauthorizedUser = {
+  email: 'not set',
+  fullName: 'not set',
+  avatar: 'not set',
+  userCart: [],
+  likedByUser: [],
+  listOfUsersPurchases: [],
+};
+
 const initialState: InitialStateType = {
-  user: {
-    email: 'email',
-    fullName: 'name',
-    avatar: 'avatar',
-    userCart: [],
-    likedByUser: [],
-    listOfUsersPurchases: [],
-  },
+  user: unauthorizedUser,
   status: null,
   message: 'Something went wrong. Please try again later',
   isError: false,
@@ -68,11 +78,13 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action: PayloadAction<UserType>) {
       const user = { ...action.payload };
-      if (user.fullName===null) {
+      if (user.fullName === null) {
         user.fullName = 'Not set';
       }
-      state.user = user;
-      
+      state.user = { ...user };
+    },
+    setUserUnauthrized(state, action) {
+      state.user = unauthorizedUser;
     },
     setMessage(state, action: PayloadAction<string>) {
       state.message = action.payload;
@@ -87,6 +99,10 @@ const userSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(getUser.fulfilled, (state, action) => {
+        const user = { ...action.payload };
+        if (user.fullName === null) {
+          user.fullName = 'Not set';
+        }
         state.status = 'fullfilled';
         state.message = 'Got user';
       })
@@ -110,6 +126,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setMessage, setIsError } = userSlice.actions;
+export const { setUser, setMessage, setIsError, setUserUnauthrized } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,8 +1,8 @@
 import React from 'react';
 import StyledMainPage from './Catalog.style';
-import Banner from '../../components/banner/Banner';
+import Banner from '../../components/catalogBanner/CatalogBanner';
 import banner from '../../assets/img/banner.svg';
-import CatalogHeader from '../../components/catalogHeader/CatalogHeader';
+import FilterCatalogHeader from '../../components/filterCatalogHeader/FilterCatalogHeader';
 const Catalog: React.FC = () => {
   return (
     <StyledMainPage>
@@ -13,7 +13,7 @@ const Catalog: React.FC = () => {
         sloganText="Buy two books and get one for free"
         buttonText="Choose a book"
       />
-      <CatalogHeader />
+      <FilterCatalogHeader />
     </StyledMainPage>
   );
 };

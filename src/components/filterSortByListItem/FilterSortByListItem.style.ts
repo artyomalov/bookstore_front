@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledSortByFilterListItem = styled.li`
+const StyledFilterSortByListItem = styled.li`
   list-style: none;
   cursor: pointer;
   color: ${(props) => props.theme.colorDarkGray};
@@ -19,4 +19,4 @@ const StyledSortByFilterListItem = styled.li`
   }
 `;
 
-export default StyledSortByFilterListItem;
+export default StyledFilterSortByListItem;

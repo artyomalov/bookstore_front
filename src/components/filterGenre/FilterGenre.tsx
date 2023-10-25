@@ -1,18 +1,18 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import { GenreType } from '../../types/filtersTypes';
-import StyledDropDownSelector from './SortByGenreDropdownMenu.style';
-import SingleGenre from '../singleGenre/SingleGenre';
 import { setSelectedGenres } from '../../store/filtersSlice';
-import ShowFilterButton from '../showFilterButton/ShowFilterButton';
-
+import FilterShowHideFilterButton from '../filterShowHideFilterButton/FilterShowHideFilterButton';
+import StyledFilterGenre from './FilterGenre.style';
+import FilterGenreItem from '../filterGenreItem/FilterGenreItem';
+import FilterArrow from '../filterArrow/FilterArrow';
 type Props = {
   filterId: string;
   isOpen: boolean;
   openFilterButtonClickHandler: (id: string) => void;
 };
 
-const SortByGenreDropdownMenu: React.FC<Props> = (props) => {
+const FilterGenre: React.FC<Props> = (props) => {
   const [genresIdsArray, setGenresIdsArray] = React.useState<number[]>([]);
   const dispatch = useAppDispatch();
 
@@ -39,26 +39,31 @@ const SortByGenreDropdownMenu: React.FC<Props> = (props) => {
   };
 
   return (
-    <StyledDropDownSelector displaylist={props.isOpen ? '666px' : '0'}>
-      <ShowFilterButton
+    <StyledFilterGenre displaylist={props.isOpen ? '700px' : '0'}>
+      <FilterShowHideFilterButton
         buttonText="Genre"
         clickButtonHandler={props.openFilterButtonClickHandler}
         filterId={props.filterId}
+        isOpen={props.isOpen}
+        buttonBackgroundColor="green"
       />
-      <ul className="genres__genres-list">
-        {genresList.map((genre) => {
-          return (
-            <SingleGenre
-              key={genre.id}
-              genreId={genre.id}
-              genreName={genre.genreName}
-              setGenresStateHandler={setGenresStateHandler}
-            />
-          );
-        })}
-      </ul>
-    </StyledDropDownSelector>
+      <div className="genres__genres-list-container">
+        <FilterArrow />
+        <ul className="genres__genres-list">
+          {genresList.map((genre) => {
+            return (
+              <FilterGenreItem
+                key={genre.id}
+                genreId={genre.id}
+                genreName={genre.genreName}
+                setGenresStateHandler={setGenresStateHandler}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    </StyledFilterGenre>
   );
 };
 
-export default SortByGenreDropdownMenu;
+export default FilterGenre;

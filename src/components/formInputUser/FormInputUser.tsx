@@ -1,7 +1,7 @@
 import React from 'react';
 import StyledFormInputUser from './FormInputUser.style';
-
-type InputFields = {
+import FormInputCross from '../formInputCross/FormInputCross';
+type Props = {
   title: string;
   name: string;
   type: string;
@@ -10,24 +10,24 @@ type InputFields = {
   onChange: (e: React.ChangeEvent<any>) => void;
   onBlur: React.FocusEventHandler<HTMLInputElement>;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
-  value: string;
+  inputValue: string;
   inputTouched: boolean | undefined;
   inputError: string | undefined;
-  blocked: boolean;
+  inputBlocked: boolean;
 };
 
-const FormInputUser: React.FC<InputFields> = (props) => {
+const FormInputUser: React.FC<Props> = (props) => {
   const clearInputHandler = () => {
     props.setFieldValue(props.name, '');
   };
   return (
     <StyledFormInputUser
-      value={props.value}
-      blocked={props.blocked === false ? 1 : 0}
+      value={props.inputValue}
+      blocked={props.inputBlocked === false ? 1 : 0}
     >
       <label
         className={
-          props.blocked === false
+          props.inputBlocked === false
             ? 'form-input__input-item from-input__input-item-blocked'
             : 'form-input__input-item'
         }
@@ -43,13 +43,14 @@ const FormInputUser: React.FC<InputFields> = (props) => {
           placeholder={props.title}
           onChange={props.onChange}
           onBlur={props.onBlur}
-          value={props.value}
+          value={props.inputValue}
+        />
+        <FormInputCross
+          inputValue={props.inputValue}
+          inputBlocked={props.inputBlocked}
+          clickCrossHandler={clearInputHandler}
         />
       </label>
-      <span
-        onClick={clearInputHandler}
-        className="form-input__clear-button"
-      ></span>
       {props.inputTouched && props.inputError ? (
         <p className="form-input__explanation">{props.inputError}</p>
       ) : (
