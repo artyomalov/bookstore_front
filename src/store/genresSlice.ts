@@ -1,15 +1,15 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import filtersRequests from '../api/filtersApi/filtersRequersts';
-import { GenreType } from '../types/filtersTypes';
+import genresRequests from '../api/filtersApi/genresRequersts';
+import { GenreType } from '../types/bookTypes';
 import { AxiosError } from 'axios';
 
 export const getGenres = createAsyncThunk<
   GenreType[],
   string,
   { rejectValue: Error | AxiosError }
->('filters/getGenres', async function (empty, { rejectWithValue }) {
+>('genres/getGenres', async function (empty, { rejectWithValue }) {
   try {
-    const response = await filtersRequests.getGengres();
+    const response = await genresRequests.getGengres();
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error());
@@ -36,8 +36,8 @@ const initialState: InitialStateType = {
   selectedSortType: 'all',
 };
 
-const filtersSlice = createSlice({
-  name: 'filters',
+const genresSlice = createSlice({
+  name: 'genres',
   initialState: initialState,
   reducers: {
     setSelectedGenres: (state, action: PayloadAction<number[]>) => {
@@ -61,6 +61,6 @@ const filtersSlice = createSlice({
 });
 
 export const { setSelectedGenres, setSelectedPriceRange, setSelectedSortType } =
-  filtersSlice.actions;
+  genresSlice.actions;
 
-export default filtersSlice.reducer;
+export default genresSlice.reducer;

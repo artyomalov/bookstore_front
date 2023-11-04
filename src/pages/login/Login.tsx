@@ -1,14 +1,8 @@
 import React from 'react';
-import FormLogin from '../../components/formAuthenticationRegistration/FormLogin';
-import StyledLoginSignup from './LoginSignup.style';
-import authImage from '../../assets/img/auth_image.svg';
+import AuthFormLogin from '../../components/formAuthenticationRegistration/FormLogin';
+
 const Login: React.FC = () => {
-  return (
-    <StyledLoginSignup>
-      <FormLogin />
-      <img className="login__auth-mage" src={authImage} alt="auth_image" />
-    </StyledLoginSignup>
-  );
+  return <AuthFormLogin />;
 };
 
 export default Login;

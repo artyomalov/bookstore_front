@@ -46,7 +46,7 @@ const FormSignUp: React.FC = () => {
     <StyledhForm>
       <h2 className="auth-component__header">{Signup}</h2>
       <form
-        className="auth-component__form "
+        className="auth-component__form"
         onSubmit={formik.handleSubmit}
         autoComplete="new-password"
       >

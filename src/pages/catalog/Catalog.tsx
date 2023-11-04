@@ -3,7 +3,14 @@ import StyledMainPage from './Catalog.style';
 import Banner from '../../components/catalogBanner/CatalogBanner';
 import banner from '../../assets/img/banner.svg';
 import FilterCatalogHeader from '../../components/filterCatalogHeader/FilterCatalogHeader';
+import CatalogBannerSecondary from '../../components/catalogBannerSecondary/CatalogBannerSecondary';
+import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
+import { useAppSelector } from '../../store/typedHooks';
+
 const Catalog: React.FC = () => {
+  const user = useAppSelector((state) => state.user.user);
+  const isAuthorized = user.email === 'not set' ? false : true;
+
   return (
     <StyledMainPage>
       <Banner
@@ -14,6 +21,9 @@ const Catalog: React.FC = () => {
         buttonText="Choose a book"
       />
       <FilterCatalogHeader />
+      <CatalogBookList />
+
+      {isAuthorized ? null : <CatalogBannerSecondary />}
     </StyledMainPage>
   );
 };

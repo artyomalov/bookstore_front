@@ -56,32 +56,6 @@ const StyledHeader = styled.div`
     }
   }
 
-  .header__auth-container {
-    width: 16%;
-    height: 44px;
-    background-color: #344966;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .header__auth-link {
-    color: #f0f4ef;
-    text-decoration: none;
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
-
-    &:hover,
-    &:visited,
-    &:active {
-      text-decoration: none;
-      color: #f0f4ef;
-    }
-    &:first-of-type {
-      margin-right: 1%;
-    }
-  }
 
   .header__user-container {
     width: 16%;

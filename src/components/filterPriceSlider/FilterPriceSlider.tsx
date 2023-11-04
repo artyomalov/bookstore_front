@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../../store/typedHooks';
-import { setSelectedPriceRange } from '../../store/filtersSlice';
+import { setSelectedPriceRange } from '../../store/genresSlice';
 import StyledFilterPriceSlider from './FilterPriceSlider.style';
 
 //Calculating left position of slider price range

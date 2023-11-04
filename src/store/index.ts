@@ -1,9 +1,12 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
-import filterReducer from './filtersSlice';
+import genresReducer from './genresSlice';
+import bookReducer from './bookSlice';
+
 const rootReducer = combineReducers({
   user: userReducer,
-  filters: filterReducer,
+  genres: genresReducer,
+  book: bookReducer,
 });
 
 const store = configureStore({

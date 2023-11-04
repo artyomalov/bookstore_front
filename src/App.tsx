@@ -1,21 +1,19 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout';
+import MainLayout from './layouts/mainLayout/MainLayout';
 import Catalog from './pages/catalog/Catalog';
 import Login from './pages/login/Login';
-import Signup from './pages/login/Signup';
+import Signup from './pages/signUp/Signup';
 import RequireAuth from './serviceComponents/RequireAuth';
 import Profile from './pages/profile/Profile';
-import { useAppDispatch, useAppSelector } from './store/typedHooks';
-import { getUser, setUser } from './store/userSlice';
+import { useAppDispatch } from './store/typedHooks';
+import { getUser } from './store/userSlice';
 import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
 import Liked from './pages/liked/Liked';
-import { getGenres } from './store/filtersSlice';
-import { UserType } from './types/userTypes';
-import { GenreType } from './types/filtersTypes';
-import userRequests from './api/userAPI/userRequests';
-
+import { getGenres } from './store/genresSlice';
+import { getBooks } from './store/bookSlice';
+import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
   const dispatch = useAppDispatch();
@@ -24,6 +22,7 @@ const App: React.FC = () => {
     (async () => {
       try {
         await dispatch(getUser('empty'));
+        await dispatch(getBooks('empty'));
         await dispatch(getGenres('empty'));
         setIsInitialized(true);
       } catch (error) {
@@ -36,8 +35,10 @@ const App: React.FC = () => {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Catalog />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="login" element={<Login />} />
+        <Route path="auth" element={<SecondaryLayout />}>
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+        </Route>
         <Route
           path="cart"
           element={

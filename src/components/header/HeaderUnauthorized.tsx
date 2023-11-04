@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import headerLogo from '../../assets/img/header_logo.svg';
 import headerSearch from '../../assets/img/header_search.svg';
+import LoginSignUpButton from '../loginSignUpButton/LoginSignUpButton';
 import StyledHeader from './Header.style';
-
 const Header: React.FC = () => {
   const [searchInputData, setSearchInputData] = React.useState('');
 
@@ -32,14 +32,7 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="header__auth-container">
-        <Link className="header__auth-link" to="login">
-          Log in/
-        </Link>
-        <Link className="header__auth-link" to="signup">
-          Sign Up
-        </Link>
-      </div>
+      <LoginSignUpButton />
     </StyledHeader>
   );
 };

@@ -1,4 +1,4 @@
-import { BookType, AuthorType } from './bookTypes';
+import { BookType } from './bookTypes';
 
 export type CartItemType = {
   book: BookType;

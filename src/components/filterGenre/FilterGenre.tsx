@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
-import { GenreType } from '../../types/filtersTypes';
-import { setSelectedGenres } from '../../store/filtersSlice';
+import { GenreType } from '../../types/bookTypes';
+import { setSelectedGenres } from '../../store/genresSlice';
 import FilterShowHideFilterButton from '../filterShowHideFilterButton/FilterShowHideFilterButton';
 import StyledFilterGenre from './FilterGenre.style';
 import FilterGenreItem from '../filterGenreItem/FilterGenreItem';
@@ -21,7 +21,7 @@ const FilterGenre: React.FC<Props> = (props) => {
   }, [genresIdsArray, dispatch]);
 
   const genresList: GenreType[] = useAppSelector(
-    (state) => state.filters.genres
+    (state) => state.genres.genres
   );
 
   const setGenresStateHandler = (genreId: number) => {

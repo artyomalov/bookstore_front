@@ -2,7 +2,7 @@ import React from 'react';
 import StyledFilterSortByList from './FilterSortByList.style';
 import FilterSortByListItem from '../filterSortByListItem/FilterSortByListItem';
 import { useAppDispatch } from '../../store/typedHooks';
-import { setSelectedSortType } from '../../store/filtersSlice';
+import { setSelectedSortType } from '../../store/genresSlice';
 
 const sortChoicesArray = [
   { id: 1, sortByTitle: 'Price', sortItemSlug: 'price' },
