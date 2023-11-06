@@ -6,7 +6,7 @@ import Login from './pages/login/Login';
 import Signup from './pages/signUp/Signup';
 import RequireAuth from './serviceComponents/RequireAuth';
 import Profile from './pages/profile/Profile';
-import { useAppDispatch } from './store/typedHooks';
+import { useAppDispatch, useAppSelector } from './store/typedHooks';
 import { getUser } from './store/userSlice';
 import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
@@ -14,27 +14,43 @@ import Liked from './pages/liked/Liked';
 import { getGenres } from './store/genresSlice';
 import { getBooks } from './store/bookSlice';
 import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
+import Error from './pages/error/Error';
+import Book from './pages/book/Book';
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
+  const [isError, setIsError] = React.useState(false);
+
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     (async () => {
       try {
         await dispatch(getUser('empty'));
-        await dispatch(getBooks('empty'));
-        await dispatch(getGenres('empty'));
-        setIsInitialized(true);
+        const responseBooks = await dispatch(getBooks('empty'));
+        const responseGenres = await dispatch(getGenres('empty'));
+        if (
+          responseBooks.meta.requestStatus === 'rejected' ||
+          responseGenres.meta.requestStatus === 'rejected'
+        )
+          setIsError(true);
+
+        if (responseBooks !== undefined || responseGenres !== undefined)
+          setIsInitialized(true);
       } catch (error) {
-        setIsInitialized(false);
         console.error(error);
       }
     })();
   }, []);
-  return isInitialized ? (
+
+  const appOrError = isError ? (
+    <Routes>
+      <Route path="/" element={<Error />} />
+    </Routes>
+  ) : (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Catalog />} />
+        <Route path="/:slug" element={<Book />} />
         <Route path="auth" element={<SecondaryLayout />}>
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
@@ -65,9 +81,9 @@ const App: React.FC = () => {
         />
       </Route>
     </Routes>
-  ) : (
-    <ImageGrid />
   );
+
+  return isInitialized ? appOrError : <ImageGrid />;
 };
 
 export default App;

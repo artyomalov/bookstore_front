@@ -15,7 +15,11 @@ const CatalogBookList: React.FC = () => {
             slug={book.slug}
             title={book.title}
             paperbackPrice={book.paperbackPrice}
+            hardcoverPrice={book.hardcoverPrice}
+            paperbackQuantity={book.hardcoverQuantity}
+            hardcoverQuantity={book.hardcoverQuantity}
             coverImage={book.coverImage}
+            createdAt={book.createdAt}
             salesCount={book.salesCount}
             authors={book.authors}
           />

@@ -26,6 +26,7 @@ export type BookType = {
   paperbackPrice: number;
   hardcoverPrice: number;
   coverImage: string;
+  createdAt: string;
   rating: number;
   salesCount: 2;
   authors: AuthorType[];
