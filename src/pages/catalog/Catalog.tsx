@@ -9,6 +9,7 @@ import { useAppSelector } from '../../store/typedHooks';
 
 const Catalog: React.FC = () => {
   const user = useAppSelector((state) => state.user.user);
+  const books = useAppSelector((state) => state.book.books);
   const isAuthorized = user.email === 'not set' ? false : true;
 
   return (
@@ -21,7 +22,7 @@ const Catalog: React.FC = () => {
         buttonText="Choose a book"
       />
       <FilterCatalogHeader />
-      <CatalogBookList />
+      <CatalogBookList books={books} />
 
       {isAuthorized ? null : <CatalogBannerSecondary />}
     </StyledMainPage>

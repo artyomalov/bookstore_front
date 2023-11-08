@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../store/typedHooks';
+import { setUserUnauthrized } from '../../store/userSlice';
 import headerLogo from '../../assets/img/header_logo.svg';
 import headerSearch from '../../assets/img/header_search.svg';
 import userCart from '../../assets/img/user_cart.svg';
 import userProfile from '../../assets/img/user_profile.svg';
 import userLiked from '../../assets/img/user_liked.svg';
 import userExit from '../../assets/img/user_exit.svg';
-import { useAppDispatch } from '../../store/typedHooks';
-import { setUserUnauthrized } from '../../store/userSlice';
 import StyledHeader from './Header.style';
 
 const HeaderAuthorized: React.FC = () => {

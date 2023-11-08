@@ -11,6 +11,7 @@ const baseTheme: DefaultTheme = {
   colorWhite: '#F7F7FC',
   fontWeightThin: 400,
   fontWeightNormal: 500,
+  fontWeightSemiBold: 600,
   fontWeightBold: 700,
   fontSizeLittle: '14px',
   fontSizeSmall: '16px',

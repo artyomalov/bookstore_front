@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 type StyledProps = {
   isavalible: string;
+  width: string;
+  height: string;
 };
 
 const StyledCatalogAddToCartButton = styled.button<StyledProps>`
   display: block;
-  width: 100%;
-  height: 48px;
-  margin-top: 30px;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   background-color: ${(props) =>
     props.isavalible === 'avalible'
       ? props.theme.colorDarkBlue

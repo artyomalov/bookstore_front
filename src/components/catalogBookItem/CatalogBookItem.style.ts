@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-type StyledProps = {
-  selected: string;
-};
-
-const StyledCatalogBookItem = styled.div<StyledProps>`
+const StyledCatalogBookItem = styled.div`
   width: 305px;
   height: 663px;
   position: relative;
@@ -23,26 +19,8 @@ const StyledCatalogBookItem = styled.div<StyledProps>`
     overflow: hidden;
     white-space: nowrap;
   }
-  .catalog-book-item__author {
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
-    color: ${(props) => props.theme.colorDarkGray};
-  }
-  .catalog-book-item__like-item {
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    transition: ${(props) => props.theme.transitionStyle};
-    opacity: ${(props) => (props.selected === 'selected' ? 1 : 0)};
-  }
-  &:hover .catalog-book-item__like-item {
-    opacity: ${(props) => (props.selected === 'selected' ? 1 : 0.5)};
-  }
-  .catalog-book-item__like-checkbox {
-    display: none;
+  .catalog-book-item__add-to-cart-container {
+    margin-top: 30px;
   }
 `;
 

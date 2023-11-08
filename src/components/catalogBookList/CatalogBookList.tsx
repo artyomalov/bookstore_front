@@ -2,13 +2,16 @@ import React from 'react';
 import StyledCatalogBookList from './CatalogBookList.style';
 import { useAppSelector } from '../../store/typedHooks';
 import CatalogBookItem from '../catalogBookItem/CatalogBookItem';
+import { BookType } from '../../types/bookTypes';
 
-const CatalogBookList: React.FC = () => {
-  const books = useAppSelector((state) => state.book.books);
+type Props = {
+  books: BookType[];
+};
 
+const CatalogBookList: React.FC<Props> = (props) => {
   return (
     <StyledCatalogBookList>
-      {books.map((book) => {
+      {props.books.map((book) => {
         return (
           <CatalogBookItem
             key={book.id}
@@ -20,6 +23,7 @@ const CatalogBookList: React.FC = () => {
             hardcoverQuantity={book.hardcoverQuantity}
             coverImage={book.coverImage}
             createdAt={book.createdAt}
+            rating={book.rating}
             salesCount={book.salesCount}
             authors={book.authors}
           />

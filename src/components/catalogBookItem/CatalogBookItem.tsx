@@ -2,9 +2,13 @@ import React from 'react';
 import StyledCatalogBookItem from './CatalogBookItem.style';
 import { AuthorType } from '../../types/bookTypes';
 import CatalogAddToCartButton from '../catalogAddToCartButton/CatalogAddToCartButton';
-import likeIcon from '../../assets/img/user_liked.svg';
 import { Link } from 'react-router-dom';
+import CatalogAddToFavoriteCheckBox from '../catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
 import CatalogNewBestsellerIcon from '../catalogNewBestsellerIcon/CatalogNewBestsellerIcon';
+import CatalogStarRating from '../catalogStarRating/CatalogStarRating';
+import CatalogAuthorsList from '../catalogAuthorsList/CatalogAuthorsList';
+import mediaBaseUrl from '../../const/mediaBaseUrl';
+
 type Props = {
   slug: string;
   title: string;
@@ -14,6 +18,7 @@ type Props = {
   hardcoverPrice: number;
   coverImage: string;
   createdAt: string;
+  rating: number;
   salesCount: number;
   authors: AuthorType[];
 };
@@ -21,8 +26,6 @@ type Props = {
 const weekInSeconds = 604800;
 
 const CatalogBookItem: React.FC<Props> = (props) => {
-  const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
-
   let price: number | null = 0;
   if (props.hardcoverQuantity > 0) {
     price = props.hardcoverPrice;
@@ -35,29 +38,19 @@ const CatalogBookItem: React.FC<Props> = (props) => {
     weekInSeconds;
   const isBestsellerFlag = props.salesCount >= 20;
 
-  const addToFavoriteHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsFavorite(e.target.checked);
+  const addToFavoriteHandler = () => {
+    console.log('add to favorite logic');
   };
 
   return (
-    <StyledCatalogBookItem selected={isFavorite ? 'selected' : ''}>
+    <StyledCatalogBookItem>
       <Link
         to={`/${props.slug}`}
-        state={{
-          slug: props.slug,
-          title: props.title,
-          hardcoverQuantity: props.hardcoverQuantity,
-          paperbackQuantity: props.paperbackQuantity,
-          paperbackPrice: props.paperbackPrice,
-          hardcoverPrice: props.hardcoverPrice,
-          coverImage: props.coverImage,
-          authors: props.authors,
-        }}
         className="catalog-book-item__single-page-link"
       >
         <img
           className="catalog-book-item__image"
-          src={`http://localhost:8000/${props.coverImage}`}
+          src={`${mediaBaseUrl}${props.coverImage}`}
           alt={props.title}
         />
         {isNewFlag || isBestsellerFlag ? (
@@ -67,30 +60,19 @@ const CatalogBookItem: React.FC<Props> = (props) => {
         ) : null}
       </Link>
       <h4 className="catalog-book-item__book-title">{props.title}</h4>
-      {props.authors.map((author) => (
-        <p key={author.id} className="catalog-book-item__author">
-          {author.name}
-        </p>
-      ))}
-      <div className="catalog-book-item__rating">
-        ??????????????????????????
+      <CatalogAuthorsList
+        authors={props.authors}
+        width="100%"
+        height="30px"
+        fontSize="20px"
+        fontWeight={500}
+        color="#B9BAC3"
+      />
+      <CatalogStarRating rating={props.rating} />
+      <div className="catalog-book-item__add-to-cart-container">
+        <CatalogAddToCartButton price={price} width="100%" height="48px" />
       </div>
-      <CatalogAddToCartButton price={price} />
-      <label className="catalog-book-item__like-item">
-        <input
-          className="catalog-book-item__like-checkbox"
-          type="checkbox"
-          onChange={addToFavoriteHandler}
-          checked={isFavorite}
-        />
-        <img
-          src={likeIcon}
-          alt="userLikedIcon"
-          className="catalog-book-item__like-icon"
-        />
-      </label>
-      <div className="catalog-book-item__new-tag">New</div>
-      <div className="catalog-book-item__bestseller-tag">Bestseller</div>
+      <CatalogAddToFavoriteCheckBox onClickHandler={addToFavoriteHandler} />
     </StyledCatalogBookItem>
   );
 };

@@ -3,9 +3,10 @@ export type AuthorType = {
   name: string;
 };
 
-type CommentType = {
+export type CommentType = {
   id: number;
   userName: string;
+  userAvatar: string;
   createdAt: string;
   text: string;
 };

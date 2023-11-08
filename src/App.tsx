@@ -6,7 +6,7 @@ import Login from './pages/login/Login';
 import Signup from './pages/signUp/Signup';
 import RequireAuth from './serviceComponents/RequireAuth';
 import Profile from './pages/profile/Profile';
-import { useAppDispatch, useAppSelector } from './store/typedHooks';
+import { useAppDispatch } from './store/typedHooks';
 import { getUser } from './store/userSlice';
 import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
@@ -14,7 +14,7 @@ import Liked from './pages/liked/Liked';
 import { getGenres } from './store/genresSlice';
 import { getBooks } from './store/bookSlice';
 import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
-import Error from './pages/error/Error';
+import ErrorPage from './pages/error/ErrorPage';
 import Book from './pages/book/Book';
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
@@ -28,6 +28,7 @@ const App: React.FC = () => {
         await dispatch(getUser('empty'));
         const responseBooks = await dispatch(getBooks('empty'));
         const responseGenres = await dispatch(getGenres('empty'));
+        
         if (
           responseBooks.meta.requestStatus === 'rejected' ||
           responseGenres.meta.requestStatus === 'rejected'
@@ -44,7 +45,7 @@ const App: React.FC = () => {
 
   const appOrError = isError ? (
     <Routes>
-      <Route path="/" element={<Error />} />
+      <Route path="/" element={<ErrorPage />} />
     </Routes>
   ) : (
     <Routes>
@@ -80,6 +81,7 @@ const App: React.FC = () => {
           }
         />
       </Route>
+      <Route path="/error_404" element={<ErrorPage />} />
     </Routes>
   );
 
