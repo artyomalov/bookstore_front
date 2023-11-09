@@ -49,6 +49,15 @@ const StyledBook = styled.main`
     font-weight: ${(props) => props.theme.fontWeightThin};
     color: ${(props) => props.theme.colorDarkBlue};
   }
+
+  .book__comments {
+    margin-top: 110px;
+  }
+  .book__comments-title {
+    font-size: ${(props) => props.theme.fontSizeBig};
+    font-weight: ${(props) => props.theme.fontWeightBold};
+    margin-bottom: 50px;
+    }
 `;
 
 export default StyledBook;

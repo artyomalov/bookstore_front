@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledFilterCatalogHeader = styled.div`
   width: 100%;
   height: 72px;
+  margin-top: 110px;  
   display: flex;
   justify-content: space-between;
   align-items: center;

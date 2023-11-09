@@ -10,7 +10,7 @@ import { useAppDispatch } from './store/typedHooks';
 import { getUser } from './store/userSlice';
 import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
-import Liked from './pages/liked/Liked';
+import Favorite from './pages/favorite/Favorite';
 import { getGenres } from './store/genresSlice';
 import { getBooks } from './store/bookSlice';
 import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
@@ -65,10 +65,10 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="liked"
+          path="favorite"
           element={
             <RequireAuth>
-              <Liked />
+              <Favorite />
             </RequireAuth>
           }
         />

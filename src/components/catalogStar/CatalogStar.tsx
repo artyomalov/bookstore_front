@@ -1,5 +1,5 @@
 import React from 'react';
-import starStroke from '../../assets/img/catalog_rating_star_stroke.svg';
+import starOtline from '../../assets/img/catalog_rating_star_outline.svg';
 import StyledStar from './CatalogStar.style';
 
 type Props = {
@@ -14,7 +14,7 @@ const CatalogStar: React.FC<Props> = (props) => {
       <div className="catalog-book-item__green-fill"></div>
       <div className="catalog-book-item__white-background">
         <img
-          src={starStroke}
+          src={starOtline}
           alt="star_stroke"
           className="catalog-book-item__white-background"
         />

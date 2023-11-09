@@ -1,11 +1,11 @@
 import React from 'react';
 import CatalogStar from '../catalogStar/CatalogStar';
 import StyledStarRating from './CatalogStarRating.style';
-
+import starArray from '../../const/starArray';
 type Props = {
   rating: number;
 };
-const starArray = [1, 2, 3, 4, 5];
+
 
 const CatalogStarRating: React.FC<Props> = (props) => {
   const roundedRating = Math.round(props.rating * 10) / 10;

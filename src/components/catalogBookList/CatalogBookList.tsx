@@ -13,20 +13,21 @@ const CatalogBookList: React.FC<Props> = (props) => {
     <StyledCatalogBookList>
       {props.books.map((book) => {
         return (
-          <CatalogBookItem
-            key={book.id}
-            slug={book.slug}
-            title={book.title}
-            paperbackPrice={book.paperbackPrice}
-            hardcoverPrice={book.hardcoverPrice}
-            paperbackQuantity={book.hardcoverQuantity}
-            hardcoverQuantity={book.hardcoverQuantity}
-            coverImage={book.coverImage}
-            createdAt={book.createdAt}
-            rating={book.rating}
-            salesCount={book.salesCount}
-            authors={book.authors}
-          />
+          <div key={book.id} className="catalog-book-list__book-item-container">
+            <CatalogBookItem
+              slug={book.slug}
+              title={book.title}
+              paperbackPrice={book.paperbackPrice}
+              hardcoverPrice={book.hardcoverPrice}
+              paperbackQuantity={book.hardcoverQuantity}
+              hardcoverQuantity={book.hardcoverQuantity}
+              coverImage={book.coverImage}
+              createdAt={book.createdAt}
+              rating={book.rating}
+              salesCount={book.salesCount}
+              authors={book.authors}
+            />
+          </div>
         );
       })}
     </StyledCatalogBookList>

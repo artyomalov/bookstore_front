@@ -48,7 +48,7 @@ const HeaderAuthorized: React.FC = () => {
         <Link className="header__user-button" to="cart">
           <img src={userCart} alt="user_cart" />
         </Link>
-        <Link className="header__user-button" to="liked">
+        <Link className="header__user-button" to="favorite">
           <img src={userLiked} alt="user_liked" />
         </Link>
         <Link className="header__user-button" to="profile">

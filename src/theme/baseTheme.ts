@@ -17,9 +17,9 @@ const baseTheme: DefaultTheme = {
   fontSizeSmall: '16px',
   fontSizeMedium: '18px',
   fontSizeNormal: '20px',
+  fontSize22: '22px',
   fontSizeBig: '40px',
   borderRadius: '16px',
   transitionStyle: 'all 0.15s ease-in-out',
-
 };
 export default baseTheme;

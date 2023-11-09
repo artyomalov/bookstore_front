@@ -9,6 +9,7 @@ import CatalogAuthorsList from '../../components/catalogAuthorsList/CatalogAutho
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import { Navigate } from 'react-router-dom';
 import BookCommentsList from '../../components/bookCommentsList/BookCommentsList';
+import BookRating from '../../components/bookRating/BookRating';
 const Book: React.FC = () => {
   const params = useParams();
   const book = useAppSelector((state) => {
@@ -22,7 +23,7 @@ const Book: React.FC = () => {
     book && book.hardcoverQuantity > 0 ? book.hardcoverPrice : null;
   const paperbackPrice =
     book && book.paperbackQuantity > 0 ? book.paperbackPrice : null;
-  
+
   return book ? (
     <StyledBook>
       <div className="book__container">
@@ -41,7 +42,7 @@ const Book: React.FC = () => {
             fontWeight={500}
             color="0D1821"
           />
-          <div className="book__rating">***************************</div>
+          <BookRating rating={book.rating.toFixed(1)}/>
           <h4 className="book__description">{book.annotation}</h4>
           <div className="book__add-to-cart-container">
             <div className="book__button-container">
@@ -64,7 +65,7 @@ const Book: React.FC = () => {
         </div>
       </div>
       <div className="book__comments">
-        <h2>Comments</h2>
+        <h2 className="book__comments-title">Comments</h2>
         <BookCommentsList comments={book.comments} />
       </div>
       <CatalogBookList books={books} />
@@ -82,3 +83,5 @@ const Book: React.FC = () => {
 };
 
 export default Book;
+
+// parceFloat convert decimal to number type
