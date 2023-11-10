@@ -2,8 +2,12 @@ import React from 'react';
 import footerLogo from '../../assets/img/footer_logo.svg';
 import { Link } from 'react-router-dom';
 import StyledFooter from './Footer.style';
+import { useAppSelector } from '../../store/typedHooks';
+import { stat } from 'fs';
 
 const Footer: React.FC = () => {
+  const userEmail = useAppSelector((state) => state.user.user.email);
+  
   return (
     <StyledFooter>
       <div className="footer__container">
@@ -34,12 +38,12 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className="footer__nav-link-item">
-                <Link className="footer__nav-link-item-link" to="profile">
+                <Link className="footer__nav-link-item-link" to={userEmail === 'not set' ? '/auth/login' : 'profile'}>
                   My Account
                 </Link>
               </li>
               <li className="footer__nav-link-item">
-                <Link className="footer__nav-link-item-link" to="cart">
+                <Link className="footer__nav-link-item-link" to={userEmail === 'not set' ? '/auth/login' : 'cart'}>
                   Cart
                 </Link>
               </li>
@@ -55,7 +59,7 @@ const Footer: React.FC = () => {
               src="https://yandex.ru/map-widget/v1/?um=constructor%3A109e7da959b4fc3231e27202f4950ae2b013a4621443e1edf5fea7b9bd1efb75&amp;source=constructor"
               width="413 "
               height="160"
-              className='footer__map'
+              className="footer__map"
             ></iframe>
           </div>
         </div>

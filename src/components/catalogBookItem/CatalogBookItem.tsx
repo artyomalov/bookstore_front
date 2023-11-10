@@ -8,6 +8,7 @@ import CatalogNewBestsellerIcon from '../catalogNewBestsellerIcon/CatalogNewBest
 import CatalogStarRating from '../catalogStarRating/CatalogStarRating';
 import CatalogAuthorsList from '../catalogAuthorsList/CatalogAuthorsList';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
+import { weekInSeconds } from '../../const/timeConst';
 
 type Props = {
   slug: string;
@@ -22,8 +23,6 @@ type Props = {
   salesCount: number;
   authors: AuthorType[];
 };
-
-const weekInSeconds = 604800;
 
 const CatalogBookItem: React.FC<Props> = (props) => {
   let price: number | null = 0;

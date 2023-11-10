@@ -1,16 +1,20 @@
 import React from 'react';
 import starOtline from '../../assets/img/catalog_rating_star_outline.svg';
-import StyledStar from './CatalogStar.style';
+import StyledBookStar from './BookStar.style';
 
 type Props = {
   rateLevel: number;
+  rateCount: number;
+  onClickHandler: (rateCount: number) => void;
 };
 
-const CatalogStar: React.FC<Props> = (props) => {
+const BookStar: React.FC<Props> = (props) => {
   const rateLevelCalculated = props.rateLevel - 100;
-
   return (
-    <StyledStar ratelevel={rateLevelCalculated}>
+    <StyledBookStar
+      ratelevel={rateLevelCalculated}
+      onClick={() => props.onClickHandler(props.rateCount)}
+    >
       <div className="catalog-book-item__green-fill"></div>
       <img
         src={starOtline}
@@ -18,8 +22,8 @@ const CatalogStar: React.FC<Props> = (props) => {
         className="catalog-book-item__star-outline"
       />
       <div className="catalog-book-item__white-background"></div>
-    </StyledStar>
+    </StyledBookStar>
   );
 };
 
-export default CatalogStar;
+export default BookStar;

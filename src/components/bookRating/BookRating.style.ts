@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import starMask from '../../assets/img/catalog_rating_star_mask.svg';
+
 const StyledBookRating = styled.div`
   width: 504px;
   height: 30px;
@@ -7,10 +7,6 @@ const StyledBookRating = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  .book-rating__stars {
-    
-  }
 
   .book-rating__rate-count {
     display: flex;
