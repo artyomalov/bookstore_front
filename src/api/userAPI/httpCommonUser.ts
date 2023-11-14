@@ -1,8 +1,4 @@
 import axios from 'axios';
-import store from '../../store';
-import { getUser, setUser } from '../../store/userSlice';
-import userRequests from './userRequests';
-import { log } from 'console';
 
 const baseURL = 'http://localhost:8000/api/v1/user/';
 

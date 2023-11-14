@@ -1,5 +1,5 @@
-import { BookType } from '../../types/bookTypes';
 import axiosInstanceBook from './httpCommonBook';
+import { BookType } from '../../types/bookTypes';
 
 const getBooks = () => {
   return axiosInstanceBook.get<BookType[]>('/book_list/');

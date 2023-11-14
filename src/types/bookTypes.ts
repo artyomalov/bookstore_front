@@ -19,8 +19,8 @@ export type GenreType = {
 
 export type BookType = {
   id: number;
-  slug: string;
   title: string;
+  slug: string;
   annotation: string;
   paperbackQuantity: number;
   hardcoverQuantity: number;
@@ -29,7 +29,18 @@ export type BookType = {
   coverImage: string;
   createdAt: string;
   rating: number;
-  salesCount: 2;
+  salesCount: number;
   authors: AuthorType[];
   comments: CommentType[];
 };
+
+export type BookTypeLiked = {
+  id: number;
+  title: string;
+  slug: string;
+  paperbackPrice: number;
+  hardcoverPrice: number;
+  coverImage: string;
+  authors: AuthorType[];
+}
+
