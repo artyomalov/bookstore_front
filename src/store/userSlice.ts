@@ -22,6 +22,9 @@ export const getUser = createAsyncThunk<
       userCart: [],
       likedByUser: [],
       listOfUsersPurchases: [],
+      userLikedId: 0,
+      userCartId: 0,
+      userPurchasesId: 0,
     };
     dispatch(setUser(dummy));
     return dummy;
@@ -63,6 +66,9 @@ const unauthorizedUser = {
   userCart: [],
   likedByUser: [],
   listOfUsersPurchases: [],
+  userLikedId: 0,
+  userCartId: 0,
+  userPurchasesId: 0,
 };
 
 const initialState: InitialStateType = {

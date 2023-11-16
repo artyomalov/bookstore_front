@@ -12,6 +12,9 @@ export type UserType = {
   userCart: CartItemType[];
   likedByUser: BookType[];
   listOfUsersPurchases: BookType[];
+  userLikedId: number;
+  userCartId: number;
+  userPurchasesId: number;
 };
 
 export type CreateUserType = {

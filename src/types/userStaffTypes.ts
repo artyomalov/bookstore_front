@@ -10,24 +10,22 @@ export type UserLikedType = {
   paperbackPrice: number;
 };
 
-
-export type GetUserCartType = {
+export type CartItemType = {
   id: number;
   title: string;
-  slug: string;
+  coverType: string;
   coverImage: string;
   authors: AuthorType[];
-  quantity: number;
   price: number;
+  quantity: number;
 };
 
-export type UpdateUSerCartType = {
+export type UpdateUSerCartDataType = {
   id: number;
-  operationType: string;
   bookSlug?: string;
   coverType?: string;
-  cartItemId?: number;
   price?: number;
+  cartItemId?: number;
 };
 
-export type getUserPurchasesType = GetUserCartType & { boughtTime: string };
+export type getUserPurchasesType = CartItemType & { boughtTime: string };

@@ -1,4 +1,4 @@
-import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import bookRequersts from '../api/bookAPI/bookRequests';
 import { BookType } from '../types/bookTypes';
 import { AxiosError } from 'axios';
@@ -35,6 +35,6 @@ const bookSlice = createSlice({
   },
 });
 
-export const {} = bookSlice.actions
+// export const {} = bookSlice.actions
 
 export default bookSlice.reducer

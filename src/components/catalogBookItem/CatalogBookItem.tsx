@@ -9,6 +9,8 @@ import CatalogStarRating from '../catalogStarRating/CatalogStarRating';
 import CatalogAuthorsList from '../catalogAuthorsList/CatalogAuthorsList';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import { weekInSeconds } from '../../const/timeConst';
+import { addToLiked } from '../../store/userStaffSlice';
+import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 
 type Props = {
   slug: string;
@@ -25,20 +27,27 @@ type Props = {
 };
 
 const CatalogBookItem: React.FC<Props> = (props) => {
+  const dispatch = useAppDispatch();
   let price: number | null = 0;
   if (props.hardcoverQuantity > 0) {
     price = props.hardcoverPrice;
   } else if (props.hardcoverQuantity === 0 && props.paperbackQuantity !== 0) {
     price = props.paperbackPrice;
   } else price = null;
-
+  const userLikedId = useAppSelector((state) => state.user.user.userLikedId);
   const isNewFlag =
     Math.round((Date.now() - new Date(props.createdAt).getTime()) / 1000) <
     weekInSeconds;
   const isBestsellerFlag = props.salesCount >= 20;
 
-  const addToFavoriteHandler = () => {
-    console.log('add to favorite logic');
+  const addToFavoriteHandler = (inList: boolean) => {
+    dispatch(
+      addToLiked({
+        id: userLikedId,
+        bookSlug: props.slug,
+        inList: inList,
+      })
+    );
   };
 
   return (

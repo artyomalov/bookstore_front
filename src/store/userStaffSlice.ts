@@ -3,13 +3,10 @@ import userStaffRequests from '../api/userStaffAPI/userStaffRequests';
 import { AxiosError } from 'axios';
 import {
   UserLikedType,
-  GetUserCartType,
-  UpdateUSerCartType,
+  CartItemType,
+  UpdateUSerCartDataType,
   getUserPurchasesType,
 } from '../types/userStaffTypes';
-import { BookType } from '../types/bookTypes';
-import { error } from 'console';
-import { act } from '@testing-library/react';
 
 export const getLikedBooks = createAsyncThunk<
   UserLikedType[],
@@ -26,13 +23,14 @@ export const getLikedBooks = createAsyncThunk<
 
 export const addToLiked = createAsyncThunk<
   UserLikedType,
-  { id: number; bookSlug: string },
+  { id: number; bookSlug: string; inList: boolean },
   { rejectValue: Error | AxiosError }
 >('userStaff/addToLiked', async (params, { rejectWithValue }) => {
   try {
     const response = await userStaffRequests.addToLiked(
       params.id,
-      params.bookSlug
+      params.bookSlug,
+      params.inList
     );
     return response.data;
   } catch (error: any) {
@@ -41,7 +39,7 @@ export const addToLiked = createAsyncThunk<
 });
 
 export const getUserCart = createAsyncThunk<
-  GetUserCartType[],
+  CartItemType[],
   number,
   { rejectValue: Error | AxiosError }
 >('userStaff/getCart', async (id, { rejectWithValue }) => {
@@ -53,67 +51,47 @@ export const getUserCart = createAsyncThunk<
   }
 });
 
-type UpdataUserCartSliceType = UpdateUSerCartType & {
-  id: number;
-};
-type UpdataUserCartResponseType = {
-  completed: string;
-};
-
 export const updateUserCart = createAsyncThunk<
-  UpdataUserCartResponseType | undefined,
-  UpdataUserCartSliceType,
+  CartItemType,
+  UpdateUSerCartDataType,
   { rejectValue: Error | AxiosError }
 >('userStaff/updateCart', async (updateCartData, { rejectWithValue }) => {
   try {
     if (
-      updateCartData.operationType === 'add' &&
       updateCartData.bookSlug &&
       updateCartData.coverType &&
       updateCartData.price
     ) {
       const response = await userStaffRequests.updateUserCart({
-        operationType: updateCartData.operationType,
         id: updateCartData.id,
         bookSlug: updateCartData.bookSlug,
         coverType: updateCartData.coverType,
         price: updateCartData.price,
       });
-      if (response) return response.data;
+      return response.data;
     }
-    if (
-      updateCartData.operationType === 'remove' &&
-      updateCartData.cartItemId
-    ) {
-      const response = await userStaffRequests.updateUserCart({
-        operationType: updateCartData.operationType,
-        id: updateCartData.id,
-      });
-      if (response) return response.data;
-    }
+    const response = await userStaffRequests.updateUserCart({
+      id: updateCartData.id,
+      cartItemId: updateCartData.cartItemId,
+    });
+    return response.data;
   } catch (error: any) {
     return rejectWithValue(error());
   }
 });
 
-type updateCartQuantityResponseType = {
-  updated: boolean;
-};
-
-type updateCartQuantityParamsType = {
-  id: number;
-  operationType: string;
-};
-
 export const updateCartItemQuantity = createAsyncThunk<
-  updateCartQuantityResponseType,
-  updateCartQuantityParamsType,
+  CartItemType,
+  {
+    id: number;
+    increase: boolean;
+  },
   { rejectValue: Error | AxiosError }
 >('userStaff/updateCartItemQuantity', async (params, { rejectWithValue }) => {
   try {
     const response = await userStaffRequests.updateCartItemQuantity(
       params.id,
-      params.operationType
+      params.increase
     );
     return response.data;
   } catch (error: any) {
@@ -136,7 +114,7 @@ export const getUserPurchases = createAsyncThunk<
 
 type InitialStateType = {
   userLiked: UserLikedType[];
-  userCart: GetUserCartType[];
+  userCart: CartItemType[];
   userPurchases: getUserPurchasesType[];
 };
 
@@ -146,7 +124,7 @@ const initialState: InitialStateType = {
   userPurchases: [],
 };
 
-const bookSlice = createSlice({
+const userStaffSlice = createSlice({
   name: 'userStaff',
   initialState: initialState,
   reducers: {},
@@ -154,14 +132,24 @@ const bookSlice = createSlice({
     builder.addCase(getLikedBooks.fulfilled, (state, action) => {
       state.userLiked = action.payload;
     });
-    // builder.addCase(addToLiked.fulfilled, (state, action)=>{
-    //     if (action.payload.id===0){
-    //         removedIndex = state.userLiked.findIndex((liked)=>{lkied})
-    //     }
-    // })
+    builder.addCase(addToLiked.fulfilled, (state, action) => {
+      if (action.payload.id === 0 && action.payload.title === 'deleted') {
+        const isDeletedElementIndex = state.userLiked.findIndex(
+          (liked) => liked.slug === action.payload.slug
+        );
+        state.userLiked.splice(isDeletedElementIndex, 1);
+      } else state.userLiked.push(action.payload);
+    });
     builder.addCase(getUserCart.fulfilled, (state, action) => {
       state.userCart = action.payload;
     });
-    builder.addCase(updateUserCart.fulfilled, (state, action) => {});
+    builder.addCase(updateUserCart.fulfilled, (state, action) => {
+      const updatedCartItem = state.userCart.find(
+        (cartItem) => cartItem.id === action.payload.id
+      );
+      if (updatedCartItem) updatedCartItem.quantity = action.payload.quantity;
+    });
   },
 });
+
+export default userStaffSlice.reducer;

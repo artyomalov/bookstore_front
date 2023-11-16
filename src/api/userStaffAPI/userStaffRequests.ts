@@ -1,8 +1,7 @@
 import axiosInstanceUserStaff from './httpCommonUserStaff';
-import { AuthorType, BookType, BookTypeLiked } from '../../types/bookTypes';
 import {
-  GetUserCartType,
-  UpdateUSerCartType,
+  CartItemType,
+  UpdateUSerCartDataType,
   UserLikedType,
   getUserPurchasesType,
 } from '../../types/userStaffTypes';
@@ -11,46 +10,42 @@ const getUserLikedBooks = (id: number) => {
   return axiosInstanceUserStaff.get<UserLikedType[]>(`/liked/${id}`);
 };
 
-const addToLiked = (id: number, bookSlug: string) => {
+const addToLiked = (id: number, bookSlug: string, inList: boolean) => {
   return axiosInstanceUserStaff.put<UserLikedType>(`/liked/${id}`, {
     bookSlug: bookSlug,
+    inList: inList
   });
 };
 
 const getUserCart = (id: number) => {
-  return axiosInstanceUserStaff.get<GetUserCartType[]>(`/cart/${id}`);
+  return axiosInstanceUserStaff.get<CartItemType[]>(`/cart/${id}`);
 };
 
-const updateUserCart = (updateCartData: UpdateUSerCartType) => {
+const updateUserCart = (updateCartData: UpdateUSerCartDataType) => {
   if (
-    updateCartData.operationType === 'add' &&
     updateCartData.bookSlug &&
     updateCartData.coverType &&
     updateCartData.price
   ) {
-    return axiosInstanceUserStaff.put<{ completed: string }>(
+    return axiosInstanceUserStaff.put<CartItemType>(
       `/cart/${updateCartData.id}`,
       {
-        operationType: updateCartData.operationType,
         bookSlug: updateCartData.bookSlug,
         coverType: updateCartData.coverType,
       }
     );
   }
-  if (updateCartData.operationType === 'remove' && updateCartData.cartItemId) {
-    return axiosInstanceUserStaff.put<{ completed: string }>(
-      `/cart/${updateCartData.id}`,
-      {
-        operationType: updateCartData.operationType,
-        cartItemId: updateCartData.cartItemId,
-      }
-    );
-  }
+  return axiosInstanceUserStaff.put<CartItemType>(
+    `/cart/${updateCartData.id}`,
+    {
+      cartItemId: updateCartData.cartItemId,
+    }
+  );
 };
 
-const updateCartItemQuantity = (id: number, operationType: string) => {
-  return axiosInstanceUserStaff.put<{ updated: boolean }>(`/cart_item/${id}`, {
-    operationType: operationType,
+const updateCartItemQuantity = (id: number, increase: boolean) => {
+  return axiosInstanceUserStaff.put<CartItemType>(`/cart_item/${id}`, {
+    increase: increase,
   });
 };
 
