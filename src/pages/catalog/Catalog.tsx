@@ -5,7 +5,8 @@ import banner from '../../assets/img/banner.svg';
 import FilterCatalogHeader from '../../components/filterCatalogHeader/FilterCatalogHeader';
 import CatalogBannerSecondary from '../../components/catalogBannerSecondary/CatalogBannerSecondary';
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
-import { useAppSelector } from '../../store/typedHooks';
+import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
+import { getLikedBooks, getUserCart } from '../../store/userStaffSlice';
 
 const Catalog: React.FC = () => {
   const user = useAppSelector((state) => state.user.user);

@@ -1,4 +1,4 @@
-import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userStaffRequests from '../api/userStaffAPI/userStaffRequests';
 import { AxiosError } from 'axios';
 import {
@@ -7,15 +7,18 @@ import {
   UpdateUSerCartDataType,
   getUserPurchasesType,
 } from '../types/userStaffTypes';
+import { RootState } from '.';
 
 export const getLikedBooks = createAsyncThunk<
   UserLikedType[],
-  number,
-  { rejectValue: Error | AxiosError }
->('userStaff/getLiked', async (userId, { rejectWithValue }) => {
+  undefined,
+  { rejectValue: Error | AxiosError; state: RootState }
+>('userStaff/getLiked', async (_, { rejectWithValue, getState }) => {
   try {
+    const userId = getState().user.user.userLikedId;
     const response = await userStaffRequests.getUserLikedBooks(userId);
-    return response.data;
+
+    return response.data.userLiked;
   } catch (error: any) {
     return rejectWithValue(error());
   }
@@ -40,12 +43,13 @@ export const addToLiked = createAsyncThunk<
 
 export const getUserCart = createAsyncThunk<
   CartItemType[],
-  number,
-  { rejectValue: Error | AxiosError }
->('userStaff/getCart', async (id, { rejectWithValue }) => {
+  undefined,
+  { rejectValue: Error | AxiosError; state: RootState }
+>('userStaff/getCart', async (_, { rejectWithValue, getState }) => {
   try {
-    const response = await userStaffRequests.getUserCart(id);
-    return response.data;
+    const userId = getState().user.user.userCartId;
+    const response = await userStaffRequests.getUserCart(userId);
+    return response.data.userCart;
   } catch (error: any) {
     return rejectWithValue(error());
   }
@@ -101,11 +105,12 @@ export const updateCartItemQuantity = createAsyncThunk<
 
 export const getUserPurchases = createAsyncThunk<
   getUserPurchasesType[],
-  number,
-  { rejectValue: Error | AxiosError }
->('userStaff/purchases', async (id, { rejectWithValue }) => {
+  undefined,
+  { rejectValue: Error | AxiosError; state: RootState }
+>('userStaff/purchases', async (_, { rejectWithValue, getState }) => {
   try {
-    const response = await userStaffRequests.getUserPurchases(id);
+    const userId = getState().user.user.userPurchasesId;
+    const response = await userStaffRequests.getUserPurchases(userId);
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error());

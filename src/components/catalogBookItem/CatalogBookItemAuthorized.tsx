@@ -27,7 +27,22 @@ type Props = {
 };
 
 const CatalogBookItem: React.FC<Props> = (props) => {
+  const [inCartItem, setInCartItem] = 
   const dispatch = useAppDispatch();
+  const likedList = useAppSelector((state) => state.userStaff.userLiked);
+  const cartItemsList = useAppSelector((state) => state.userStaff.userCart);
+
+  const isLikedIndex = likedList.findIndex(
+    (liked) => liked.slug === props.slug
+  );
+  const isLiked = isLikedIndex === -1 ? false : true;
+  const cartItem = cartItemsList.find(
+    (cartItem) => cartItem.slug === props.slug
+  );
+  if(cartItem){
+
+  }
+
   let price: number | null = 0;
   if (props.hardcoverQuantity > 0) {
     price = props.hardcoverPrice;
@@ -80,7 +95,10 @@ const CatalogBookItem: React.FC<Props> = (props) => {
       <div className="catalog-book-item__add-to-cart-container">
         <CatalogAddToCartButton price={price} width="100%" height="48px" />
       </div>
-      <CatalogAddToFavoriteCheckBox onClickHandler={addToFavoriteHandler} />
+      <CatalogAddToFavoriteCheckBox
+        onClickHandler={addToFavoriteHandler}
+        checked={isLiked}
+      />
     </StyledCatalogBookItem>
   );
 };

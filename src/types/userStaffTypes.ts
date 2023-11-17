@@ -13,6 +13,7 @@ export type UserLikedType = {
 export type CartItemType = {
   id: number;
   title: string;
+  slug: string;
   coverType: string;
   coverImage: string;
   authors: AuthorType[];

@@ -4,15 +4,15 @@ import StyledAddToFavoriteButton from './CatalogAddToFavoriteCheckBox.style';
 
 type Props = {
   onClickHandler: (inList: boolean) => void;
+  checked: boolean;
 };
 
 const CatalogAddToFavoriteCheckBox: React.FC<Props> = (props) => {
-  const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = React.useState<boolean>(props.checked);
 
   const setFavoriteHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.onClickHandler(e.target.checked);
     setIsFavorite(e.target.checked);
-    console.log(e.target.checked);
   };
 
   return (

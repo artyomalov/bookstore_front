@@ -9,6 +9,7 @@ import { validationSchemaLogIn } from '../../validationSchemas/loginSignupSchema
 import { useAppDispatch } from '../../store/typedHooks';
 import { setIsError, setMessage, setUser } from '../../store/userSlice';
 import userRequests from '../../api/userAPI/userRequests';
+import { getLikedBooks, getUserCart } from '../../store/userStaffSlice';
 
 const logIn = 'Log in';
 
@@ -28,16 +29,16 @@ const FormLogin: React.FC = () => {
       const response = await userRequests.signInUser(
         values.email,
         values.password
-        );
-        console.log(response);
-      
+      );
+
       if (response.status !== 200) {
         throw new Error(response.statusText);
       }
       dispatch(setUser(response.data.user_data));
       localStorage.setItem('access', response.data.token_data.access);
       localStorage.setItem('refresh', response.data.token_data.refresh);
-
+      await dispatch(getLikedBooks());
+      await dispatch(getUserCart());
       dispatch(setIsError(false));
       navigate(fromPage, { replace: true });
     } catch (err) {

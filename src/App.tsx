@@ -16,6 +16,7 @@ import { getBooks } from './store/bookSlice';
 import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
 import ErrorPage from './pages/error/ErrorPage';
 import Book from './pages/book/Book';
+import { getLikedBooks } from './store/userStaffSlice';
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
@@ -28,7 +29,7 @@ const App: React.FC = () => {
         await dispatch(getUser('empty'));
         const responseBooks = await dispatch(getBooks('empty'));
         const responseGenres = await dispatch(getGenres('empty'));
-        
+        await dispatch(getLikedBooks());
         if (
           responseBooks.meta.requestStatus === 'rejected' ||
           responseGenres.meta.requestStatus === 'rejected'

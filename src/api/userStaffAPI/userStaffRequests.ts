@@ -7,18 +7,20 @@ import {
 } from '../../types/userStaffTypes';
 
 const getUserLikedBooks = (id: number) => {
-  return axiosInstanceUserStaff.get<UserLikedType[]>(`/liked/${id}`);
+  return axiosInstanceUserStaff.get<{ userLiked: UserLikedType[] }>(
+    `/liked/${id}`
+  );
 };
 
 const addToLiked = (id: number, bookSlug: string, inList: boolean) => {
   return axiosInstanceUserStaff.put<UserLikedType>(`/liked/${id}`, {
     bookSlug: bookSlug,
-    inList: inList
+    inList: inList,
   });
 };
 
 const getUserCart = (id: number) => {
-  return axiosInstanceUserStaff.get<CartItemType[]>(`/cart/${id}`);
+  return axiosInstanceUserStaff.get<{userCart: CartItemType[]}>(`/cart/${id}`);
 };
 
 const updateUserCart = (updateCartData: UpdateUSerCartDataType) => {
