@@ -1,6 +1,6 @@
 import React from 'react';
 import StyledCatalogBookList from './CatalogBookList.style';
-import CatalogBookItem from '../catalogBookItem/CatalogBookItemAuthorized';
+import CatalogBookItem from '../catalogBookItem/CatalogBookItem';
 import { BookType } from '../../types/bookTypes';
 
 type Props = {

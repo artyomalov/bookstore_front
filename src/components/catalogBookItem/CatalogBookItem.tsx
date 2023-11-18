@@ -2,7 +2,7 @@ import React from 'react';
 import StyledCatalogBookItem from './CatalogBookItem.style';
 import { AuthorType } from '../../types/bookTypes';
 import CatalogAddToCartButton from '../catalogAddToCartButton/CatalogAddToCartButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CatalogAddToFavoriteCheckBox from '../catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
 import CatalogNewBestsellerIcon from '../catalogNewBestsellerIcon/CatalogNewBestsellerIcon';
 import CatalogStarRating from '../catalogStarRating/CatalogStarRating';
@@ -11,7 +11,7 @@ import mediaBaseUrl from '../../const/mediaBaseUrl';
 import { weekInSeconds } from '../../const/timeConst';
 import { addToLiked } from '../../store/userStaffSlice';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
-
+import { useLocation } from 'react-router-dom';
 type Props = {
   slug: string;
   title: string;
@@ -27,21 +27,19 @@ type Props = {
 };
 
 const CatalogBookItem: React.FC<Props> = (props) => {
-  const [inCartItem, setInCartItem] = 
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const likedList = useAppSelector((state) => state.userStaff.userLiked);
-  const cartItemsList = useAppSelector((state) => state.userStaff.userCart);
+  const userEmail = useAppSelector((state) => state.user.user.email);
 
-  const isLikedIndex = likedList.findIndex(
-    (liked) => liked.slug === props.slug
-  );
+  const isLikedIndex = React.useMemo(() => {
+    if (userEmail) {
+      return likedList.findIndex((liked) => liked.slug === props.slug);
+    }
+  }, [likedList]);
   const isLiked = isLikedIndex === -1 ? false : true;
-  const cartItem = cartItemsList.find(
-    (cartItem) => cartItem.slug === props.slug
-  );
-  if(cartItem){
-
-  }
 
   let price: number | null = 0;
   if (props.hardcoverQuantity > 0) {
@@ -49,16 +47,19 @@ const CatalogBookItem: React.FC<Props> = (props) => {
   } else if (props.hardcoverQuantity === 0 && props.paperbackQuantity !== 0) {
     price = props.paperbackPrice;
   } else price = null;
-  const userLikedId = useAppSelector((state) => state.user.user.userLikedId);
+
   const isNewFlag =
     Math.round((Date.now() - new Date(props.createdAt).getTime()) / 1000) <
     weekInSeconds;
   const isBestsellerFlag = props.salesCount >= 20;
 
   const addToFavoriteHandler = (inList: boolean) => {
+    if (userEmail === 'not set') {
+      navigate('/auth/login', { state: { location: location } });
+      return;
+    }
     dispatch(
       addToLiked({
-        id: userLikedId,
         bookSlug: props.slug,
         inList: inList,
       })
@@ -66,11 +67,10 @@ const CatalogBookItem: React.FC<Props> = (props) => {
   };
 
   return (
-    <StyledCatalogBookItem>
-      <Link
-        to={`/${props.slug}`}
-        className="catalog-book-item__single-page-link"
-      >
+    <StyledCatalogBookItem
+      isavalible={price === null ? 'not avalible' : 'avalible'}
+    >
+      <Link to={props.slug} className="catalog-book-item__single-page-link">
         <img
           className="catalog-book-item__image"
           src={`${mediaBaseUrl}${props.coverImage}`}
@@ -93,7 +93,9 @@ const CatalogBookItem: React.FC<Props> = (props) => {
       />
       <CatalogStarRating rating={props.rating} />
       <div className="catalog-book-item__add-to-cart-container">
-        <CatalogAddToCartButton price={price} width="100%" height="48px" />
+        <Link className="catalog-book-item__add-to-cart-link" to={props.slug}>
+          {price === null ? 'Not available' : props.hardcoverPrice}
+        </Link>
       </div>
       <CatalogAddToFavoriteCheckBox
         onClickHandler={addToFavoriteHandler}

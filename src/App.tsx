@@ -16,7 +16,8 @@ import { getBooks } from './store/bookSlice';
 import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
 import ErrorPage from './pages/error/ErrorPage';
 import Book from './pages/book/Book';
-import { getLikedBooks } from './store/userStaffSlice';
+import { getLikedBooks, getUserCart } from './store/userStaffSlice';
+
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
@@ -30,6 +31,7 @@ const App: React.FC = () => {
         const responseBooks = await dispatch(getBooks('empty'));
         const responseGenres = await dispatch(getGenres('empty'));
         await dispatch(getLikedBooks());
+        await dispatch(getUserCart());
         if (
           responseBooks.meta.requestStatus === 'rejected' ||
           responseGenres.meta.requestStatus === 'rejected'
@@ -90,3 +92,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+function getCart(): any {
+  throw new Error('Function not implemented.');
+}

@@ -1,7 +1,6 @@
 import axiosInstanceUserStaff from './httpCommonUserStaff';
 import {
   CartItemType,
-  UpdateUSerCartDataType,
   UserLikedType,
   getUserPurchasesType,
 } from '../../types/userStaffTypes';
@@ -20,10 +19,18 @@ const addToLiked = (id: number, bookSlug: string, inList: boolean) => {
 };
 
 const getUserCart = (id: number) => {
-  return axiosInstanceUserStaff.get<{userCart: CartItemType[]}>(`/cart/${id}`);
+  return axiosInstanceUserStaff.get<{ userCart: CartItemType[] }>(
+    `/cart/${id}`
+  );
 };
 
-const updateUserCart = (updateCartData: UpdateUSerCartDataType) => {
+const updateUserCart = (updateCartData: {
+  id: number;
+  bookSlug?: string;
+  coverType?: string;
+  price?: number;
+  cartItemId?: number;
+}) => {
   if (
     updateCartData.bookSlug &&
     updateCartData.coverType &&
@@ -34,6 +41,7 @@ const updateUserCart = (updateCartData: UpdateUSerCartDataType) => {
       {
         bookSlug: updateCartData.bookSlug,
         coverType: updateCartData.coverType,
+        price: updateCartData.price,
       }
     );
   }

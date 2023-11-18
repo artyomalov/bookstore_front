@@ -4,7 +4,6 @@ import { AxiosError } from 'axios';
 import {
   UserLikedType,
   CartItemType,
-  UpdateUSerCartDataType,
   getUserPurchasesType,
 } from '../types/userStaffTypes';
 import { RootState } from '.';
@@ -26,12 +25,13 @@ export const getLikedBooks = createAsyncThunk<
 
 export const addToLiked = createAsyncThunk<
   UserLikedType,
-  { id: number; bookSlug: string; inList: boolean },
-  { rejectValue: Error | AxiosError }
->('userStaff/addToLiked', async (params, { rejectWithValue }) => {
+  { bookSlug: string; inList: boolean },
+  { rejectValue: Error | AxiosError; state: RootState }
+>('userStaff/addToLiked', async (params, { rejectWithValue, getState }) => {
   try {
+    const userLikedId = getState().user.user.userLikedId;
     const response = await userStaffRequests.addToLiked(
-      params.id,
+      userLikedId,
       params.bookSlug,
       params.inList
     );
@@ -49,6 +49,7 @@ export const getUserCart = createAsyncThunk<
   try {
     const userId = getState().user.user.userCartId;
     const response = await userStaffRequests.getUserCart(userId);
+
     return response.data.userCart;
   } catch (error: any) {
     return rejectWithValue(error());
@@ -57,32 +58,40 @@ export const getUserCart = createAsyncThunk<
 
 export const updateUserCart = createAsyncThunk<
   CartItemType,
-  UpdateUSerCartDataType,
-  { rejectValue: Error | AxiosError }
->('userStaff/updateCart', async (updateCartData, { rejectWithValue }) => {
-  try {
-    if (
-      updateCartData.bookSlug &&
-      updateCartData.coverType &&
-      updateCartData.price
-    ) {
+  {
+    bookSlug?: string;
+    coverType?: string;
+    price?: number;
+    cartItemId?: number;
+  },
+  { rejectValue: Error | AxiosError; state: RootState }
+>(
+  'userStaff/updateCart',
+  async (
+    { bookSlug, coverType, price, cartItemId },
+    { rejectWithValue, getState }
+  ) => {
+    const cartId = getState().user.user.userCartId;
+    try {
+      if (bookSlug && coverType && price) {
+        const response = await userStaffRequests.updateUserCart({
+          id: cartId,
+          bookSlug: bookSlug,
+          coverType: coverType,
+          price: price,
+        });
+        return response.data;
+      }
       const response = await userStaffRequests.updateUserCart({
-        id: updateCartData.id,
-        bookSlug: updateCartData.bookSlug,
-        coverType: updateCartData.coverType,
-        price: updateCartData.price,
+        id: cartId,
+        cartItemId: cartItemId,
       });
       return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error());
     }
-    const response = await userStaffRequests.updateUserCart({
-      id: updateCartData.id,
-      cartItemId: updateCartData.cartItemId,
-    });
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(error());
   }
-});
+);
 
 export const updateCartItemQuantity = createAsyncThunk<
   CartItemType,
@@ -138,6 +147,7 @@ const userStaffSlice = createSlice({
       state.userLiked = action.payload;
     });
     builder.addCase(addToLiked.fulfilled, (state, action) => {
+   
       if (action.payload.id === 0 && action.payload.title === 'deleted') {
         const isDeletedElementIndex = state.userLiked.findIndex(
           (liked) => liked.slug === action.payload.slug
@@ -148,7 +158,7 @@ const userStaffSlice = createSlice({
     builder.addCase(getUserCart.fulfilled, (state, action) => {
       state.userCart = action.payload;
     });
-    builder.addCase(updateUserCart.fulfilled, (state, action) => {
+    builder.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
       const updatedCartItem = state.userCart.find(
         (cartItem) => cartItem.id === action.payload.id
       );

@@ -1,28 +1,51 @@
 import React from 'react';
 import StyledBook from './Book.style';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import CatalogBannerSecondary from '../../components/catalogBannerSecondary/CatalogBannerSecondary';
-import { useAppSelector } from '../../store/typedHooks';
+import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import CatalogAddToCartButton from '../../components/catalogAddToCartButton/CatalogAddToCartButton';
 import CatalogAuthorsList from '../../components/catalogAuthorsList/CatalogAuthorsList';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import { Navigate } from 'react-router-dom';
 import BookCommentsList from '../../components/bookCommentsList/BookCommentsList';
 import BookRating from '../../components/bookRating/BookRating';
+import { updateUserCart } from '../../store/userStaffSlice';
 const Book: React.FC = () => {
   const params = useParams();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const book = useAppSelector((state) => {
     const book = state.book.books.find((book) => book.slug === params.slug);
     return book;
   });
-  const user = useAppSelector((state) => state.user.user);
+  const userEmail = useAppSelector((state) => state.user.user.email);
+  //Заменить на запрос к похожему
   const books = useAppSelector((state) => state.book.books);
-  const isAuthorized = user.email === 'not set' ? false : true;
+  const isAuthorized = userEmail === 'not set' ? false : true;
   const hardcoverPrice =
-    book && book.hardcoverQuantity > 0 ? book.hardcoverPrice : null;
+    book && book.hardcoverQuantity > 0 ? book.hardcoverPrice : -1;
   const paperbackPrice =
-    book && book.paperbackQuantity > 0 ? book.paperbackPrice : null;
+    book && book.paperbackQuantity > 0 ? book.paperbackPrice : -1;
+
+  const addToCartButtonClickHandler = async (
+    coverType: string,
+    price: number
+  ) => {
+    if (userEmail === 'not set') {
+      navigate('/auth/login', { state: { location: location } });
+      return;
+    }
+    await dispatch(
+      updateUserCart({
+        bookSlug: book?.slug,
+        coverType: coverType,
+        price: price,
+      })
+    );
+  };
 
   return book ? (
     <StyledBook>
@@ -42,7 +65,7 @@ const Book: React.FC = () => {
             fontWeight={500}
             color="0D1821"
           />
-          <BookRating rating={book.rating.toFixed(1)}/>
+          <BookRating rating={book.rating.toFixed(1)} />
           <h4 className="book__description">{book.annotation}</h4>
           <div className="book__add-to-cart-container">
             <div className="book__button-container">
@@ -51,6 +74,8 @@ const Book: React.FC = () => {
                 price={paperbackPrice}
                 width="240px"
                 height="50px"
+                onClickHandler={addToCartButtonClickHandler}
+                coverType="paperback"
               />
             </div>
             <div className="book__button-container">
@@ -59,6 +84,8 @@ const Book: React.FC = () => {
                 price={hardcoverPrice}
                 width="240px"
                 height="50px"
+                onClickHandler={addToCartButtonClickHandler}
+                coverType="hardcover"
               />
             </div>
           </div>

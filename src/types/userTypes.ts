@@ -9,9 +9,6 @@ export type UserType = {
   email: string;
   fullName: string;
   avatar: string;
-  userCart: CartItemType[];
-  likedByUser: BookType[];
-  listOfUsersPurchases: BookType[];
   userLikedId: number;
   userCartId: number;
   userPurchasesId: number;

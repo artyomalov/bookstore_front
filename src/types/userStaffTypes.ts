@@ -21,12 +21,5 @@ export type CartItemType = {
   quantity: number;
 };
 
-export type UpdateUSerCartDataType = {
-  id: number;
-  bookSlug?: string;
-  coverType?: string;
-  price?: number;
-  cartItemId?: number;
-};
 
 export type getUserPurchasesType = CartItemType & { boughtTime: string };

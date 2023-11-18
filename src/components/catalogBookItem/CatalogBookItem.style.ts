@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-const StyledCatalogBookItem = styled.div`
+type StyledProps = {
+  isavalible: string;
+};
+
+const StyledCatalogBookItem = styled.div<StyledProps>`
   width: 305px;
   height: 663px;
   position: relative;
@@ -21,6 +25,29 @@ const StyledCatalogBookItem = styled.div`
   }
   .catalog-book-item__add-to-cart-container {
     margin-top: 30px;
+  }
+
+  .catalog-book-item__add-to-cart-link {
+    display: block;
+    width: 305px;
+    height: 48px;
+    background-color: ${(props) =>
+      props.isavalible === 'avalible'
+        ? props.theme.colorDarkBlue
+        : props.theme.colorDarkGray};
+    text-align: center;
+    padding-top: 8.5px;
+    text-decoration: none;
+    color: ${(props) => props.theme.colorLight};
+    border: none;
+    border-radius: ${(props) => props.theme.borderRadius};
+    cursor: pointer;
+    font-weight: ${(props) => props.theme.fontWeightThin};
+    font-size: ${(props) => props.theme.fontSizeNormal};
+    &:hover {
+      background-color: ${(props) => props.theme.colorDarkGray};
+    }
+    transition: ${(props) => props.theme.transitionStyle};
   }
 `;
 

@@ -20,6 +20,7 @@ const HeaderAuthorized: React.FC = () => {
   const exitUserProfileButtonClickHandler = () => {
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
+    dispatch(setUserUnauthrized(undefined));
     dispatch(setUserUnauthrized(''));
   };
 
