@@ -78,7 +78,7 @@ const StyledProfileDataContainer = styled.form`
     text-decoration: underline;
     border: none;
     color: #8d9f4f;
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightNormal};
     cursor: pointer;
   }

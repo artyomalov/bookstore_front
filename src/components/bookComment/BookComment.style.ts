@@ -20,7 +20,7 @@ const StyledBookComment = styled.li`
     margin-left: 20px;
   }
   .comment__user-name {
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightSemiBold};
   }
   .comment__left-comment-time {
@@ -29,7 +29,7 @@ const StyledBookComment = styled.li`
     color: ${(props) => props.theme.colorDarkGray};
   }
   .comment__comment-text {
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightNormal};
     color: ${(props) => props.theme.colorDarkBlue};
   }

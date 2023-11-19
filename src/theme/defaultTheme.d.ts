@@ -2,16 +2,25 @@ import styled from 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    fontWeightThin: number;
-    fontWeightNormal: number;
-    fontWeightBold: number;
+    mainWidth: string;
     colorDark: string;
     colorDarkBlue: string;
     colorLight: string;
+    colorGray: string;
+    colorDarkGray: string;
+    colorGreen: string;
+    colorWhite: string;
+    fontWeightThin: number;
+    fontWeightNormal: number;
+    fontWeightSemiBold: number;
+    fontWeightBold: number;
     fontSizeLittle: string;
-    fontSizeSmall: string;
+    fontSize16: string;
+    fontSizeMedium: string;
     fontSizeNormal: string;
-    fontSizeBig: string;
+    fontSize22: string;
+    fontSize36: string;
+    fontSize40: string;
     borderRadius: string;
     transitionStyle: string;
   }

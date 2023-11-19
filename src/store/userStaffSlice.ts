@@ -5,8 +5,10 @@ import {
   UserLikedType,
   CartItemType,
   getUserPurchasesType,
+  CartType,
 } from '../types/userStaffTypes';
 import { RootState } from '.';
+import { stat } from 'fs';
 
 export const getLikedBooks = createAsyncThunk<
   UserLikedType[],
@@ -42,7 +44,7 @@ export const addToLiked = createAsyncThunk<
 });
 
 export const getUserCart = createAsyncThunk<
-  CartItemType[],
+  CartType,
   undefined,
   { rejectValue: Error | AxiosError; state: RootState }
 >('userStaff/getCart', async (_, { rejectWithValue, getState }) => {
@@ -50,7 +52,11 @@ export const getUserCart = createAsyncThunk<
     const userId = getState().user.user.userCartId;
     const response = await userStaffRequests.getUserCart(userId);
 
-    return response.data.userCart;
+    return {
+      id: response.data.id,
+      cartItemsList: response.data.cartItemsList,
+      total: response.data.total,
+    };
   } catch (error: any) {
     return rejectWithValue(error());
   }
@@ -129,12 +135,14 @@ export const getUserPurchases = createAsyncThunk<
 type InitialStateType = {
   userLiked: UserLikedType[];
   userCart: CartItemType[];
+  cartTotalCount: number;
   userPurchases: getUserPurchasesType[];
 };
 
 const initialState: InitialStateType = {
   userLiked: [],
   userCart: [],
+  cartTotalCount: 0,
   userPurchases: [],
 };
 
@@ -147,7 +155,6 @@ const userStaffSlice = createSlice({
       state.userLiked = action.payload;
     });
     builder.addCase(addToLiked.fulfilled, (state, action) => {
-   
       if (action.payload.id === 0 && action.payload.title === 'deleted') {
         const isDeletedElementIndex = state.userLiked.findIndex(
           (liked) => liked.slug === action.payload.slug
@@ -156,8 +163,22 @@ const userStaffSlice = createSlice({
       } else state.userLiked.push(action.payload);
     });
     builder.addCase(getUserCart.fulfilled, (state, action) => {
-      state.userCart = action.payload;
+      state.userCart = action.payload.cartItemsList;
+      state.cartTotalCount = action.payload.total;
     });
+    builder.addCase(updateUserCart.fulfilled, (state, action) => {
+      if (
+        action.payload.title === 'deleted' &&
+        action.payload.coverImage === 'deleted' &&
+        action.payload.price === 0
+      ) {
+        const isDeletedElementIndex = state.userCart.findIndex(
+          (cartItem) => cartItem.id === action.payload.id
+        );
+        state.userCart.splice(isDeletedElementIndex, 1);
+      } else state.userCart.push(action.payload);
+    });
+
     builder.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
       const updatedCartItem = state.userCart.find(
         (cartItem) => cartItem.id === action.payload.id

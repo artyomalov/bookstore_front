@@ -20,7 +20,7 @@ const StyledBook = styled.main`
     width: 50%;
   }
   .book__title {
-    font-size: ${(props) => props.theme.fontSizeBig};
+    font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .book__rating {
@@ -30,7 +30,7 @@ const StyledBook = styled.main`
   .book__description {
     margin-top: 30px;
     color: ${(props) => props.theme.colorDarkBlue};
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightNormal};
   }
   .book__add-to-cart-container {
@@ -45,7 +45,7 @@ const StyledBook = styled.main`
   }
   .book__button-title {
     margin-bottom: 14px;
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightThin};
     color: ${(props) => props.theme.colorDarkBlue};
   }
@@ -54,7 +54,7 @@ const StyledBook = styled.main`
     margin-top: 110px;
   }
   .book__comments-title {
-    font-size: ${(props) => props.theme.fontSizeBig};
+    font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
     margin-bottom: 50px;
     }

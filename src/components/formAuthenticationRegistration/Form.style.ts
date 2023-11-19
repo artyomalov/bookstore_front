@@ -4,7 +4,7 @@ const StyledForm = styled.div`
   width: 413px;
   .auth-component__header {
     font-weight: ${(props) => props.theme.fontWeightBold};
-    font-size: ${(props) => props.theme.fontSizeBig};
+    font-size: ${(props) => props.theme.fontSize44};
     margin-bottom: 60px;
   }
 

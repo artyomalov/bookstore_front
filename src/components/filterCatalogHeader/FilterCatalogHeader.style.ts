@@ -8,7 +8,7 @@ const StyledFilterCatalogHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   .catalog-header__header {
-    font-size: ${(props) => props.theme.fontSizeBig};
+    font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .catalog-header__filters {

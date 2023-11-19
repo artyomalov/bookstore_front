@@ -12,7 +12,7 @@ const Catalog: React.FC = () => {
   const user = useAppSelector((state) => state.user.user);
   const books = useAppSelector((state) => state.book.books);
   const isAuthorized = user.email === 'not set' ? false : true;
-
+  
   return (
     <StyledMainPage>
       <Banner

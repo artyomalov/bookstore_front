@@ -14,7 +14,7 @@ const StyledCatalogNewBestsellerIcon = styled.div<StyledProps>`
     props.text === 'New' ? props.theme.colorDark : props.theme.colorLight};
   border-radius: ${(props) => props.theme.borderRadius};
   text-align: center;
-  font-size: ${(props) => props.theme.fontSizeSmall};
+  font-size: ${(props) => props.theme.fontSize16};
   font-style: italic;
   font-weight: ${(props) => props.theme.fontWeightNormal};
   position: absolute;

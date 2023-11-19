@@ -36,7 +36,7 @@ const StyledFilterGenreItem = styled.li<StyledFilterGenreItemType>`
   }
   .genres__genre-name {
     margin-left: 10px;
-    font-size: ${(props)=>props.theme.fontSizeSmall};
+    font-size: ${(props)=>props.theme.fontSize16};
   }
 `;
 export default StyledFilterGenreItem;

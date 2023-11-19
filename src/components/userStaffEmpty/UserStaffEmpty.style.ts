@@ -16,7 +16,7 @@ const StyledEmpty = styled.div`
     margin-left: 100px;
   }
   .empty__title {
-    font-size: ${(props) => props.theme.fontSizeBig};
+    font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .empty__text {
@@ -36,7 +36,7 @@ const StyledEmpty = styled.div`
     background-color: ${(props) => props.theme.colorDarkBlue};
     color: ${(props) => props.theme.colorLight};
     text-decoration: none;
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightNormal};
     border-radius: ${(props) => props.theme.borderRadius};
     text-align: center;

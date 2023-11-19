@@ -38,9 +38,9 @@ const StyledFormInputUser = styled.div<FormInputType>`
     left: 84px;
     background: none;
     border: none;
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightThin};
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     transition: ${(props) => props.theme.transitionStyle};
 
     &:focus {

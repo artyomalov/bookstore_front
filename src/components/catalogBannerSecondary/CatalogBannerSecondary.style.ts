@@ -26,7 +26,7 @@ const StyledCatalogBannerSecondary = styled.div`
   }
   .catalog-banner-secondary__title {
     margin-bottom: 10px;
-    font-size: ${(props) => props.theme.fontSizeBig};
+    font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .catalog-banner-secondary {

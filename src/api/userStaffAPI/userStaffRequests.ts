@@ -1,6 +1,7 @@
 import axiosInstanceUserStaff from './httpCommonUserStaff';
 import {
   CartItemType,
+  CartType,
   UserLikedType,
   getUserPurchasesType,
 } from '../../types/userStaffTypes';
@@ -19,9 +20,7 @@ const addToLiked = (id: number, bookSlug: string, inList: boolean) => {
 };
 
 const getUserCart = (id: number) => {
-  return axiosInstanceUserStaff.get<{ userCart: CartItemType[] }>(
-    `/cart/${id}`
-  );
+  return axiosInstanceUserStaff.get<CartType>(`/cart/${id}`);
 };
 
 const updateUserCart = (updateCartData: {

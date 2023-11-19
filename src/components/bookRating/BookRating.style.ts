@@ -20,7 +20,7 @@ const StyledBookRating = styled.div`
     height: 30px;
   }
   .book-ratin__rate-count {
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightNormal};
     color: ${(props) => props.theme.colorDarkGray};
   }

@@ -21,5 +21,10 @@ export type CartItemType = {
   quantity: number;
 };
 
+export type CartType = {
+  id: number;
+  cartItemsList: CartItemType[];
+  total: number;
+};
 
 export type getUserPurchasesType = CartItemType & { boughtTime: string };

@@ -54,7 +54,7 @@ const StyledBookStarRating = styled.div`
   }
 
   .book-rating__text {
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightNormal};
     color: ${(props) => props.theme.colorDarkGray};
   }

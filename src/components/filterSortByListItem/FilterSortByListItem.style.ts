@@ -4,7 +4,7 @@ const StyledFilterSortByListItem = styled.li`
   list-style: none;
   cursor: pointer;
   color: ${(props) => props.theme.colorDarkGray};
-  font-size: ${(props) => props.theme.fontSizeSmall};
+  font-size: ${(props) => props.theme.fontSize16};
   transition: ${(props) => props.theme.transitionStyle};
 
   &:hover {

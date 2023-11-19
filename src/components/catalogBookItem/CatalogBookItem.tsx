@@ -70,7 +70,10 @@ const CatalogBookItem: React.FC<Props> = (props) => {
     <StyledCatalogBookItem
       isavalible={price === null ? 'not avalible' : 'avalible'}
     >
-      <Link to={props.slug} className="catalog-book-item__single-page-link">
+      <Link
+        to={`/${props.slug}`}
+        className="catalog-book-item__single-page-link"
+      >
         <img
           className="catalog-book-item__image"
           src={`${mediaBaseUrl}${props.coverImage}`}

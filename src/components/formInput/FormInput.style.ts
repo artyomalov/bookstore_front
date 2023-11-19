@@ -80,7 +80,7 @@ const StyledFormInput = styled.div<FormInputType>`
     border: none;
     font-size: ${(props) => props.theme.fontSizeNormal};
     font-weight: ${(props) => props.theme.fontWeightThin};
-    font-size: ${(props) => props.theme.fontSizeSmall};
+    font-size: ${(props) => props.theme.fontSize16};
 
     &:focus {
       outline: none;

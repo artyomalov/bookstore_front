@@ -20,7 +20,7 @@ const StyledBanner = styled.div`
     left: 108px;
   }
   .banner__title {
-    font-size: ${(props) => props.theme.fontSizeBig};
+    font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
     color: ${(props) => props.theme.colorDark};
   }
