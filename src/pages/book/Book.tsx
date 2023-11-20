@@ -11,17 +11,16 @@ import { Navigate } from 'react-router-dom';
 import BookCommentsList from '../../components/bookCommentsList/BookCommentsList';
 import BookRating from '../../components/bookRating/BookRating';
 import { updateUserCart } from '../../store/userStaffSlice';
+import { selectBooks, selectUserData } from '../../store/selectors';
 const Book: React.FC = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const book = useAppSelector((state) => {
-    const book = state.book.books.find((book) => book.slug === params.slug);
-    return book;
-  });
-  const userEmail = useAppSelector((state) => state.user.user.email);
+  const booksList = useAppSelector(selectBooks);
+  const book = booksList.find((book) => book.slug === params.slug);
+
+  const userEmail = useAppSelector(selectUserData).email;
   //Заменить на запрос к похожему
   const books = useAppSelector((state) => state.book.books);
   const isAuthorized = userEmail === 'not set' ? false : true;

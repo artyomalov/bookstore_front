@@ -10,8 +10,7 @@ import {
   updateUserCart,
 } from '../../store/userStaffSlice';
 
-const CartItem: React.FC<CartItemType> = (props) => {
-  console.log('render cartItem id', props.id);
+const CartItem: React.FC<CartItemType> = React.memo((props) => {
   const dispatch = useAppDispatch();
   const changeCartItemCount = async (increase: boolean) => {
     try {
@@ -72,6 +71,6 @@ const CartItem: React.FC<CartItemType> = (props) => {
       </div>
     </StyledCartItem>
   );
-};
+});
 
-export default React.memo(CartItem);
+export default CartItem;

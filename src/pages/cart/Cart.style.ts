@@ -6,15 +6,6 @@ const StyledCart = styled.main`
   margin: 0 auto;
   padding-top: 118px;
 
-  .cart__total {
-    margin-top: 50px;
-    font-size: ${(props) => props.theme.fontSize36};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
-  }
-  .cart__total-amount {
-    font-weight: ${(props) => props.theme.fontWeightBold};
-  }
-
   .cart__buttons-container {
     width: 462px;
     height: 44px;

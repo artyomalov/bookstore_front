@@ -2,22 +2,17 @@ import React from 'react';
 import StyledCartItemList from './CartItemList.style';
 import { CartItemType } from '../../types/userStaffTypes';
 import CartItem from '../cartItem/CartItem';
+import { useAppSelector } from '../../store/typedHooks';
+import { userCartItemsList } from '../../store/selectors';
 
-type Props = {
-  cart: CartItemType[];
-};
 
-const CartItemList: React.FC<Props> = (props) => {
-  console.log('render cartItemList');
+const CartItemList: React.FC = () => {
+  const userCart = useAppSelector(userCartItemsList);
+
   return (
     <StyledCartItemList>
-      {props.cart.map((cartItem) => {
-        return (
-          <CartItem
-            key={cartItem.id + Date.now() + Math.random() * 10}
-            {...cartItem}
-          />
-        );
+      {userCart.map((cartItem) => {
+        return <CartItem key={cartItem.id} {...cartItem} />;
       })}
     </StyledCartItemList>
   );

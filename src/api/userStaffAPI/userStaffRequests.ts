@@ -4,6 +4,7 @@ import {
   CartType,
   UserLikedType,
   getUserPurchasesType,
+  updateCartType,
 } from '../../types/userStaffTypes';
 
 const getUserLikedBooks = (id: number) => {
@@ -35,7 +36,7 @@ const updateUserCart = (updateCartData: {
     updateCartData.coverType &&
     updateCartData.price
   ) {
-    return axiosInstanceUserStaff.put<CartItemType>(
+    return axiosInstanceUserStaff.put<updateCartType>(
       `/cart/${updateCartData.id}`,
       {
         bookSlug: updateCartData.bookSlug,
@@ -44,7 +45,7 @@ const updateUserCart = (updateCartData: {
       }
     );
   }
-  return axiosInstanceUserStaff.put<CartItemType>(
+  return axiosInstanceUserStaff.put<updateCartType>(
     `/cart/${updateCartData.id}`,
     {
       cartItemId: updateCartData.cartItemId,
@@ -53,7 +54,7 @@ const updateUserCart = (updateCartData: {
 };
 
 const updateCartItemQuantity = (id: number, increase: boolean) => {
-  return axiosInstanceUserStaff.put<CartItemType>(`/cart_item/${id}`, {
+  return axiosInstanceUserStaff.put<updateCartType>(`/cart_item/${id}`, {
     increase: increase,
   });
 };

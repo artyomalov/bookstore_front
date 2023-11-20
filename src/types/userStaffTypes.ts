@@ -19,6 +19,12 @@ export type CartItemType = {
   authors: AuthorType[];
   price: number;
   quantity: number;
+  total: number;
+};
+
+export type updateCartType = {
+  cartItem: CartItemType;
+  total: number;
 };
 
 export type CartType = {

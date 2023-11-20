@@ -1,21 +1,16 @@
 import React from 'react';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
 import StyledCart from './Cart.style';
-import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import CartItemList from '../../components/cartItemList/CartItemList';
 import { Link } from 'react-router-dom';
-import { getUserCart } from '../../store/userStaffSlice';
+import CartItemTotalCount from '../../components/cartItemTotalCount/CartItemTotalCount';
 
 const Cart: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const cartEmptyFlag = false;
 
-  const userCart = useAppSelector((state) => state.userStaff.userCart);
-  const cartTotalCount = useAppSelector(
-    (state) => state.userStaff.cartTotalCount
-  );
   return (
     <StyledCart>
-      {userCart.length === 0 ? (
+      {cartEmptyFlag ? (
         <UserStaffEmpty
           staff="cart"
           text1="Add items to cart to make a purchase."
@@ -23,10 +18,8 @@ const Cart: React.FC = () => {
         />
       ) : (
         <>
-          <CartItemList cart={userCart} />
-          <h3 className="cart__total">
-            Total <span className="cart__total-amount">{cartTotalCount}</span>
-          </h3>
+          <CartItemList />
+          <CartItemTotalCount />
           <div className="cart__buttons-container">
             <Link to="/" className="cart__continue-shopping">
               Continue shopping
