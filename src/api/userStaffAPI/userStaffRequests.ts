@@ -1,14 +1,14 @@
 import axiosInstanceUserStaff from './httpCommonUserStaff';
 import {
-  CartItemType,
   CartType,
+  UserLikedListType,
   UserLikedType,
   getUserPurchasesType,
   updateCartType,
 } from '../../types/userStaffTypes';
 
 const getUserLikedBooks = (id: number) => {
-  return axiosInstanceUserStaff.get<{ userLiked: UserLikedType[] }>(
+  return axiosInstanceUserStaff.get<UserLikedListType>(
     `/liked/${id}`
   );
 };

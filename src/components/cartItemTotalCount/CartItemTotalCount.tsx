@@ -15,3 +15,5 @@ const CartItemTotalCount = () => {
 };
 
 export default CartItemTotalCount;
+
+//Не надо добавлять услове в cartTotalCount в дальнейшем корзина не будет рендериться, если она пуста. Селекторы.

@@ -1,13 +1,13 @@
 import React from 'react';
-import footerLogo from '../../assets/img/footer_logo.svg';
-import { Link } from 'react-router-dom';
-import StyledFooter from './Footer.style';
 import { useAppSelector } from '../../store/typedHooks';
-import { stat } from 'fs';
+import { Link } from 'react-router-dom';
+import footerLogo from '../../assets/img/footer_logo.svg';
+import StyledFooter from './Footer.style';
+import { selectUserData } from '../../store/selectors';
 
 const Footer: React.FC = () => {
-  const userEmail = useAppSelector((state) => state.user.user.email);
-  
+  const userEmail = useAppSelector(selectUserData).email;
+
   return (
     <StyledFooter>
       <div className="footer__container">
@@ -33,17 +33,23 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className="footer__nav-link-item">
-                <Link className="footer__nav-link-item-link" to="/">
-                  Catalog
+                <Link className="footer__nav-link-item-link" to="/purchases">
+                  Purchases
                 </Link>
               </li>
               <li className="footer__nav-link-item">
-                <Link className="footer__nav-link-item-link" to={userEmail === 'not set' ? '/auth/login' : 'profile'}>
+                <Link
+                  className="footer__nav-link-item-link"
+                  to={userEmail === 'not set' ? '/auth/login' : 'profile'}
+                >
                   My Account
                 </Link>
               </li>
               <li className="footer__nav-link-item">
-                <Link className="footer__nav-link-item-link" to={userEmail === 'not set' ? '/auth/login' : 'cart'}>
+                <Link
+                  className="footer__nav-link-item-link"
+                  to={userEmail === 'not set' ? '/auth/login' : 'cart'}
+                >
                   Cart
                 </Link>
               </li>

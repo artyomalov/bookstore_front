@@ -1,10 +1,5 @@
 import { BookType } from './bookTypes';
 
-export type CartItemType = {
-  book: BookType;
-  quantity: string;
-};
-
 export type UserType = {
   email: string;
   fullName: string;

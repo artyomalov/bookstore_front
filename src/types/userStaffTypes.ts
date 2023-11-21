@@ -7,7 +7,11 @@ export type UserLikedType = {
   coverImage: string;
   authors: AuthorType[];
   hardcoverPrice: number;
-  paperbackPrice: number;
+};
+
+export type UserLikedListType = {
+  userLikedListId: number;
+  likedList: UserLikedType[];
 };
 
 export type CartItemType = {

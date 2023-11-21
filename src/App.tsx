@@ -10,13 +10,14 @@ import { useAppDispatch } from './store/typedHooks';
 import { getUser } from './store/userSlice';
 import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
-import Favorite from './pages/favorite/Favorite';
+import Liked from './pages/liked/Liked';
 import { getGenres } from './store/genresSlice';
 import { getBooks } from './store/bookSlice';
 import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
 import ErrorPage from './pages/error/ErrorPage';
 import Book from './pages/book/Book';
 import { getLikedBooks, getUserCart } from './store/userStaffSlice';
+import Purchases from './pages/purchases/Purchases';
 
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
@@ -68,10 +69,18 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="favorite"
+          path="liked"
           element={
             <RequireAuth>
-              <Favorite />
+              <Liked />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="purchases"
+          element={
+            <RequireAuth>
+              <Purchases />
             </RequireAuth>
           }
         />

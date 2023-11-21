@@ -7,11 +7,12 @@ import {
   getUserPurchasesType,
   CartType,
   updateCartType,
+  UserLikedListType,
 } from '../types/userStaffTypes';
 import { RootState } from '.';
 
 export const getLikedBooks = createAsyncThunk<
-  UserLikedType[],
+  UserLikedListType,
   undefined,
   { rejectValue: Error | AxiosError; state: RootState }
 >('userStaff/getLiked', async (_, { rejectWithValue, getState }) => {
@@ -19,7 +20,7 @@ export const getLikedBooks = createAsyncThunk<
     const userId = getState().user.user.userLikedId;
     const response = await userStaffRequests.getUserLikedBooks(userId);
 
-    return response.data.userLiked;
+    return response.data;
   } catch (error: any) {
     return rejectWithValue(error());
   }
@@ -134,7 +135,7 @@ export const getUserPurchases = createAsyncThunk<
 });
 
 type InitialStateType = {
-  userLiked: UserLikedType[];
+  userLiked: UserLikedListType;
   userCart: {
     cartItemsList: CartItemType[];
     cartItemsTotalSum: number;
@@ -143,7 +144,10 @@ type InitialStateType = {
 };
 
 const initialState: InitialStateType = {
-  userLiked: [],
+  userLiked: {
+    userLikedListId: 0,
+    likedList: [],
+  },
   userCart: {
     cartItemsList: [],
     cartItemsTotalSum: 0,
@@ -157,15 +161,17 @@ const userStaffSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getLikedBooks.fulfilled, (state, action) => {
-      state.userLiked = action.payload;
+      state.userLiked.likedList = action.payload.likedList;
+      state.userLiked.userLikedListId = action.payload.userLikedListId;
     });
     builder.addCase(addToLiked.fulfilled, (state, action) => {
+      console.log(action.payload)
       if (action.payload.id === 0 && action.payload.title === 'deleted') {
-        const isDeletedElementIndex = state.userLiked.findIndex(
+        const isDeletedElementIndex = state.userLiked.likedList.findIndex(
           (liked) => liked.slug === action.payload.slug
         );
-        state.userLiked.splice(isDeletedElementIndex, 1);
-      } else state.userLiked.push(action.payload);
+        state.userLiked.likedList.splice(isDeletedElementIndex, 1);
+      } else state.userLiked.likedList.push(action.payload);
     });
     builder.addCase(getUserCart.fulfilled, (state, action) => {
       state.userCart.cartItemsList = action.payload.cartItemsList;

@@ -12,6 +12,8 @@ import { weekInSeconds } from '../../const/timeConst';
 import { addToLiked } from '../../store/userStaffSlice';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import { useLocation } from 'react-router-dom';
+import { selectLikedList, selectUserEmail } from '../../store/selectors';
+import { UserLikedType } from '../../types/userStaffTypes';
 type Props = {
   slug: string;
   title: string;
@@ -31,8 +33,8 @@ const CatalogBookItem: React.FC<Props> = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const likedList = useAppSelector((state) => state.userStaff.userLiked);
-  const userEmail = useAppSelector((state) => state.user.user.email);
+  const likedList = useAppSelector(selectLikedList);
+  const userEmail = useAppSelector(selectUserEmail);
 
   const isLikedIndex = React.useMemo(() => {
     if (userEmail) {

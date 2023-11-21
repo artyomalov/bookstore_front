@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-const StyledFavorite = styled.main`
+const StyledPurchases = styled.main`
   width: ${(props) => props.theme.mainWidth};
-  height: 50vh;
+  min-height: 50vh;
   margin: 0 auto;
   padding-top: 118px;
 `;
-export default StyledFavorite;
+
+export default StyledPurchases;
