@@ -6,8 +6,6 @@ import LikedItem from '../userStaffLikedItem/LikedItem';
 
 const UserStaffLikedList: React.FC = () => {
   const likedList = useAppSelector(selectLikedList);
-  // console.log('render')
-  // console.log(likedList)
   return (
     <StyledUserStaffLikedList>
       {likedList.map((likedItem) => (

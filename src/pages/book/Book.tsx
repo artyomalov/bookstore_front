@@ -1,17 +1,19 @@
 import React from 'react';
 import StyledBook from './Book.style';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import CatalogBannerSecondary from '../../components/catalogBannerSecondary/CatalogBannerSecondary';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import CatalogAddToCartButton from '../../components/catalogAddToCartButton/CatalogAddToCartButton';
 import CatalogAuthorsList from '../../components/catalogAuthorsList/CatalogAuthorsList';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
-import { Navigate } from 'react-router-dom';
 import BookCommentsList from '../../components/bookCommentsList/BookCommentsList';
 import BookRating from '../../components/bookRating/BookRating';
-import { updateUserCart } from '../../store/userStaffSlice';
-import { selectBooks, selectUserData } from '../../store/selectors';
+import { addToLiked, updateUserCart } from '../../store/userStaffSlice';
+import { bookList, selectBooks, selectUserEmail } from '../../store/selectors';
+import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
+
 const Book: React.FC = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
@@ -20,7 +22,7 @@ const Book: React.FC = () => {
   const booksList = useAppSelector(selectBooks);
   const book = booksList.find((book) => book.slug === params.slug);
 
-  const userEmail = useAppSelector(selectUserData).email;
+  const userEmail = useAppSelector(selectUserEmail);
   //Заменить на запрос к похожему
   const books = useAppSelector((state) => state.book.books);
   const isAuthorized = userEmail === 'not set' ? false : true;
@@ -49,11 +51,16 @@ const Book: React.FC = () => {
   return book ? (
     <StyledBook>
       <div className="book__container">
-        <img
-          src={`${mediaBaseUrl}${book.coverImage}`}
-          alt={book.title}
-          className="book__cover-image"
-        />
+        <div className="book__img-container">
+          <img
+            src={`${mediaBaseUrl}${book.coverImage}`}
+            alt={book.title}
+            className="book__cover-image"
+          />
+          <div className="book__liked-container">
+            <CatalogAddToFavoriteCheckBox slug={book.slug} />
+          </div>
+        </div>
         <div className="book__data">
           <h2 className="book__title">{book.title}</h2>
           <CatalogAuthorsList

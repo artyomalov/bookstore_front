@@ -1,7 +1,6 @@
 import React from 'react';
 import StyledCatalogBookItem from './CatalogBookItem.style';
 import { AuthorType } from '../../types/bookTypes';
-import CatalogAddToCartButton from '../catalogAddToCartButton/CatalogAddToCartButton';
 import { Link, useNavigate } from 'react-router-dom';
 import CatalogAddToFavoriteCheckBox from '../catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
 import CatalogNewBestsellerIcon from '../catalogNewBestsellerIcon/CatalogNewBestsellerIcon';
@@ -13,7 +12,7 @@ import { addToLiked } from '../../store/userStaffSlice';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import { useLocation } from 'react-router-dom';
 import { selectLikedList, selectUserEmail } from '../../store/selectors';
-import { UserLikedType } from '../../types/userStaffTypes';
+
 type Props = {
   slug: string;
   title: string;
@@ -28,21 +27,7 @@ type Props = {
   authors: AuthorType[];
 };
 
-const CatalogBookItem: React.FC<Props> = (props) => {
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const likedList = useAppSelector(selectLikedList);
-  const userEmail = useAppSelector(selectUserEmail);
-
-  const isLikedIndex = React.useMemo(() => {
-    if (userEmail) {
-      return likedList.findIndex((liked) => liked.slug === props.slug);
-    }
-  }, [likedList]);
-  const isLiked = isLikedIndex === -1 ? false : true;
-
+const CatalogBookItem: React.FC<Props> = React.memo((props) => {
   let price: number | null = 0;
   if (props.hardcoverQuantity > 0) {
     price = props.hardcoverPrice;
@@ -54,19 +39,6 @@ const CatalogBookItem: React.FC<Props> = (props) => {
     Math.round((Date.now() - new Date(props.createdAt).getTime()) / 1000) <
     weekInSeconds;
   const isBestsellerFlag = props.salesCount >= 20;
-
-  const addToFavoriteHandler = (inList: boolean) => {
-    if (userEmail === 'not set') {
-      navigate('/auth/login', { state: { location: location } });
-      return;
-    }
-    dispatch(
-      addToLiked({
-        bookSlug: props.slug,
-        inList: inList,
-      })
-    );
-  };
 
   return (
     <StyledCatalogBookItem
@@ -102,12 +74,11 @@ const CatalogBookItem: React.FC<Props> = (props) => {
           {price === null ? 'Not available' : props.hardcoverPrice}
         </Link>
       </div>
-      <CatalogAddToFavoriteCheckBox
-        onClickHandler={addToFavoriteHandler}
-        checked={isLiked}
-      />
+      <div className="catalog-book-item__add-to-favorite-container">
+        <CatalogAddToFavoriteCheckBox slug={props.slug} />
+      </div>
     </StyledCatalogBookItem>
   );
-};
+});
 
 export default CatalogBookItem;

@@ -165,7 +165,6 @@ const userStaffSlice = createSlice({
       state.userLiked.userLikedListId = action.payload.userLikedListId;
     });
     builder.addCase(addToLiked.fulfilled, (state, action) => {
-      console.log(action.payload)
       if (action.payload.id === 0 && action.payload.title === 'deleted') {
         const isDeletedElementIndex = state.userLiked.likedList.findIndex(
           (liked) => liked.slug === action.payload.slug

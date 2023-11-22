@@ -3,11 +3,10 @@ import StyledCartItemList from './CartItemList.style';
 import { CartItemType } from '../../types/userStaffTypes';
 import CartItem from '../cartItem/CartItem';
 import { useAppSelector } from '../../store/typedHooks';
-import { userCartItemsList } from '../../store/selectors';
-
+import { selectUserCartItemsList } from '../../store/selectors';
 
 const CartItemList: React.FC = () => {
-  const userCart = useAppSelector(userCartItemsList);
+  const userCart = useAppSelector(selectUserCartItemsList);
 
   return (
     <StyledCartItemList>

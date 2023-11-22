@@ -49,6 +49,13 @@ const StyledCatalogBookItem = styled.div<StyledProps>`
     }
     transition: ${(props) => props.theme.transitionStyle};
   }
+  .catalog-book-item__add-to-favorite-container {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
 `;
 
 export default StyledCatalogBookItem;

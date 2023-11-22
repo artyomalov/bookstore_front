@@ -5,18 +5,18 @@ type StyledProps = {
 };
 
 const StyledAddToFavoriteButton = styled.label<StyledProps>`
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 20px;
-  left: 20px;
+  width: 100%;
+  height: 100%;
+
   cursor: pointer;
   transition: ${(props) => props.theme.transitionStyle};
-  opacity: ${(props) => (props.selected === 'selected' ? 1 : 0)};
+  opacity: ${(props) => (props.selected === 'selected' ? 1 : 0.5)};
+  z-index: 999;
 
-  ${StyledCatalogBookItem}:hover & {
-    opacity: ${(props) => (props.selected === 'selected' ? 1 : 0.5)};
+  &:hover {
+    opacity: 1;
   }
+
   .catalog-book-item__like-checkbox {
     display: none;
   }

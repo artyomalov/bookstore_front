@@ -2,15 +2,14 @@ import React from 'react';
 import StyledFavorite from './Liked.style';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
 import { useAppSelector } from '../../store/typedHooks';
-import { selectUserEmail } from '../../store/selectors';
+import { selectIsLikedItemsExist } from '../../store/selectors';
 import UserStaffLikedList from '../../components/userStaffLikedList/UserStaffLikedList';
 
 const Favorite: React.FC = () => {
-  const displayListFlag = true;
-
+  const likedListExists = useAppSelector(selectIsLikedItemsExist);
   return (
     <StyledFavorite>
-      {displayListFlag ? (
+      {likedListExists ? (
         <UserStaffLikedList />
       ) : (
         <UserStaffEmpty

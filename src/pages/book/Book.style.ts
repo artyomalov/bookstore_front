@@ -11,9 +11,21 @@ const StyledBook = styled.main`
     align-items: flex-start;
     margin-top: 60px;
   }
+  .book__img-container {
+    width: 522px;
+    height: 779px;
+    position: relative;
+  }
   .book__cover-image {
     width: 522px;
     height: 779px;
+  }
+  .book__liked-container {
+    position: absolute;
+    width: 59px;
+    height: 59px;
+    top: 30px;
+    right: 30px;
   }
   .book__data {
     /* background-color: red; */
@@ -57,7 +69,7 @@ const StyledBook = styled.main`
     font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
     margin-bottom: 50px;
-    }
+  }
 `;
 
 export default StyledBook;
