@@ -10,22 +10,26 @@ import CatalogAuthorsList from '../../components/catalogAuthorsList/CatalogAutho
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import BookCommentsList from '../../components/bookCommentsList/BookCommentsList';
 import BookRating from '../../components/bookRating/BookRating';
-import { addToLiked, updateUserCart } from '../../store/userStaffSlice';
-import { bookList, selectBooks, selectUserEmail } from '../../store/selectors';
+import { updateUserCart } from '../../store/userStaffSlice';
+import {
+  selectBooksList,
+  selectBooks,
+  selectIfUserExists,
+} from '../../store/selectors';
 import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//НАПИСАТЬ ЗАПРОС К КНИГЕ НА СЕРВЕР. кНИГУ НЕЛЬЗЯ ПОЛУЧАТЬ ЧЕРЕЗ USE LOCATION ТАК КАК ЗАПРОС
 const Book: React.FC = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const booksList = useAppSelector(selectBooks);
+  const booksList = useAppSelector(selectBooksList);
   const book = booksList.find((book) => book.slug === params.slug);
 
-  const userEmail = useAppSelector(selectUserEmail);
+  const uerExists = useAppSelector(selectIfUserExists);
   //Заменить на запрос к похожему
   const books = useAppSelector((state) => state.book.books);
-  const isAuthorized = userEmail === 'not set' ? false : true;
   const hardcoverPrice =
     book && book.hardcoverQuantity > 0 ? book.hardcoverPrice : -1;
   const paperbackPrice =
@@ -35,7 +39,7 @@ const Book: React.FC = () => {
     coverType: string,
     price: number
   ) => {
-    if (userEmail === 'not set') {
+    if (!uerExists) {
       navigate('/auth/login', { state: { location: location } });
       return;
     }
@@ -102,7 +106,7 @@ const Book: React.FC = () => {
         <BookCommentsList comments={book.comments} />
       </div>
       <CatalogBookList books={books} />
-      {isAuthorized ? null : <CatalogBannerSecondary />}
+      {uerExists ? null : <CatalogBannerSecondary />}
     </StyledBook>
   ) : (
     <Navigate

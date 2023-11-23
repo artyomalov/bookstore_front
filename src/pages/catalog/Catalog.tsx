@@ -7,10 +7,10 @@ import CatalogBannerSecondary from '../../components/catalogBannerSecondary/Cata
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import { getLikedBooks, getUserCart } from '../../store/userStaffSlice';
-import { bookList, selectUserData } from '../../store/selectors';
+import { selectBooksList, selectUserData } from '../../store/selectors';
 const Catalog: React.FC = () => {
   const user = useAppSelector(selectUserData);
-  const books = useAppSelector(bookList);
+  const books = useAppSelector(selectBooksList);
   const isAuthorized = user.email === 'not set' ? false : true;
 
   return (

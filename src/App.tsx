@@ -18,6 +18,7 @@ import ErrorPage from './pages/error/ErrorPage';
 import Book from './pages/book/Book';
 import { getLikedBooks, getUserCart } from './store/userStaffSlice';
 import Purchases from './pages/purchases/Purchases';
+import Search from './pages/search/Search';
 
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
@@ -92,6 +93,7 @@ const App: React.FC = () => {
             </RequireAuth>
           }
         />
+        <Route path="search" element={<Search />} />s
       </Route>
       <Route path="/error_404" element={<ErrorPage />} />
     </Routes>

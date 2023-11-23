@@ -2,7 +2,7 @@ import React from 'react';
 import likeIcon from '../../assets/img/user_liked.svg';
 import StyledAddToFavoriteButton from './CatalogAddToFavoriteCheckBox.style';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
-import { selectLikedList, selectUserEmail } from '../../store/selectors';
+import { selectLikedList, selectIfUserExists } from '../../store/selectors';
 import { useLocation, useNavigate } from 'react-router';
 import { addToLiked } from '../../store/userStaffSlice';
 
@@ -11,28 +11,28 @@ type Props = {
 };
 
 const CatalogAddToFavoriteCheckBox: React.FC<Props> = (props) => {
-  const likedList = useAppSelector(selectLikedList);
-  const userEmail = useAppSelector(selectUserEmail);
   const dispatch = useAppDispatch();
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
+  const likedList = useAppSelector(selectLikedList);
+  const userExists = useAppSelector(selectIfUserExists);
 
-  const isLikedIndex = userEmail
+  const isLikedIndex = userExists
     ? likedList.findIndex((liked) => liked.slug === props.slug)
     : -1;
   const isLiked = isLikedIndex === -1 ? false : true;
 
   const setFavoriteHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (userEmail === 'not set') {
-      navigate('/auth/login', { state: { location: location } });
+    if (userExists) {
+      await dispatch(
+        addToLiked({
+          bookSlug: props.slug,
+          inList: e.target.checked,
+        })
+      );
       return;
     }
-    await dispatch(
-      addToLiked({
-        bookSlug: props.slug,
-        inList: e.target.checked,
-      })
-    );
+    navigate('/auth/login', { state: { location: location } });
   };
 
   return (

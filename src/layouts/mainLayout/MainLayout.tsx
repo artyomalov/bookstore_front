@@ -1,9 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router';
 import Footer from '../../components/footer/Footer';
-import Header from '../../components/header/HeaderUnauthorized';
-import AlreadyAuthorized from '../../serviceComponents/AlreadyAuthorized';
-import HeaderAuthorized from '../../components/header/HeaderAuthrized';
+import Header from '../../components/header/Header';
 import { useAppSelector } from '../../store/typedHooks';
 import StyledLayoutContainer from './MainLayout.style';
 
@@ -16,10 +14,7 @@ const MainLayout: React.FC = () => {
         <span>{errorMessage}</span>
       </div>
       <header>
-        <AlreadyAuthorized>
-          <Header />
-          <HeaderAuthorized />
-        </AlreadyAuthorized>
+        <Header />
       </header>
       <main>
         <Outlet />

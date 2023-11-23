@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledLoginSignUpButton = styled.div`
+const StyledHeaderLoginSignUpButton = styled.div`
   width: 231px;
   height: 44px;
   background-color: #344966;
@@ -27,4 +27,4 @@ const StyledLoginSignUpButton = styled.div`
   }
 `;
 
-export default StyledLoginSignUpButton;
+export default StyledHeaderLoginSignUpButton;

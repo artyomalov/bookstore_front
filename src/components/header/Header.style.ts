@@ -34,44 +34,9 @@ const StyledHeader = styled.div`
   .header__input-container {
     width: 85%;
     height: 64px;
-    border-radius: 16px;
-    padding-left: 2%;
-    background-color: ${(props) => props.theme.colorLight};
-    display: flex;
-    align-items: center;
   }
 
-  .header__input {
-    width: 95%;
-    height: 100%;
-    padding-left: 2%;
-    background: none;
-    border: none;
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightThin};
-
-    &:focus {
-      outline: none;
-      outline-offset: none;
-    }
-  }
-
-
-  .header__user-container {
-    width: 16%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header__user-button {
-    height: 48px;
-    width: 48px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    vertical-align: center;
-  }
+ 
 `;
 
 export default StyledHeader;

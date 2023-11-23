@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import StyledLoginSignUpButton from './LoginSignUpButton.style';
+import StyledHeaderLoginSignUpButton from './HeaderLoginSignUpButton.style';
 
-
-const LoginSignUpButton:React.FC = () => {
+const HeaderLoginSignUpButton: React.FC = () => {
   return (
-    <StyledLoginSignUpButton>
+    <StyledHeaderLoginSignUpButton>
       <Link className="button__auth-link" to="auth/login">
         Log in/
       </Link>
       <Link className="button__auth-link" to="auth/signup">
         Sign Up
       </Link>
-    </StyledLoginSignUpButton>
+    </StyledHeaderLoginSignUpButton>
   );
 };
 
-export default LoginSignUpButton;
+export default HeaderLoginSignUpButton;

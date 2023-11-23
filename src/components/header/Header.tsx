@@ -1,16 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import headerLogo from '../../assets/img/header_logo.svg';
-import headerSearch from '../../assets/img/header_search.svg';
-import LoginSignUpButton from '../loginSignUpButton/LoginSignUpButton';
+import HeaderLoginSignUpButton from '../headerLoginSignUpButton/HeaderLoginSignUpButton';
 import StyledHeader from './Header.style';
+import HeaderSearchField from '../headerSearchField/HeaderSearchField';
+import ConditionalRenderServiceComponent from '../../serviceComponents/ConditionalRenderServiceComponent';
+import HeaderUserStaffLinks from '../headerUserStaffLinks/HeaderUserStaffLinks';
+import { selectIfUserExists } from '../../store/selectors';
 const Header: React.FC = () => {
-  const [searchInputData, setSearchInputData] = React.useState('');
-
-  const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInputData(e.target.value);
-  };
-
   return (
     <StyledHeader>
       <div className="header__link-input-container">
@@ -22,17 +19,14 @@ const Header: React.FC = () => {
             Catalog
           </Link>
           <div className="header__input-container">
-            <img src={headerSearch} />
-            <input
-              className="header__input"
-              onChange={onInputHandler}
-              placeholder="search"
-              value={searchInputData}
-            />
+            <HeaderSearchField />
           </div>
         </div>
       </div>
-      <LoginSignUpButton />
+      <ConditionalRenderServiceComponent getStateCallback={selectIfUserExists}>
+        <HeaderUserStaffLinks />
+        <HeaderLoginSignUpButton />
+      </ConditionalRenderServiceComponent>
     </StyledHeader>
   );
 };

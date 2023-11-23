@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAppSelector } from '../../store/typedHooks';
-import { userCartTotalCount } from '../../store/selectors';
+import { selectUserCartTotalCount } from '../../store/selectors';
 import StyledCartItemTotalCount from './CartItemTotalCount.style';
 
 const CartItemTotalCount = () => {
-  const cartTotalCount = useAppSelector(userCartTotalCount);
+  const cartTotalCount = useAppSelector(selectUserCartTotalCount);
 
   return (
     <StyledCartItemTotalCount>

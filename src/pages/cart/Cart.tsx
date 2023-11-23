@@ -6,14 +6,13 @@ import { Link } from 'react-router-dom';
 import CartItemTotalCount from '../../components/cartItemTotalCount/CartItemTotalCount';
 import { useAppSelector } from '../../store/typedHooks';
 import { selectIsCartItemsExist } from '../../store/selectors';
-
+import ConditionalRenderServiceComponent from '../../serviceComponents/ConditionalRenderServiceComponent';
 const Cart: React.FC = () => {
-  console.log('render');
-
-  const cartIsExists = useAppSelector(selectIsCartItemsExist);
   return (
     <StyledCart>
-      {cartIsExists ? (
+      <ConditionalRenderServiceComponent
+        getStateCallback={selectIsCartItemsExist}
+      >
         <>
           <CartItemList />
           <CartItemTotalCount />
@@ -24,13 +23,12 @@ const Cart: React.FC = () => {
             <button className="cart__checkout">Checkout</button>
           </div>
         </>
-      ) : (
         <UserStaffEmpty
           staff="cart"
           text1="Add items to cart to make a purchase."
           text2="Also you can go to the catalogue."
         />
-      )}
+      </ConditionalRenderServiceComponent>
     </StyledCart>
   );
 };

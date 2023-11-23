@@ -8,10 +8,6 @@ import CatalogStarRating from '../catalogStarRating/CatalogStarRating';
 import CatalogAuthorsList from '../catalogAuthorsList/CatalogAuthorsList';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import { weekInSeconds } from '../../const/timeConst';
-import { addToLiked } from '../../store/userStaffSlice';
-import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
-import { useLocation } from 'react-router-dom';
-import { selectLikedList, selectUserEmail } from '../../store/selectors';
 
 type Props = {
   slug: string;

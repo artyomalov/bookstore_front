@@ -3,9 +3,12 @@ import { RootState } from '.';
 import { CartItemType } from '../types/userStaffTypes';
 
 export const selectUserData = (state: RootState) => state.user.user;
-export const selectUserEmail = (state: RootState) => state.user.user.email;
+export const selectIfUserExists = (state: RootState) => {
+  const userEmail = state.user.user.email;
+  return userEmail === 'not set' ? false : true;
+};
 
-export const bookList = (state: RootState) => state.book.books;
+export const selectBooksList = (state: RootState) => state.book.books;
 
 export const selectLikedList = (state: RootState) => {
   return state.userStaff.userLiked.likedList;
@@ -19,7 +22,7 @@ export const selectIsLikedItemsExist = createSelector(
 export const selectUserCartItemsList = (state: RootState) =>
   state.userStaff.userCart.cartItemsList;
 
-export const userCartTotalCount = (state: RootState) =>
+export const selectUserCartTotalCount = (state: RootState) =>
   state.userStaff.userCart.cartItemsTotalSum;
 
 export const selectIsCartItemsExist = createSelector(

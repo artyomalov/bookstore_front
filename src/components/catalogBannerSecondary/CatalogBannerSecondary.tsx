@@ -2,7 +2,7 @@ import React from 'react';
 import StyledCatalogBannerSecondary from './CatalogBannerSecondary.style';
 import catalogBannerSecondaryImage from '../../assets/img/catalog_banner_secondary_image.svg';
 import catalogBannerSecondaryBackground from '../../assets/img/catalog_banner_secondary_background.svg';
-import LoginSignUpButton from '../loginSignUpButton/LoginSignUpButton';
+import LoginSignUpButton from '../headerLoginSignUpButton/HeaderLoginSignUpButton';
 
 const CatalogBannerSecondary: React.FC = () => {
   return (
