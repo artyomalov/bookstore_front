@@ -3,12 +3,13 @@ import StyledBookComment from './BookComment.style';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import { dayInSeconds } from '../../const/timeConst';
 import weekData from '../../const/weekData';
-type Props = {
-  userName: string;
-  userAvatar: string;
-  createdAt: string;
-  text: string;
-};
+import { CommentType } from '../../types/bookTypes';
+// type Props = {
+//   userName: string;
+//   userAvatar: string;
+//   createdAt: string;
+//   text: string;
+// };
 
 const getTimeFromCommentCreation = (createdAt: string) => {
   const timeFromCommentCreation = Math.round(
@@ -17,7 +18,9 @@ const getTimeFromCommentCreation = (createdAt: string) => {
   return timeFromCommentCreation;
 };
 
-const BookComment: React.FC<Props> = (props) => {
+const BookComment: React.FC<CommentType> = (props) => {
+  console.log(props);
+
   const timeFromCommentCreation = React.useMemo(
     () => getTimeFromCommentCreation(props.createdAt),
     [props.createdAt]
@@ -31,12 +34,12 @@ const BookComment: React.FC<Props> = (props) => {
   return (
     <StyledBookComment>
       <img
-        src={`${mediaBaseUrl}media/${props.userAvatar}`}
-        alt={`${props.userName || 'somebody'}'s avatar`}
+        src={`${mediaBaseUrl}${props.userData.userAvatar}`}
+        alt={props.userData.userName}
         className="comment__user-avater"
       />
       <div className="comment__data">
-        <h5 className="comment__user-name">{props.userName || 'Somebody'}</h5>
+        <h5 className="comment__user-name">{props.userData.userName}</h5>
         <p className="comment__left-comment-time">
           Left a comment {creationTimeText}
         </p>

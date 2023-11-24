@@ -10,6 +10,7 @@ import mediaBaseUrl from '../../const/mediaBaseUrl';
 import { weekInSeconds } from '../../const/timeConst';
 
 type Props = {
+  id: number;
   slug: string;
   title: string;
   hardcoverQuantity: number;
@@ -43,6 +44,7 @@ const CatalogBookItem: React.FC<Props> = React.memo((props) => {
       <Link
         to={`/${props.slug}`}
         className="catalog-book-item__single-page-link"
+        state={{ ...props }}
       >
         <img
           className="catalog-book-item__image"
@@ -66,7 +68,11 @@ const CatalogBookItem: React.FC<Props> = React.memo((props) => {
       />
       <CatalogStarRating rating={props.rating} />
       <div className="catalog-book-item__add-to-cart-container">
-        <Link className="catalog-book-item__add-to-cart-link" to={props.slug}>
+        <Link
+          className="catalog-book-item__add-to-cart-link"
+          to={props.slug}
+          state={{ ...props }}
+        >
           {price === null ? 'Not available' : props.hardcoverPrice}
         </Link>
       </div>

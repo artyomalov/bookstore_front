@@ -35,6 +35,18 @@ const StyledBook = styled.main`
     font-size: ${(props) => props.theme.fontSize44};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
+
+  .book__add-to-cart-button-container-paperback,
+  .book__add-to-cart-button-container-hardcover {
+    height: 50px;
+  }
+  .book__add-to-cart-button-container-paperback {
+    width: 243px;
+  }
+  .book__add-to-cart-button-container-hardcover {
+    width: 216px;
+  }
+
   .book__rating {
     margin-top: 30px;
   }
@@ -64,11 +76,6 @@ const StyledBook = styled.main`
 
   .book__comments {
     margin-top: 110px;
-  }
-  .book__comments-title {
-    font-size: ${(props) => props.theme.fontSize44};
-    font-weight: ${(props) => props.theme.fontWeightBold};
-    margin-bottom: 50px;
   }
 `;
 

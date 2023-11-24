@@ -8,26 +8,21 @@ import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import CatalogAddToCartButton from '../../components/catalogAddToCartButton/CatalogAddToCartButton';
 import CatalogAuthorsList from '../../components/catalogAuthorsList/CatalogAuthorsList';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
-import BookCommentsList from '../../components/bookCommentsList/BookCommentsList';
+import BookComments from '../../components/bookComments/BookComments';
 import BookRating from '../../components/bookRating/BookRating';
 import { updateUserCart } from '../../store/userStaffSlice';
-import {
-  selectBooksList,
-  selectBooks,
-  selectIfUserExists,
-} from '../../store/selectors';
+import { selectBooksList, selectIfUserExists } from '../../store/selectors';
 import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//НАПИСАТЬ ЗАПРОС К КНИГЕ НА СЕРВЕР. кНИГУ НЕЛЬЗЯ ПОЛУЧАТЬ ЧЕРЕЗ USE LOCATION ТАК КАК ЗАПРОС
+
 const Book: React.FC = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const booksList = useAppSelector(selectBooksList);
-  const book = booksList.find((book) => book.slug === params.slug);
+  const book = location.state;
 
-  const uerExists = useAppSelector(selectIfUserExists);
+  const userExists = useAppSelector(selectIfUserExists);
   //Заменить на запрос к похожему
   const books = useAppSelector((state) => state.book.books);
   const hardcoverPrice =
@@ -39,7 +34,7 @@ const Book: React.FC = () => {
     coverType: string,
     price: number
   ) => {
-    if (!uerExists) {
+    if (!userExists) {
       navigate('/auth/login', { state: { location: location } });
       return;
     }
@@ -80,33 +75,31 @@ const Book: React.FC = () => {
           <div className="book__add-to-cart-container">
             <div className="book__button-container">
               <h4 className="book__button-title">Paperback</h4>
-              <CatalogAddToCartButton
-                price={paperbackPrice}
-                width="240px"
-                height="50px"
-                onClickHandler={addToCartButtonClickHandler}
-                coverType="paperback"
-              />
+              <div className="book__add-to-cart-button-container-paperback">
+                <CatalogAddToCartButton
+                  price={paperbackPrice}
+                  onClickHandler={addToCartButtonClickHandler}
+                  coverType="paperback"
+                />
+              </div>
             </div>
             <div className="book__button-container">
               <h4 className="book__button-title">Hardcover</h4>
-              <CatalogAddToCartButton
-                price={hardcoverPrice}
-                width="240px"
-                height="50px"
-                onClickHandler={addToCartButtonClickHandler}
-                coverType="hardcover"
-              />
+              <div className="book__add-to-cart-button-container-hardcover">
+                <CatalogAddToCartButton
+                  price={hardcoverPrice}
+                  onClickHandler={addToCartButtonClickHandler}
+                  coverType="hardcover"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="book__comments">
-        <h2 className="book__comments-title">Comments</h2>
-        <BookCommentsList comments={book.comments} />
+        <BookComments slug={book.slug} bookId={book.id} />
       </div>
       <CatalogBookList books={books} />
-      {uerExists ? null : <CatalogBannerSecondary />}
     </StyledBook>
   ) : (
     <Navigate

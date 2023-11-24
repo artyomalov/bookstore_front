@@ -16,6 +16,7 @@ export const getUser = createAsyncThunk<
 
   if (response.data.email === undefined) {
     const dummy: UserType = {
+      id: 0,
       email: 'not set',
       fullName: 'not set',
       avatar: 'not set',
@@ -57,6 +58,7 @@ type InitialStateType = {
 };
 
 const unauthorizedUser = {
+  id: 0,
   email: 'not set',
   fullName: 'not set',
   avatar: 'not set',

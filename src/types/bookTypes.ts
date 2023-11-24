@@ -5,10 +5,12 @@ export type AuthorType = {
 
 export type CommentType = {
   id: number;
-  userName: string;
-  userAvatar: string;
-  createdAt: string;
   text: string;
+  createdAt: string;
+  userData: {
+    userName: string;
+    userAvatar: string;
+  };
 };
 
 export type GenreType = {
@@ -42,5 +44,4 @@ export type BookTypeLiked = {
   hardcoverPrice: number;
   coverImage: string;
   authors: AuthorType[];
-}
-
+};

@@ -1,6 +1,7 @@
 import { BookType } from './bookTypes';
 
 export type UserType = {
+  id: number;
   email: string;
   fullName: string;
   avatar: string;

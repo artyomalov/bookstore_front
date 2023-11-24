@@ -14,6 +14,7 @@ const CatalogBookList: React.FC<Props> = (props) => {
         return (
           <div key={book.id} className="catalog-book-list__book-item-container">
             <CatalogBookItem
+              id={book.id}
               slug={book.slug}
               title={book.title}
               paperbackPrice={book.paperbackPrice}
