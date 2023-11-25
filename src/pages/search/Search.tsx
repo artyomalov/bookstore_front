@@ -6,28 +6,19 @@ import { useLocation } from 'react-router';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
 
 const Search: React.FC = () => {
-  console.log('render search');
+  console.log('render');
+
   const [booksFound, setBooksFound] = React.useState<boolean>(true);
   const location = useLocation();
-
-  // React.useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await bookRequersts.searchBooks(location.state);
-  //       setFoundBooks(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   })();
-  // }, []);
-
+  const ref = React.useRef<string>(location.state);
+  if (ref.current !== location.state) {
+    setBooksFound(true);
+    ref.current = location.state;
+  }
   const serverRequestCallback = async () => {
     try {
-      console.log('callback');
-      const response = await bookRequersts.searchBooks(location.state);
-
+      const response = await bookRequersts.searchBooks(ref.current);
       if (response.data.length === 0) setBooksFound(false);
-
       return response.data;
     } catch (error) {
       console.log(error);

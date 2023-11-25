@@ -18,7 +18,8 @@ const getTimeFromCommentCreation = (createdAt: string) => {
   return timeFromCommentCreation;
 };
 
-const BookComment: React.FC<CommentType> = (props) => {
+const BookComment: React.FC<CommentType> = React.memo((props) => {
+  console.log('render');
   const timeFromCommentCreation = React.useMemo(
     () => getTimeFromCommentCreation(props.createdAt),
     [props.createdAt]
@@ -45,6 +46,6 @@ const BookComment: React.FC<CommentType> = (props) => {
       </div>
     </StyledBookComment>
   );
-};
+});
 
 export default BookComment;

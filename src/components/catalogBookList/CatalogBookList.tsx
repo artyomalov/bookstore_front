@@ -8,7 +8,6 @@ type Props = {
 };
 
 const CatalogBookList: React.FC<Props> = (props) => {
-  console.log('render catalog')
   const [booksList, setBooksList] = React.useState<BookType[] | null>(null);
   React.useEffect(() => {
     (async () => {
