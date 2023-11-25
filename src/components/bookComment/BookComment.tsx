@@ -19,8 +19,6 @@ const getTimeFromCommentCreation = (createdAt: string) => {
 };
 
 const BookComment: React.FC<CommentType> = (props) => {
-  console.log(props);
-
   const timeFromCommentCreation = React.useMemo(
     () => getTimeFromCommentCreation(props.createdAt),
     [props.createdAt]

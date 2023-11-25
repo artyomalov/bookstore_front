@@ -5,9 +5,9 @@ import { AxiosError } from 'axios';
 
 export const getBooks = createAsyncThunk<
   BookType[],
-  string,
+  undefined,
   { rejectValue: Error | AxiosError }
->('books/getBooks', async function (empty, { rejectWithValue }) {
+>('books/getBooks', async function (_, { rejectWithValue }) {
   try {
     const response = await bookRequersts.getBooks();
     return response.data;
@@ -37,4 +37,4 @@ const bookSlice = createSlice({
 
 // export const {} = bookSlice.actions
 
-export default bookSlice.reducer
+export default bookSlice.reducer;

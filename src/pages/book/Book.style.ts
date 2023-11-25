@@ -77,6 +77,14 @@ const StyledBook = styled.main`
   .book__comments {
     margin-top: 110px;
   }
+
+  .book__recommendations-title {
+    font-size: ${(props) => props.theme.fontSize44};
+    font-weight: ${(props) => props.theme.fontWeightBold};
+    margin-top: 110px;
+    margin-bottom: 50px;
+
+  }
 `;
 
 export default StyledBook;

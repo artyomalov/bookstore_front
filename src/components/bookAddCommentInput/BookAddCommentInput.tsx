@@ -20,10 +20,12 @@ const BookAddCommentInput: React.FC<Props> = (props) => {
         className="comment-input__textarea"
         placeholder="Share a comment"
         onChange={onInputHandler}
+        value={text}
+      ></textarea>
+      <button
+        className="comment-input__button"
+        onClick={onClickPostButtonHandler}
       >
-        {text}
-      </textarea>
-      <button className="comment-input__button" onClick={onClickPostButtonHandler}>
         Post a comment
       </button>
     </StyledBookAddCommentInput>

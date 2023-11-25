@@ -4,32 +4,30 @@ import CatalogBookItem from '../catalogBookItem/CatalogBookItem';
 import { BookType } from '../../types/bookTypes';
 
 type Props = {
-  books: BookType[];
+  serverRequestCallback: () => Promise<BookType[] | undefined>;
 };
 
 const CatalogBookList: React.FC<Props> = (props) => {
+  console.log('render catalog')
+  const [booksList, setBooksList] = React.useState<BookType[] | null>(null);
+  React.useEffect(() => {
+    (async () => {
+      const booksList = await props.serverRequestCallback();
+      if (booksList) setBooksList(booksList);
+    })();
+  }, [props.serverRequestCallback]);
+
   return (
     <StyledCatalogBookList>
-      {props.books.map((book) => {
-        return (
+      {booksList !== null ? (
+        booksList.map((book) => (
           <div key={book.id} className="catalog-book-list__book-item-container">
-            <CatalogBookItem
-              id={book.id}
-              slug={book.slug}
-              title={book.title}
-              paperbackPrice={book.paperbackPrice}
-              hardcoverPrice={book.hardcoverPrice}
-              paperbackQuantity={book.hardcoverQuantity}
-              hardcoverQuantity={book.hardcoverQuantity}
-              coverImage={book.coverImage}
-              createdAt={book.createdAt}
-              rating={book.rating}
-              salesCount={book.salesCount}
-              authors={book.authors}
-            />
+            <CatalogBookItem {...book} />
           </div>
-        );
-      })}
+        ))
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </StyledCatalogBookList>
   );
 };

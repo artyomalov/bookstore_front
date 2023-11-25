@@ -3,7 +3,6 @@ import StyledBook from './Book.style';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
-import CatalogBannerSecondary from '../../components/catalogBannerSecondary/CatalogBannerSecondary';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import CatalogAddToCartButton from '../../components/catalogAddToCartButton/CatalogAddToCartButton';
 import CatalogAuthorsList from '../../components/catalogAuthorsList/CatalogAuthorsList';
@@ -13,6 +12,7 @@ import BookRating from '../../components/bookRating/BookRating';
 import { updateUserCart } from '../../store/userStaffSlice';
 import { selectBooksList, selectIfUserExists } from '../../store/selectors';
 import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
+import bookRequersts from '../../api/bookAPI/bookRequests';
 
 const Book: React.FC = () => {
   const params = useParams();
@@ -23,7 +23,16 @@ const Book: React.FC = () => {
   const book = location.state;
 
   const userExists = useAppSelector(selectIfUserExists);
-  //Заменить на запрос к похожему
+
+  const serverRequestCallback = React.useCallback(async () => {
+    try {
+      const response = await bookRequersts.getSimularBooks(book.slug);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }, [book.slug]);
+
   const books = useAppSelector((state) => state.book.books);
   const hardcoverPrice =
     book && book.hardcoverQuantity > 0 ? book.hardcoverPrice : -1;
@@ -99,7 +108,8 @@ const Book: React.FC = () => {
       <div className="book__comments">
         <BookComments slug={book.slug} bookId={book.id} />
       </div>
-      <CatalogBookList books={books} />
+      <h2 className="book__recommendations-title">Recommendations</h2>
+      <CatalogBookList serverRequestCallback={serverRequestCallback} />
     </StyledBook>
   ) : (
     <Navigate

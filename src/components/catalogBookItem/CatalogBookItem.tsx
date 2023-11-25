@@ -70,7 +70,7 @@ const CatalogBookItem: React.FC<Props> = React.memo((props) => {
       <div className="catalog-book-item__add-to-cart-container">
         <Link
           className="catalog-book-item__add-to-cart-link"
-          to={props.slug}
+          to={`/${props.slug}`}
           state={{ ...props }}
         >
           {price === null ? 'Not available' : props.hardcoverPrice}

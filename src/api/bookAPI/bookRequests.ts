@@ -3,8 +3,12 @@ import { AuthorType, BookType, CommentType } from '../../types/bookTypes';
 import slugify from '../../services/slugify';
 
 const getBooks = () => {
-  return axiosInstanceBook.get<BookType[]>('/book_list/');
+  return axiosInstanceBook.get<BookType[]>('/list/');
 };
+
+const getSimularBooks = (slug:string) => {
+  return axiosInstanceBook.get<BookType[]>(`simular/${slug}`)
+}
 
 const searchBooks = (title: string) => {
   const slug = slugify(title);
@@ -19,11 +23,12 @@ const addComment = (commentText: string, userId: number, bookId: number) => {
   });
 };
 const getComments = (slug: string) => {
-  return axiosInstanceBook.get<CommentType[]>(`/comments/${slug}`);
+  return axiosInstanceBook.get<CommentType[]>(`/comments_list/${slug}`);
 };
 
 const bookRequersts = {
   getBooks,
+  getSimularBooks,
   searchBooks,
   addComment,
   getComments,

@@ -30,18 +30,13 @@ const App: React.FC = () => {
     (async () => {
       try {
         await dispatch(getUser('empty'));
-        const responseBooks = await dispatch(getBooks('empty'));
+
         const responseGenres = await dispatch(getGenres('empty'));
         await dispatch(getLikedBooks());
         await dispatch(getUserCart());
-        if (
-          responseBooks.meta.requestStatus === 'rejected' ||
-          responseGenres.meta.requestStatus === 'rejected'
-        )
-          setIsError(true);
+        if (responseGenres.meta.requestStatus === 'rejected') setIsError(true);
 
-        if (responseBooks !== undefined || responseGenres !== undefined)
-          setIsInitialized(true);
+        if (responseGenres !== undefined) setIsInitialized(true);
       } catch (error) {
         console.error(error);
       }

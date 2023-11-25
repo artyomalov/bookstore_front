@@ -3,39 +3,50 @@ import StyledSearch from './Search.style';
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import bookRequersts from '../../api/bookAPI/bookRequests';
 import { useLocation } from 'react-router';
-import { BookType } from '../../types/bookTypes';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
 
 const Search: React.FC = () => {
-  const [foundBooks, setFoundBooks] = React.useState<BookType[] | null>(null);
+  console.log('render search');
+  const [booksFound, setBooksFound] = React.useState<boolean>(true);
   const location = useLocation();
-  console.log(location.state);
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const response = await bookRequersts.searchBooks(location.state);
-        setFoundBooks(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, []);
+
+  // React.useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await bookRequersts.searchBooks(location.state);
+  //       setFoundBooks(response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   })();
+  // }, []);
+
+  const serverRequestCallback = async () => {
+    try {
+      console.log('callback');
+      const response = await bookRequersts.searchBooks(location.state);
+
+      if (response.data.length === 0) setBooksFound(false);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <StyledSearch>
-      {foundBooks === null ? (
-        <h1>Loading</h1>
-      ) : foundBooks.length === 0 ? (
-        <UserStaffEmpty
-          staff="cart"
-          text1="Add items to cart to make a purchase."
-          text2="Also you can go to the catalogue."
-        />
-      ) : (
+      {booksFound ? (
         <>
           <h1>Search</h1>
-          <CatalogBookList books={foundBooks} />
+          <CatalogBookList serverRequestCallback={serverRequestCallback} />
         </>
+      ) : (
+        <UserStaffEmpty
+          staff="search"
+          text1="We coudn't find this book, sorry."
+          text2="Please try again."
+        />
       )}
     </StyledSearch>
   );
