@@ -15,13 +15,11 @@ import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteC
 import bookRequersts from '../../api/bookAPI/bookRequests';
 
 const Book: React.FC = () => {
-  const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const booksList = useAppSelector(selectBooksList);
   const book = location.state;
-
+  console.log(book.id)
   const userExists = useAppSelector(selectIfUserExists);
 
   const serverRequestCallback = React.useCallback(async () => {
@@ -33,7 +31,6 @@ const Book: React.FC = () => {
     }
   }, [book.slug]);
 
-  const books = useAppSelector((state) => state.book.books);
   const hardcoverPrice =
     book && book.hardcoverQuantity > 0 ? book.hardcoverPrice : -1;
   const paperbackPrice =
@@ -79,7 +76,7 @@ const Book: React.FC = () => {
             fontWeight={500}
             color="0D1821"
           />
-          <BookRating rating={book.rating.toFixed(1)} />
+          <BookRating bookId={book.id} />
           <h4 className="book__description">{book.annotation}</h4>
           <div className="book__add-to-cart-container">
             <div className="book__button-container">

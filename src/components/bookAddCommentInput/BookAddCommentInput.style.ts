@@ -11,12 +11,15 @@ const StyledBookAddCommentInput = styled.div`
     border: none;
     border-radius: ${(props) => props.theme.borderRadius};
     background-color: ${(props) => props.theme.colorLight};
-    color: ${(props) => props.theme.colorDarkGray};
+    color: ${(props) => props.theme.colorDark};
     font-size: ${(props) => props.theme.fontSize16};
     font-weight: ${(props) => props.theme.fontWeightThin};
     resize: none;
     &:focus {
       outline: none;
+    }
+    &::placeholder {
+      color: ${(props) => props.theme.colorDarkGray};
     }
   }
   .comment-input__button {

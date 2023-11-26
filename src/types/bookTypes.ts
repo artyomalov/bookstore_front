@@ -45,3 +45,10 @@ export type BookTypeLiked = {
   coverImage: string;
   authors: AuthorType[];
 };
+
+
+export type RatingType = {
+  id: number;
+  averageRate:number;
+  rate: number;
+}

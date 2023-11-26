@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '.';
-import { CartItemType } from '../types/userStaffTypes';
 
 export const selectUserData = (state: RootState) => state.user.user;
+export const selectUserId = (state: RootState) => state.user.user.id;
 export const selectIfUserExists = (state: RootState) => {
   const userEmail = state.user.user.email;
   return userEmail === 'not set' ? false : true;
@@ -10,9 +10,8 @@ export const selectIfUserExists = (state: RootState) => {
 
 export const selectBooksList = (state: RootState) => state.book.books;
 
-export const selectLikedList = (state: RootState) => {
-  return state.userStaff.userLiked.likedList;
-};
+export const selectLikedList = (state: RootState) =>
+  state.userStaff.userLiked.likedList;
 
 export const selectIsLikedItemsExist = createSelector(
   selectLikedList,

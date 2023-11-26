@@ -1,16 +1,25 @@
 import React from 'react';
 import { ReactComponent as BookArrow } from '../../assets/img/book_arrow.svg';
 import starArray from '../../const/starArray';
-import starOutline from '../../assets/img/catalog_rating_star_outline.svg';
 import StyledBookStarRating from './BookStarRating.style';
 import BookStar from '../bookStar/BookStar';
 
-const BookStarRating: React.FC = () => {
+type Props = {
+  onClickRateHandler: (newRate: number) => Promise<void>;
+};
+
+const BookStarRating: React.FC<Props> = (props) => {
   const [rate, setRate] = React.useState<number>(0);
-  
+
   const onClickHandler = (rateCount: number) => {
     setRate(rateCount);
   };
+
+  const onClickRateButtonHandler = async () => {
+    await props.onClickRateHandler(rate);
+    setRate(0)
+  };
+
   return (
     <StyledBookStarRating>
       <div className="book-rating__stars">
@@ -28,7 +37,9 @@ const BookStarRating: React.FC = () => {
       </div>
       <button className="book-rating__button">
         <BookArrow className="book-rating__arrow" />
-        <span className="book-rating__text">Rate this book</span>
+        <span className="book-rating__text" onClick={onClickRateButtonHandler}>
+          Rate this book
+        </span>
       </button>
     </StyledBookStarRating>
   );

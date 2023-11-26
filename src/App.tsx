@@ -12,7 +12,6 @@ import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
 import Liked from './pages/liked/Liked';
 import { getGenres } from './store/genresSlice';
-import { getBooks } from './store/bookSlice';
 import SecondaryLayout from './layouts/secondaryLayout/SecondaryLayout';
 import ErrorPage from './pages/error/ErrorPage';
 import Book from './pages/book/Book';
@@ -29,14 +28,14 @@ const App: React.FC = () => {
   React.useEffect(() => {
     (async () => {
       try {
-        await dispatch(getUser('empty'));
-
-        const responseGenres = await dispatch(getGenres('empty'));
-        await dispatch(getLikedBooks());
-        await dispatch(getUserCart());
-        if (responseGenres.meta.requestStatus === 'rejected') setIsError(true);
-
-        if (responseGenres !== undefined) setIsInitialized(true);
+        const userResponse = await dispatch(getUser());
+        if (userResponse.meta.requestStatus === 'fulfilled') {
+          await dispatch(getLikedBooks());
+          await dispatch(getUserCart());
+        }
+        const genresResponse = await dispatch(getGenres('empty'));
+        if (genresResponse.meta.requestStatus === 'rejected') setIsError(true);
+        if (genresResponse !== undefined) setIsInitialized(true);
       } catch (error) {
         console.error(error);
       }

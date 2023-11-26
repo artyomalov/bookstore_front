@@ -11,7 +11,7 @@ const BookCommentsList: React.FC<Props> = (props) => {
   return (
     <StyledCommentsList>
       {props.commentsList.length === 0 ? (
-        <h2>Nobody has't comment this book yet, but you can be the first</h2>
+        <h2 className='book-comments-list__title'>Nobody has't comment this book yet, but you can be the first.</h2>
       ) : (
         props.commentsList.map((comment) => (
           <BookComment key={comment.id} {...comment} />

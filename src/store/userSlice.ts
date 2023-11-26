@@ -9,9 +9,9 @@ import { AxiosError } from 'axios';
 
 export const getUser = createAsyncThunk<
   UserType,
-  string,
+  undefined,
   { rejectValue: Error | AxiosError }
->('user/getUser', async function (empty, { rejectWithValue, dispatch }) {
+>('user/getUser', async function (_, { rejectWithValue, dispatch }) {
   const response = await userRequests.getUser();
 
   if (response.data.email === undefined) {
