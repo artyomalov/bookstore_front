@@ -2,14 +2,14 @@ import React from 'react';
 import StyledFilterSortByList from './FilterSortByList.style';
 import FilterSortByListItem from '../filterSortByListItem/FilterSortByListItem';
 import { useAppDispatch } from '../../store/typedHooks';
-import { setSelectedSortType } from '../../store/genresSlice';
+import { setSelectedSortType } from '../../store/filtersSlice';
 
 const sortChoicesArray = [
-  { id: 1, sortByTitle: 'Price', sortItemSlug: 'price' },
-  { id: 2, sortByTitle: 'Name', sortItemSlug: 'name' },
-  { id: 3, sortByTitle: 'Author name', sortItemSlug: 'autonr_name' },
+  { id: 1, sortByTitle: 'Price', sortItemSlug: 'hardcover_price' },
+  { id: 2, sortByTitle: 'Name', sortItemSlug: 'title' },
+  { id: 3, sortByTitle: 'Author name', sortItemSlug: 'authors__name' },
   { id: 4, sortByTitle: 'Rating', sortItemSlug: 'rating' },
-  { id: 5, sortByTitle: 'Date of issue', sortItemSlug: 'date_of_issue' },
+  { id: 5, sortByTitle: 'Date of issue', sortItemSlug: 'created_at' },
 ];
 
 type Props = {
@@ -20,27 +20,23 @@ const FilterSortByList: React.FC<Props> = (props) => {
   const [choiceSlug, setChoiceSlug] = React.useState<string | null>(null);
   const dispatch = useAppDispatch();
 
-  const clickOnChoiceHandler = (
-    selectedChoiceId: string,
-    choiceId: string | null
-  ) => {
-    if (selectedChoiceId === choiceId) {
+  const clickOnChoiceHandler = (selectedChoiceSlug: string) => {
+    if (selectedChoiceSlug === choiceSlug) {
       setChoiceSlug(null);
-      dispatch(setSelectedSortType('all'));
+      dispatch(setSelectedSortType('id'));
     } else {
-      setChoiceSlug(selectedChoiceId);
-      dispatch(setSelectedSortType(selectedChoiceId));
+      setChoiceSlug(selectedChoiceSlug);
+      dispatch(setSelectedSortType(selectedChoiceSlug));
     }
   };
   return (
-    <StyledFilterSortByList >
+    <StyledFilterSortByList>
       {sortChoicesArray.map((choice) => {
         return (
           <FilterSortByListItem
             key={choice.id}
             choice={choice}
             clickOnChoiceHandler={clickOnChoiceHandler}
-            choiceSlug={choiceSlug}
             isSelected={choiceSlug === choice.sortItemSlug}
           />
         );

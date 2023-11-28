@@ -1,3 +1,10 @@
+export type GetBooksParamsType = {
+  genre_id: number[];
+  min_price: number;
+  max_price: number;
+  sort_type: string;
+};
+
 export type AuthorType = {
   id: number;
   name: string;
@@ -36,6 +43,19 @@ export type BookType = {
   comments: CommentType[];
 };
 
+export type PaginationDataType = {
+  pagesCount: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+};
+
+export type GetBooksResponseType = {
+  books: BookType[];
+  pagesCount: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+};
+
 export type BookTypeLiked = {
   id: number;
   title: string;
@@ -46,9 +66,8 @@ export type BookTypeLiked = {
   authors: AuthorType[];
 };
 
-
 export type RatingType = {
   id: number;
-  averageRate:number;
+  averageRate: number;
   rate: number;
-}
+};

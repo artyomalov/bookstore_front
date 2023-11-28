@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
 
 const Search: React.FC = () => {
-  console.log('render');
+  // console.log('render');
 
   const [booksFound, setBooksFound] = React.useState<boolean>(true);
   const location = useLocation();
@@ -15,10 +15,12 @@ const Search: React.FC = () => {
     setBooksFound(true);
     ref.current = location.state;
   }
-  const serverRequestCallback = async () => {
+  const serverRequestCallback = async (page: number) => {
     try {
-      const response = await bookRequersts.searchBooks(ref.current);
-      if (response.data.length === 0) setBooksFound(false);
+      const response = await bookRequersts.searchBooks(ref.current, page);
+      if (response.data.books.length === 0) {
+        setBooksFound(false);
+      }
       return response.data;
     } catch (error) {
       console.log(error);

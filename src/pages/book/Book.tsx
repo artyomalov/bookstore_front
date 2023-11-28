@@ -1,6 +1,6 @@
 import React from 'react';
 import StyledBook from './Book.style';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
@@ -10,7 +10,7 @@ import mediaBaseUrl from '../../const/mediaBaseUrl';
 import BookComments from '../../components/bookComments/BookComments';
 import BookRating from '../../components/bookRating/BookRating';
 import { updateUserCart } from '../../store/userStaffSlice';
-import { selectBooksList, selectIfUserExists } from '../../store/selectors';
+import { selectIfUserExists } from '../../store/selectors';
 import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
 import bookRequersts from '../../api/bookAPI/bookRequests';
 
@@ -19,7 +19,6 @@ const Book: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const book = location.state;
-  console.log(book.id)
   const userExists = useAppSelector(selectIfUserExists);
 
   const serverRequestCallback = React.useCallback(async () => {
@@ -120,5 +119,3 @@ const Book: React.FC = () => {
 };
 
 export default Book;
-
-// parceFloat convert decimal to number type

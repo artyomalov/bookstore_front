@@ -1,26 +1,18 @@
 import React from 'react';
-import StyledMainPage from './Catalog.style';
+import StyledMainPage from './Main.style';
 import Banner from '../../components/catalogBanner/CatalogBanner';
 import banner from '../../assets/img/banner.svg';
 import FilterCatalogHeader from '../../components/filterCatalogHeader/FilterCatalogHeader';
 import CatalogBannerSecondary from '../../components/catalogBannerSecondary/CatalogBannerSecondary';
 import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import { useAppSelector } from '../../store/typedHooks';
-import { selectBooksList, selectIfUserExists } from '../../store/selectors';
+import { selectIfUserExists } from '../../store/selectors';
 import bookRequersts from '../../api/bookAPI/bookRequests';
+import Catalog from '../../components/catalog/Catalog';
 
-const Catalog: React.FC = () => {
+const Main: React.FC = () => {
   const ifUserExists = useAppSelector(selectIfUserExists);
   // const books = useAppSelector(selectBooksList);
-
-  const serverRequestCallback = React.useCallback(async () => {
-    try {
-      const response = await bookRequersts.getBooks();
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
 
   return (
     <StyledMainPage>
@@ -32,11 +24,10 @@ const Catalog: React.FC = () => {
         buttonText="Choose a book"
       />
       <FilterCatalogHeader />
-      <CatalogBookList serverRequestCallback={serverRequestCallback} />
-
+      <Catalog />
       {ifUserExists ? null : <CatalogBannerSecondary />}
     </StyledMainPage>
   );
 };
 
-export default Catalog;
+export default Main;

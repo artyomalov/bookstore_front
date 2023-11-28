@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '.';
+import { GetBooksParamsType } from '../types/bookTypes';
 
 export const selectUserData = (state: RootState) => state.user.user;
 export const selectUserId = (state: RootState) => state.user.user.id;
@@ -9,6 +10,18 @@ export const selectIfUserExists = (state: RootState) => {
 };
 
 export const selectBooksList = (state: RootState) => state.book.books;
+
+export const selectFilters = (state: RootState) => {
+  const filters: GetBooksParamsType = {
+    genre_id: state.filters.selectedGenres,
+    min_price: state.filters.priceRange.minPrice,
+    max_price: state.filters.priceRange.maxPrice,
+    sort_type: state.filters.selectedSortType,
+  };
+  return filters;
+};
+
+export const selectGenres = (state: RootState) => state.filters.genres;
 
 export const selectLikedList = (state: RootState) =>
   state.userStaff.userLiked.likedList;

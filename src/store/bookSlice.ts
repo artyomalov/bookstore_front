@@ -1,15 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import bookRequersts from '../api/bookAPI/bookRequests';
-import { BookType } from '../types/bookTypes';
+import {
+  BookType,
+  GetBooksParamsType,
+  GetBooksResponseType,
+} from '../types/bookTypes';
 import { AxiosError } from 'axios';
 
 export const getBooks = createAsyncThunk<
-  BookType[],
-  undefined,
+  GetBooksResponseType,
+  GetBooksParamsType,
   { rejectValue: Error | AxiosError }
->('books/getBooks', async function (_, { rejectWithValue }) {
+>('books/getBooks', async function (params, { rejectWithValue }) {
   try {
-    const response = await bookRequersts.getBooks();
+    const response = await bookRequersts.getBooks(params, 1);
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error());
@@ -30,7 +34,7 @@ const bookSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getBooks.fulfilled, (state, action) => {
-      state.books = action.payload;
+      state.books = action.payload.books;
     });
   },
 });

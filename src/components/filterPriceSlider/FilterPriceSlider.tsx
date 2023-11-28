@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../../store/typedHooks';
-import { setSelectedPriceRange } from '../../store/genresSlice';
+import { setSelectedPriceRange } from '../../store/filtersSlice';
 import StyledFilterPriceSlider from './FilterPriceSlider.style';
 
 //Calculating left position of slider price range
@@ -16,9 +16,9 @@ const calculateSliderRangeRight = (
 };
 
 const FilterPriceSlider: React.FC = () => {
-  const maxValue = 1000;
-  const [sliderMinValue, setSliderMinValue] = React.useState<number>(6);
-  const [sliderMaxValue, setSliderMaxValue] = React.useState<number>(200);
+  const maxValue = 100;
+  const [sliderMinValue, setSliderMinValue] = React.useState<number>(5);
+  const [sliderMaxValue, setSliderMaxValue] = React.useState<number>(20);
   const sliderRangeRef = React.useRef<HTMLSpanElement | null>(null);
   const dispatch = useAppDispatch();
   // get initial price range width
@@ -59,8 +59,8 @@ const FilterPriceSlider: React.FC = () => {
   const onDropSliderHandler = () => {
     dispatch(
       setSelectedPriceRange({
-        minValue: sliderMinValue,
-        maxValue: sliderMaxValue,
+        minPrice: sliderMinValue,
+        maxPrice: sliderMaxValue,
       })
     );
   };
@@ -73,7 +73,7 @@ const FilterPriceSlider: React.FC = () => {
           type="range"
           className="slider__miv-value"
           min="0"
-          max="1000"
+          max="100"
           value={sliderMinValue.toString()}
           onChange={changeMinValueHandler}
           onClick={onDropSliderHandler}
@@ -82,7 +82,7 @@ const FilterPriceSlider: React.FC = () => {
           type="range"
           className="slider__max-value"
           min="0"
-          max="1000"
+          max="100"
           value={sliderMaxValue.toString()}
           onChange={changeMaxValueHandler}
           onClick={onDropSliderHandler}

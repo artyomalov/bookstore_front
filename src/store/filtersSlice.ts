@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import genresRequests from '../api/filtersApi/genresRequersts';
+import filtersRequests from '../api/filtersApi/filtersRequersts';
 import { GenreType } from '../types/bookTypes';
 import { AxiosError } from 'axios';
 
@@ -9,7 +9,7 @@ export const getGenres = createAsyncThunk<
   { rejectValue: Error | AxiosError }
 >('genres/getGenres', async function (empty, { rejectWithValue }) {
   try {
-    const response = await genresRequests.getGengres();
+    const response = await filtersRequests.getGengres();
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error());
@@ -18,34 +18,34 @@ export const getGenres = createAsyncThunk<
 
 type InitialStateType = {
   genres: GenreType[];
-  selectedGenreIds: number[];
+  selectedGenres: number[];
   priceRange: {
-    minValue: number;
-    maxValue: number;
+    minPrice: number;
+    maxPrice: number;
   };
   selectedSortType: string;
 };
 
 const initialState: InitialStateType = {
   genres: [],
-  selectedGenreIds: [],
+  selectedGenres: [],
   priceRange: {
-    minValue: 0,
-    maxValue: 10000,
+    minPrice: 0,
+    maxPrice: 100,
   },
-  selectedSortType: 'all',
+  selectedSortType: 'id',
 };
 
-const genresSlice = createSlice({
-  name: 'genres',
+const filtersSlice = createSlice({
+  name: 'filters',
   initialState: initialState,
   reducers: {
     setSelectedGenres: (state, action: PayloadAction<number[]>) => {
-      state.selectedGenreIds = [...action.payload];
+      state.selectedGenres = [...action.payload];
     },
     setSelectedPriceRange: (
       state,
-      action: PayloadAction<{ minValue: number; maxValue: number }>
+      action: PayloadAction<{ minPrice: number; maxPrice: number }>
     ) => {
       state.priceRange = action.payload;
     },
@@ -61,6 +61,6 @@ const genresSlice = createSlice({
 });
 
 export const { setSelectedGenres, setSelectedPriceRange, setSelectedSortType } =
-  genresSlice.actions;
+  filtersSlice.actions;
 
-export default genresSlice.reducer;
+export default filtersSlice.reducer;

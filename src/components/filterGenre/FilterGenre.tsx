@@ -1,11 +1,12 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import { GenreType } from '../../types/bookTypes';
-import { setSelectedGenres } from '../../store/genresSlice';
+import { setSelectedGenres } from '../../store/filtersSlice';
 import FilterShowHideFilterButton from '../filterShowHideFilterButton/FilterShowHideFilterButton';
 import StyledFilterGenre from './FilterGenre.style';
 import FilterGenreItem from '../filterGenreItem/FilterGenreItem';
 import FilterArrow from '../filterArrow/FilterArrow';
+import { selectGenres } from '../../store/selectors';
 type Props = {
   filterId: string;
   isOpen: boolean;
@@ -20,9 +21,7 @@ const FilterGenre: React.FC<Props> = (props) => {
     dispatch(setSelectedGenres(genresIdsArray));
   }, [genresIdsArray, dispatch]);
 
-  const genresList: GenreType[] = useAppSelector(
-    (state) => state.genres.genres
-  );
+  const genresList: GenreType[] = useAppSelector(selectGenres);
 
   const setGenresStateHandler = (genreId: number) => {
     const alreadyInArrayFlag = genresIdsArray.find((el) => el === genreId);

@@ -1,39 +1,43 @@
 import axiosInstanceBook from './httpCommonBook';
-import {
-  BookType,
-  CommentType,
-  RatingType,
-} from '../../types/bookTypes';
+import { CommentType, RatingType } from '../../types/bookTypes';
+import { GetBooksParamsType } from '../../types/bookTypes';
 import slugify from '../../services/slugify';
+import paramsSerializer from '../../services/paramsSerializer';
+import { GetBooksResponseType } from '../../types/bookTypes';
 
-const getBooks = () => {
-  return axiosInstanceBook.get<BookType[]>('/list/');
+const getBooks = (filtersData: GetBooksParamsType, page: number) => {
+  const params = paramsSerializer({ ...filtersData, page });
+
+  return axiosInstanceBook.get<GetBooksResponseType>(`/list?${params}`);
 };
 
 const getSimularBooks = (slug: string) => {
-  return axiosInstanceBook.get<BookType[]>(`simular/${slug}`);
+  return axiosInstanceBook.get<GetBooksResponseType>(`simular/${slug}/`);
 };
 
-const searchBooks = (title: string) => {
+const searchBooks = (title: string, page: number) => {
   const slug = slugify(title);
-  return axiosInstanceBook.get<BookType[]>(`/search/${slug}`);
+  return axiosInstanceBook.get<GetBooksResponseType>(
+    `/search/${slug}?page=${page}`
+  );
 };
 
 const addComment = (commentText: string, userId: number, bookId: number) => {
-  return axiosInstanceBook.post<CommentType>('comments/create', {
+  return axiosInstanceBook.post<CommentType>('comments/create/', {
     commentText,
     userId,
     bookId,
   });
 };
 const getComments = (slug: string) => {
-  return axiosInstanceBook.get<CommentType[]>(`/comments_list/${slug}`);
+  return axiosInstanceBook.get<CommentType[]>(`/comments_list/${slug}/`);
 };
 
-const getTotalRate = (bookId:number) =>{
-  return axiosInstanceBook.get<{averageRating:number}>(`/rating/get_average/${bookId}`)
-}
-
+const getTotalRate = (bookId: number) => {
+  return axiosInstanceBook.get<{ averageRating: number }>(
+    `/rating/get_average/${bookId}/`
+  );
+};
 
 const addRate = (rate: number, userId: number, bookId: number) => {
   return axiosInstanceBook.post<RatingType>('/rating/rate/', {
