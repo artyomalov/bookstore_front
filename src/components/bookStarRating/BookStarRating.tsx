@@ -3,6 +3,9 @@ import { ReactComponent as BookArrow } from '../../assets/img/book_arrow.svg';
 import starArray from '../../const/starArray';
 import StyledBookStarRating from './BookStarRating.style';
 import BookStar from '../bookStar/BookStar';
+import { selectIfUserExists } from '../../store/selectors';
+import { useAppSelector } from '../../store/typedHooks';
+import { useLocation, useNavigate } from 'react-router';
 
 type Props = {
   onClickRateHandler: (newRate: number) => Promise<void>;
@@ -10,14 +13,19 @@ type Props = {
 
 const BookStarRating: React.FC<Props> = (props) => {
   const [rate, setRate] = React.useState<number>(0);
-
+  const userExists = useAppSelector(selectIfUserExists);
+  const navigate = useNavigate();
+  const location = useLocation();
   const onClickHandler = (rateCount: number) => {
     setRate(rateCount);
   };
 
   const onClickRateButtonHandler = async () => {
-    await props.onClickRateHandler(rate);
-    setRate(0)
+    if (userExists) {
+      await props.onClickRateHandler(rate);
+      setRate(0);
+    }
+    navigate('/auth/login', { state: { location: location } });
   };
 
   return (

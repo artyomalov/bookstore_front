@@ -50,7 +50,7 @@ const App: React.FC = () => {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Main />} />
-        <Route path="/:slug" element={<Book />} />
+        <Route path="book/:slug" element={<Book />} />
         <Route path="auth" element={<SecondaryLayout />}>
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />

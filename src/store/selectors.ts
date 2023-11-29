@@ -9,6 +9,8 @@ export const selectIfUserExists = (state: RootState) => {
   return userEmail === 'not set' ? false : true;
 };
 
+export const selectBooks = (state: RootState) => state.book.books;
+
 export const selectBooksList = (state: RootState) => state.book.books;
 
 export const selectFilters = (state: RootState) => {
@@ -42,4 +44,5 @@ export const selectIsCartItemsExist = createSelector(
   (cartItems) => (cartItems.length > 0 ? true : false)
 );
 
-export const selectBooks = (state: RootState) => state.book.books;
+
+export const selectUserPurchisesList = (state: RootState)=>state.user.user.userPurchasesId

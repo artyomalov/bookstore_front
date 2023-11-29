@@ -1,16 +1,15 @@
 import axiosInstanceUserStaff from './httpCommonUserStaff';
 import {
   CartType,
+  UserPurchasesType,
   UserLikedListType,
   UserLikedType,
-  getUserPurchasesType,
   updateCartType,
+  PurchaseItemType,
 } from '../../types/userStaffTypes';
 
 const getUserLikedBooks = (id: number) => {
-  return axiosInstanceUserStaff.get<UserLikedListType>(
-    `/liked/${id}`
-  );
+  return axiosInstanceUserStaff.get<UserLikedListType>(`/liked/${id}`);
 };
 
 const addToLiked = (id: number, bookSlug: string, inList: boolean) => {
@@ -60,7 +59,13 @@ const updateCartItemQuantity = (id: number, increase: boolean) => {
 };
 
 const getUserPurchases = (id: number) => {
-  return axiosInstanceUserStaff.get<getUserPurchasesType[]>(`/cart_item/${id}`);
+  return axiosInstanceUserStaff.get<UserPurchasesType>(`/purchases_list/${id}`);
+};
+
+const purchaseBooks = (id: number, cartItemsIds: number[]) => {
+  return axiosInstanceUserStaff.put<PurchaseItemType>(`/purchase/${id}`, [
+    cartItemsIds,
+  ]);
 };
 
 const userStaffRequests = {
@@ -70,5 +75,6 @@ const userStaffRequests = {
   updateUserCart,
   updateCartItemQuantity,
   getUserPurchases,
+  purchaseBooks,
 };
 export default userStaffRequests;

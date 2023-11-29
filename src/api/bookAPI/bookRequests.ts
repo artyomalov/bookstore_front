@@ -12,7 +12,7 @@ const getBooks = (filtersData: GetBooksParamsType, page: number) => {
 };
 
 const getSimularBooks = (slug: string) => {
-  return axiosInstanceBook.get<GetBooksResponseType>(`simular/${slug}/`);
+  return axiosInstanceBook.get<GetBooksResponseType>(`simular/${slug}`);
 };
 
 const searchBooks = (title: string, page: number) => {
@@ -30,12 +30,12 @@ const addComment = (commentText: string, userId: number, bookId: number) => {
   });
 };
 const getComments = (slug: string) => {
-  return axiosInstanceBook.get<CommentType[]>(`/comments_list/${slug}/`);
+  return axiosInstanceBook.get<CommentType[]>(`/comments_list/${slug}`);
 };
 
 const getTotalRate = (bookId: number) => {
   return axiosInstanceBook.get<{ averageRating: number }>(
-    `/rating/get_average/${bookId}/`
+    `/rating/get_average/${bookId}`
   );
 };
 

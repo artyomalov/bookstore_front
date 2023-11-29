@@ -11,7 +11,7 @@ type Props = {
 };
 
 const CatalogBookList: React.FC<Props> = (props) => {
-  console.log('render_catalog_list');
+  // console.log('render_catalog_list');
   const [responseData, setResponseData] =
     React.useState<GetBooksResponseType | null>(null);
   const [page, setPage] = React.useState<number>(1);
@@ -22,7 +22,6 @@ const CatalogBookList: React.FC<Props> = (props) => {
         if (data !== undefined) {
           setResponseData(data);
         }
-        console.log(data);
       } catch (error) {
         console.log(error);
       }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledCatalogPagination = styled.div`
-  width: 268px;
+  width: 450px;
   height: 24px;
   margin: 80px auto 32px auto;
   display: flex;
@@ -28,18 +28,7 @@ const StyledCatalogPagination = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 120px;
-  }
-  .catalog-paginaton__circle {
-    border: 2px solid ${(props) => props.theme.colorDark};
-    width: 13.33px;
-    height: 13.33px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: ${(props) => props.theme.transitionStyle};
-    &:hover {
-      background-color: ${(props) => props.theme.colorDark};
-    }
+    width: 70%;
   }
 `;
 

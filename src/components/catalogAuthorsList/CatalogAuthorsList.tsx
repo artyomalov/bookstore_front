@@ -20,7 +20,7 @@ const CatalogAuthorsList: React.FC<Props> = (props) => {
       color={props.color}
     >
       {props.authors.map((author, index, array) => (
-        <span key={author.id} className='authors-list__author'>
+        <span key={author.id} className="authors-list__author">
           {author.name}
           {array.length - 1 === index ? '' : ', '}
         </span>

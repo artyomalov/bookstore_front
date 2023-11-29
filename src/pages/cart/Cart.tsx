@@ -4,10 +4,21 @@ import StyledCart from './Cart.style';
 import CartItemList from '../../components/cartItemList/CartItemList';
 import { Link } from 'react-router-dom';
 import CartItemTotalCount from '../../components/cartItemTotalCount/CartItemTotalCount';
-import { useAppSelector } from '../../store/typedHooks';
+import { useAppDispatch } from '../../store/typedHooks';
 import { selectIsCartItemsExist } from '../../store/selectors';
 import ConditionalRenderServiceComponent from '../../serviceComponents/ConditionalRenderServiceComponent';
+import { purchaseBooks } from '../../store/userStaffSlice';
+
 const Cart: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const buyBooksHandler = async () => {
+    try {
+      await dispatch(purchaseBooks());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <StyledCart>
       <ConditionalRenderServiceComponent
@@ -20,7 +31,9 @@ const Cart: React.FC = () => {
             <Link to="/" className="cart__continue-shopping">
               Continue shopping
             </Link>
-            <button className="cart__checkout">Checkout</button>
+            <button className="cart__checkout" onClick={buyBooksHandler}>
+              Checkout
+            </button>
           </div>
         </>
         <UserStaffEmpty

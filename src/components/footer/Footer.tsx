@@ -33,14 +33,17 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className="footer__nav-link-item">
-                <Link className="footer__nav-link-item-link" to="/purchases">
+                <Link
+                  className="footer__nav-link-item-link"
+                  to={userEmail === 'not set' ? '/auth/login' : '/purchases'}
+                >
                   Purchases
                 </Link>
               </li>
               <li className="footer__nav-link-item">
                 <Link
                   className="footer__nav-link-item-link"
-                  to={userEmail === 'not set' ? '/auth/login' : 'profile'}
+                  to={userEmail === 'not set' ? '/auth/login' : '/profile'}
                 >
                   My Account
                 </Link>
@@ -48,7 +51,7 @@ const Footer: React.FC = () => {
               <li className="footer__nav-link-item">
                 <Link
                   className="footer__nav-link-item-link"
-                  to={userEmail === 'not set' ? '/auth/login' : 'cart'}
+                  to={userEmail === 'not set' ? '/auth/login' : '/cart'}
                 >
                   Cart
                 </Link>

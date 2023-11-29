@@ -4,10 +4,11 @@ import { AxiosError } from 'axios';
 import {
   UserLikedType,
   CartItemType,
-  getUserPurchasesType,
   CartType,
   updateCartType,
   UserLikedListType,
+  UserPurchasesType,
+  PurchaseItemType,
 } from '../types/userStaffTypes';
 import { RootState } from '.';
 
@@ -121,13 +122,32 @@ export const updateCartItemQuantity = createAsyncThunk<
 });
 
 export const getUserPurchases = createAsyncThunk<
-  getUserPurchasesType[],
+  PurchaseItemType[],
   undefined,
   { rejectValue: Error | AxiosError; state: RootState }
 >('userStaff/purchases', async (_, { rejectWithValue, getState }) => {
   try {
-    const userId = getState().user.user.userPurchasesId;
-    const response = await userStaffRequests.getUserPurchases(userId);
+    const purchasesId = getState().user.user.userPurchasesId;
+    const response = await userStaffRequests.getUserPurchases(purchasesId);
+    return response.data.purchases;
+  } catch (error: any) {
+    return rejectWithValue(error());
+  }
+});
+
+export const purchaseBooks = createAsyncThunk<
+  PurchaseItemType,
+  undefined,
+  { rejectValue: Error | AxiosError; state: RootState }
+>('userStaff/buyBooks', async (_, { rejectWithValue, getState }) => {
+  try {
+    const cartItems = getState().userStaff.userCart.cartItemsList;
+    const cartItemsIds = cartItems.map((cartItem: CartItemType) => cartItem.id);
+    const purchasesId = getState().user.user.userPurchasesId;
+    const response = await userStaffRequests.purchaseBooks(
+      purchasesId,
+      cartItemsIds
+    );
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error());
@@ -140,7 +160,7 @@ type InitialStateType = {
     cartItemsList: CartItemType[];
     cartItemsTotalSum: number;
   };
-  userPurchases: getUserPurchasesType[];
+  userPurchases: PurchaseItemType[];
 };
 
 const initialState: InitialStateType = {
@@ -197,6 +217,10 @@ const userStaffSlice = createSlice({
       if (updatedCartItem)
         updatedCartItem.quantity = action.payload.cartItem.quantity;
       state.userCart.cartItemsTotalSum = action.payload.total;
+    });
+    builder.addCase(purchaseBooks.fulfilled, (state, action) => {
+      state.userCart.cartItemsList = [];
+      state.userCart.cartItemsTotalSum = 0;
     });
   },
 });

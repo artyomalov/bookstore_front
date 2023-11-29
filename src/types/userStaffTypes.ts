@@ -37,4 +37,19 @@ export type CartType = {
   total: number;
 };
 
-export type getUserPurchasesType = CartItemType & { boughtTime: string };
+export type PurchaseItemType = {
+  id: number;
+  quantity: number;
+  title: string;
+  slug: string;
+  coverType: string;
+  coverImage: string;
+  price: number;
+  authors: AuthorType[];
+  boughtTime: string;
+};
+
+export type UserPurchasesType = {
+  id: number;
+  purchases: PurchaseItemType[];
+};

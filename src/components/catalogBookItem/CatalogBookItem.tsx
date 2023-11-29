@@ -42,7 +42,7 @@ const CatalogBookItem: React.FC<Props> = React.memo((props) => {
       isavalible={price === null ? 'not avalible' : 'avalible'}
     >
       <Link
-        to={`/${props.slug}`}
+        to={`/book/${props.slug}`}
         className="catalog-book-item__single-page-link"
         state={{ ...props }}
       >
@@ -70,7 +70,7 @@ const CatalogBookItem: React.FC<Props> = React.memo((props) => {
       <div className="catalog-book-item__add-to-cart-container">
         <Link
           className="catalog-book-item__add-to-cart-link"
-          to={`/${props.slug}`}
+          to={`/book/${props.slug}`}
           state={{ ...props }}
         >
           {price === null ? 'Not available' : props.hardcoverPrice}
