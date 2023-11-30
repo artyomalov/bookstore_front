@@ -7,11 +7,14 @@ import authHide from '../../assets/img/auth_hide.svg';
 import { validationSchemaSignUp } from '../../validationSchemas/loginSignupSchema';
 import userRequests from '../../api/userAPI/userRequests';
 import { useLocation, useNavigate } from 'react-router';
+import { useAppDispatch } from '../../store/typedHooks';
+import { showStandartErrorNotification } from '../../store/notificationSlice';
 const Signup = 'Sign up';
 
 const FormSignUp: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useAppDispatch();
   // const fromPage = location.state?.state?.pathname || '/';
   type ValuesType = {
     email: string;
@@ -21,7 +24,7 @@ const FormSignUp: React.FC = () => {
 
   const onSubmitHandler = async (values: ValuesType) => {
     try {
-      const response = await userRequests.createUser({
+      await userRequests.createUser({
         email: values.email,
         password: values.password,
         confirmPassword: values.repeatPassword,
@@ -29,6 +32,7 @@ const FormSignUp: React.FC = () => {
 
       navigate('/login', { replace: true });
     } catch (error) {
+      dispatch(showStandartErrorNotification);
       console.log(error);
     }
   };

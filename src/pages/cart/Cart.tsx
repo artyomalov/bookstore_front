@@ -12,11 +12,7 @@ import { purchaseBooks } from '../../store/userStaffSlice';
 const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const buyBooksHandler = async () => {
-    try {
-      await dispatch(purchaseBooks());
-    } catch (error) {
-      console.log(error);
-    }
+    await dispatch(purchaseBooks());
   };
 
   return (

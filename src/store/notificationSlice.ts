@@ -1,11 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { act } from '@testing-library/react';
-
-enum notificationType {
-  Sucsess = 'sucsess',
-  Warn = 'warn',
-  Error = 'error',
-}
+import { notificationType } from '../types/notificationTypes';
 
 type InitialStateType = {
   isVisible: boolean;
@@ -35,10 +29,22 @@ const notificationSlice = createSlice({
       state.text = action.payload.text;
       state.type = action.payload.type;
     },
-    hideNotification: (state, action: PayloadAction<boolean>) => {
-      state.isVisible = action.payload;
+    hideNotification: (state, action: PayloadAction<undefined>) => {
+      state.isVisible = false;
     },
   },
 });
 
+
+//Because this functions is been used in plenty places of the code, it was saved as separate function to avoid code duplication
+export const showStandartErrorNotification = () =>
+  showNotification({
+    isVisible: true,
+    text: 'Internal server error. Please reload the page.',
+    type: notificationType.Error,
+  });
+
+
+
 export default notificationSlice.reducer;
+export const { showNotification, hideNotification } = notificationSlice.actions;

@@ -6,6 +6,8 @@ import {
   UpdateDeleteUserPasswordType,
 } from '../types/userTypes';
 import { AxiosError } from 'axios';
+import { showStandartErrorNotification } from './notificationSlice';
+import { AppDispatch } from '.';
 
 export const getUser = createAsyncThunk<
   UserType,
@@ -34,21 +36,22 @@ export const getUser = createAsyncThunk<
 export const updateUserData = createAsyncThunk<
   UserType,
   UpdateUserDataType,
-  { rejectValue: Error | AxiosError }
->('user/updateUserData', async function (updatedUserData, { rejectWithValue }) {
-  try {
-    const response = await userRequests.updateUserData(updatedUserData);
-    if (response.status !== 200) {
-      throw new Error(response.statusText);
+  { rejectValue: Error | AxiosError; dispatch: AppDispatch }
+>(
+  'user/updateUserData',
+  async function (updatedUserData, { rejectWithValue, dispatch }) {
+    try {
+      const response = await userRequests.updateUserData(updatedUserData);
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
+      }
+      return response.data;
+    } catch (error: any) {
+      dispatch(showStandartErrorNotification);
+      return rejectWithValue(error);
     }
-    return response.data;
-  } catch (error: any) {
-    if (error instanceof AxiosError) {
-      rejectWithValue(error.response?.data);
-    }
-    return rejectWithValue(error);
   }
-});
+);
 
 type InitialStateType = {
   user: UserType;

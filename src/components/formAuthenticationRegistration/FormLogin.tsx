@@ -31,9 +31,6 @@ const FormLogin: React.FC = () => {
         values.password
       );
 
-      if (response.status !== 200) {
-        throw new Error(response.statusText);
-      }
       dispatch(setUser(response.data.user_data));
       localStorage.setItem('access', response.data.token_data.access);
       localStorage.setItem('refresh', response.data.token_data.refresh);

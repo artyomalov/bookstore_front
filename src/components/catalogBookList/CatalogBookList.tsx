@@ -3,6 +3,8 @@ import StyledCatalogBookList from './CatalogBookList.style';
 import CatalogBookItem from '../catalogBookItem/CatalogBookItem';
 import { GetBooksResponseType } from '../../types/bookTypes';
 import CatalogPagination from '../catalogPagination/CatalogPagination';
+import { showStandartErrorNotification } from '../../store/notificationSlice';
+import { useAppDispatch } from '../../store/typedHooks';
 
 type Props = {
   serverRequestCallback: (
@@ -11,9 +13,9 @@ type Props = {
 };
 
 const CatalogBookList: React.FC<Props> = (props) => {
-  // console.log('render_catalog_list');
   const [responseData, setResponseData] =
     React.useState<GetBooksResponseType | null>(null);
+  const dispatch = useAppDispatch();
   const [page, setPage] = React.useState<number>(1);
   React.useEffect(() => {
     (async () => {
@@ -23,6 +25,7 @@ const CatalogBookList: React.FC<Props> = (props) => {
           setResponseData(data);
         }
       } catch (error) {
+        dispatch(showStandartErrorNotification);
         console.log(error);
       }
     })();

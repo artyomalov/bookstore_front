@@ -2,12 +2,14 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import filtersRequests from '../api/filtersApi/filtersRequersts';
 import { GenreType } from '../types/bookTypes';
 import { AxiosError } from 'axios';
+import { AppDispatch } from '.';
+import { showStandartErrorNotification } from './notificationSlice';
 
 export const getGenres = createAsyncThunk<
   GenreType[],
-  string,
-  { rejectValue: Error | AxiosError }
->('genres/getGenres', async function (empty, { rejectWithValue }) {
+  undefined,
+  { rejectValue: Error | AxiosError; dispatch: AppDispatch }
+>('genres/getGenres', async function (_, { rejectWithValue, dispatch }) {
   try {
     const response = await filtersRequests.getGengres();
     if (response.status > 299) {
@@ -15,6 +17,7 @@ export const getGenres = createAsyncThunk<
     }
     return response.data;
   } catch (error: any) {
+    dispatch(showStandartErrorNotification);
     return rejectWithValue(error());
   }
 });

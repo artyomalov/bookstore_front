@@ -1,14 +1,15 @@
 import React from 'react';
 import StyledBookComments from './bookComments.style';
 import { CommentType } from '../../types/bookTypes';
-import BookComment from '../bookComment/BookComment';
 import bookRequersts from '../../api/bookAPI/bookRequests';
 import BookAddCommentInput from '../bookAddCommentInput/BookAddCommentInput';
 import ConditionalRenderServiceComponent from '../../serviceComponents/ConditionalRenderServiceComponent';
 import { selectIfUserExists, selectUserData } from '../../store/selectors';
 import CatalogBannerSecondary from '../catalogBannerSecondary/CatalogBannerSecondary';
 import BookCommentsList from '../bookCommentsList/BookCommentsList';
-import { useAppSelector } from '../../store/typedHooks';
+import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
+import { showNotification } from '../../store/notificationSlice';
+import { notificationType } from '../../types/notificationTypes';
 type Props = {
   slug: string;
   bookId: number;
@@ -19,12 +20,21 @@ const BookComments: React.FC<Props> = (props) => {
     null
   );
   const userData = useAppSelector(selectUserData);
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
     (async () => {
       try {
         const response = await bookRequersts.getComments(props.slug);
+        if (response.statusText !== 'OK') throw new Error();
         setCommentList(response.data);
       } catch (error) {
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: 'Internal server error. Please reload the page.',
+            type: notificationType.Error,
+          })
+        );
         console.log(error);
       }
     })();

@@ -13,6 +13,7 @@ import { updateUserCart } from '../../store/userStaffSlice';
 import { selectIfUserExists } from '../../store/selectors';
 import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
 import bookRequersts from '../../api/bookAPI/bookRequests';
+import { showStandartErrorNotification } from '../../store/notificationSlice';
 
 const Book: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,12 +21,12 @@ const Book: React.FC = () => {
   const location = useLocation();
   const book = location.state;
   const userExists = useAppSelector(selectIfUserExists);
-
   const serverRequestCallback = React.useCallback(async () => {
     try {
       const response = await bookRequersts.getSimularBooks(book.slug);
       return response.data;
     } catch (error) {
+      dispatch(showStandartErrorNotification);
       console.log(error);
     }
   }, [book.slug]);

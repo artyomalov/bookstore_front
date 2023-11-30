@@ -34,7 +34,7 @@ const App: React.FC = () => {
           await dispatch(getLikedBooks());
           await dispatch(getUserCart());
         }
-        const genresResponse = await dispatch(getGenres('empty'));
+        const genresResponse = await dispatch(getGenres());
         if (genresResponse.meta.requestStatus === 'rejected') setIsError(true);
         if (genresResponse !== undefined) setIsInitialized(true);
       } catch (error) {

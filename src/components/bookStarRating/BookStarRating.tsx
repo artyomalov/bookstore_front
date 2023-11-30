@@ -24,6 +24,7 @@ const BookStarRating: React.FC<Props> = (props) => {
     if (userExists) {
       await props.onClickRateHandler(rate);
       setRate(0);
+      return;
     }
     navigate('/auth/login', { state: { location: location } });
   };

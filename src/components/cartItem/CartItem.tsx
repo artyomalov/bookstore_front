@@ -9,17 +9,14 @@ import {
   updateCartItemQuantity,
   updateUserCart,
 } from '../../store/userStaffSlice';
+import { showStandartErrorNotification } from '../../store/notificationSlice';
 
 const CartItem: React.FC<CartItemType> = React.memo((props) => {
   const dispatch = useAppDispatch();
   const changeCartItemCount = async (increase: boolean) => {
-    try {
-      await dispatch(
-        updateCartItemQuantity({ id: props.id, increase: increase })
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    await dispatch(
+      updateCartItemQuantity({ id: props.id, increase: increase })
+    );
   };
 
   const deleteItemHandler = async () => {

@@ -4,11 +4,14 @@ import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import bookRequersts from '../../api/bookAPI/bookRequests';
 import { useLocation } from 'react-router';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
+import { useAppDispatch } from '../../store/typedHooks';
+import { showStandartErrorNotification } from '../../store/notificationSlice';
 
 const Search: React.FC = () => {
   // console.log('render');
 
   const [booksFound, setBooksFound] = React.useState<boolean>(true);
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const ref = React.useRef<string>(location.state);
   if (ref.current !== location.state) {
@@ -23,6 +26,7 @@ const Search: React.FC = () => {
       }
       return response.data;
     } catch (error) {
+      dispatch(showStandartErrorNotification);
       console.log(error);
     }
   };

@@ -7,20 +7,31 @@ import {
   CartType,
   updateCartType,
   UserLikedListType,
-  UserPurchasesType,
   PurchaseItemType,
 } from '../types/userStaffTypes';
 import { AppDispatch, RootState } from '.';
+import { showNotification } from './notificationSlice';
+import { notificationType } from '../types/notificationTypes';
 
 export const getLikedBooks = createAsyncThunk<
   UserLikedListType,
   undefined,
-  { rejectValue: Error | AxiosError; state: RootState }
->('userStaff/getLiked', async (_, { rejectWithValue, getState }) => {
+  { rejectValue: Error | AxiosError; state: RootState; dispatch: AppDispatch }
+>('userStaff/getLiked', async (_, { rejectWithValue, getState, dispatch }) => {
   try {
     const userId = getState().user.user.userLikedId;
     const response = await userStaffRequests.getUserLikedBooks(userId);
 
+    if (response.statusText !== 'OK') {
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
+      throw new Error(response.statusText);
+    }
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error());
@@ -41,8 +52,17 @@ export const addToLiked = createAsyncThunk<
         params.bookSlug,
         params.inList
       );
+
       return response.data;
     } catch (error: any) {
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
+
       return rejectWithValue(error());
     }
   }
@@ -51,18 +71,24 @@ export const addToLiked = createAsyncThunk<
 export const getUserCart = createAsyncThunk<
   CartType,
   undefined,
-  { rejectValue: Error | AxiosError; state: RootState }
->('userStaff/getCart', async (_, { rejectWithValue, getState }) => {
+  { rejectValue: Error | AxiosError; state: RootState; dispatch: AppDispatch }
+>('userStaff/getCart', async (_, { rejectWithValue, getState, dispatch }) => {
   try {
     const userId = getState().user.user.userCartId;
     const response = await userStaffRequests.getUserCart(userId);
-
     return {
       id: response.data.id,
       cartItemsList: response.data.cartItemsList,
       total: response.data.total,
     };
   } catch (error: any) {
+    dispatch(
+      showNotification({
+        isVisible: true,
+        text: 'Internal server error. Please reload the page.',
+        type: notificationType.Error,
+      })
+    );
     return rejectWithValue(error());
   }
 });
@@ -75,12 +101,12 @@ export const updateUserCart = createAsyncThunk<
     price?: number;
     cartItemId?: number;
   },
-  { rejectValue: Error | AxiosError; state: RootState }
+  { rejectValue: Error | AxiosError; state: RootState; dispatch: AppDispatch }
 >(
   'userStaff/updateCart',
   async (
     { bookSlug, coverType, price, cartItemId },
-    { rejectWithValue, getState }
+    { rejectWithValue, getState, dispatch }
   ) => {
     const cartId = getState().user.user.userCartId;
     try {
@@ -91,14 +117,38 @@ export const updateUserCart = createAsyncThunk<
           coverType: coverType,
           price: price,
         });
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: 'Book has been added to the cart.',
+            type: notificationType.Sucsess,
+          })
+        );
         return response.data;
       }
       const response = await userStaffRequests.updateUserCart({
         id: cartId,
         cartItemId: cartItemId,
       });
+      if (response.statusText !== 'OK') {
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: 'Internal server error. Please reload the page.',
+            type: notificationType.Error,
+          })
+        );
+        throw new Error(response.statusText);
+      }
       return response.data;
     } catch (error: any) {
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
       return rejectWithValue(error());
     }
   }
@@ -110,30 +160,46 @@ export const updateCartItemQuantity = createAsyncThunk<
     id: number;
     increase: boolean;
   },
-  { rejectValue: Error | AxiosError }
->('userStaff/updateCartItemQuantity', async (params, { rejectWithValue }) => {
-  try {
-    const response = await userStaffRequests.updateCartItemQuantity(
-      params.id,
-      params.increase
-    );
-
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(error());
+  { rejectValue: Error | AxiosError; dispatch: AppDispatch }
+>(
+  'userStaff/updateCartItemQuantity',
+  async (params, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await userStaffRequests.updateCartItemQuantity(
+        params.id,
+        params.increase
+      );
+      return response.data;
+    } catch (error: any) {
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
+      return rejectWithValue(error());
+    }
   }
-});
+);
 
 export const getUserPurchases = createAsyncThunk<
   PurchaseItemType[],
   undefined,
-  { rejectValue: Error | AxiosError; state: RootState }
->('userStaff/purchases', async (_, { rejectWithValue, getState }) => {
+  { rejectValue: Error | AxiosError; state: RootState; dispatch: AppDispatch }
+>('userStaff/purchases', async (_, { rejectWithValue, getState, dispatch }) => {
   try {
     const purchasesId = getState().user.user.userPurchasesId;
     const response = await userStaffRequests.getUserPurchases(purchasesId);
     return response.data.purchases;
   } catch (error: any) {
+    dispatch(
+      showNotification({
+        isVisible: true,
+        text: 'Internal server error. Please reload the page.',
+        type: notificationType.Error,
+      })
+    );
     return rejectWithValue(error());
   }
 });
@@ -141,8 +207,8 @@ export const getUserPurchases = createAsyncThunk<
 export const purchaseBooks = createAsyncThunk<
   PurchaseItemType,
   undefined,
-  { rejectValue: Error | AxiosError; state: RootState }
->('userStaff/buyBooks', async (_, { rejectWithValue, getState }) => {
+  { rejectValue: Error | AxiosError; state: RootState; dispatch: AppDispatch }
+>('userStaff/buyBooks', async (_, { rejectWithValue, getState, dispatch }) => {
   try {
     const cartItems = getState().userStaff.userCart.cartItemsList;
     const cartItemsIds = cartItems.map((cartItem: CartItemType) => cartItem.id);
@@ -151,8 +217,22 @@ export const purchaseBooks = createAsyncThunk<
       purchasesId,
       cartItemsIds
     );
+    dispatch(
+      showNotification({
+        isVisible: true,
+        text: 'Thank you fore your purchase. We will coonect with you soon.',
+        type: notificationType.Sucsess,
+      })
+    );
     return response.data;
   } catch (error: any) {
+    dispatch(
+      showNotification({
+        isVisible: true,
+        text: 'Internal server error. Please reload the page.',
+        type: notificationType.Error,
+      })
+    );
     return rejectWithValue(error());
   }
 });

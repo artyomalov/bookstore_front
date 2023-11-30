@@ -1,6 +1,6 @@
 import React from 'react';
 import StyledPurchasesList from './PurchasesList.style';
-import { useAppSelector } from '../../store/typedHooks';
+import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import {
   selectLikedList,
   selectUserPurchisesList,
@@ -9,11 +9,13 @@ import PurchaseItem from '../purchaseItem/PurchaseItem';
 import { PurchaseItemType } from '../../types/userStaffTypes';
 import userStaffRequests from '../../api/userStaffAPI/userStaffRequests';
 import UserStaffEmpty from '../userStaffEmpty/UserStaffEmpty';
+import { showStandartErrorNotification } from '../../store/notificationSlice';
 
 const PurchasesList: React.FC = () => {
   const [purchasesList, setPurchasesList] = React.useState<PurchaseItemType[]>(
     []
   );
+  const dispatch = useAppDispatch();
   const purchasesListId = useAppSelector(selectUserPurchisesList);
   React.useEffect(() => {
     (async () => {
@@ -23,6 +25,7 @@ const PurchasesList: React.FC = () => {
         );
         if (response.data) setPurchasesList(response.data.purchases);
       } catch (error) {
+        dispatch(showStandartErrorNotification);
         console.log(error);
       }
     })();
