@@ -10,6 +10,9 @@ export const getGenres = createAsyncThunk<
 >('genres/getGenres', async function (empty, { rejectWithValue }) {
   try {
     const response = await filtersRequests.getGengres();
+    if (response.status > 299) {
+      throw new Error("can't load data");
+    }
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error());

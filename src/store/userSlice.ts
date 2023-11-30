@@ -52,9 +52,6 @@ export const updateUserData = createAsyncThunk<
 
 type InitialStateType = {
   user: UserType;
-  status: string | null;
-  message: string | null;
-  isError: boolean;
 };
 
 const unauthorizedUser = {
@@ -69,9 +66,6 @@ const unauthorizedUser = {
 
 const initialState: InitialStateType = {
   user: unauthorizedUser,
-  status: null,
-  message: 'Something went wrong. Please try again later',
-  isError: false,
 };
 
 const userSlice = createSlice({
@@ -88,47 +82,20 @@ const userSlice = createSlice({
     setUserUnauthrized(state, action) {
       state.user = unauthorizedUser;
     },
-    setMessage(state, action: PayloadAction<string>) {
-      state.message = action.payload;
-    },
-    setIsError(state, action: PayloadAction<boolean>) {
-      state.isError = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUser.pending, (state, action) => {
-        state.status = 'pending';
-      })
       .addCase(getUser.fulfilled, (state, action) => {
         const user = { ...action.payload };
-        if (user.fullName === null) {
-          user.fullName = 'Not set';
-        }
-        state.status = 'fullfilled';
-        state.message = 'Got user';
-      })
-      .addCase(getUser.rejected, (state, action) => {
-        state.status = 'rejected';
-        state.message = 'Something went wrong. Please try again later';
-      })
-      .addCase(updateUserData.pending, (state, action) => {
-        state.status = 'rending';
       })
       .addCase(updateUserData.fulfilled, (state, action) => {
         state.user.fullName = action.payload.fullName;
         state.user.email = action.payload.email;
         state.user.avatar = action.payload.avatar;
-        state.status = 'fullfilled';
-      })
-      .addCase(updateUserData.rejected, (state, action) => {
-        state.status = 'rejected';
-        state.message = 'Something went wrong. Please try again later';
       });
   },
 });
 
-export const { setUser, setMessage, setIsError, setUserUnauthrized } =
-  userSlice.actions;
+export const { setUser, setUserUnauthrized } = userSlice.actions;
 
 export default userSlice.reducer;

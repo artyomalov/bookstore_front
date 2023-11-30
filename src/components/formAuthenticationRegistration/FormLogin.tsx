@@ -7,7 +7,7 @@ import authMail from '../../assets/img/auth_mail.svg';
 import authHide from '../../assets/img/auth_hide.svg';
 import { validationSchemaLogIn } from '../../validationSchemas/loginSignupSchema';
 import { useAppDispatch } from '../../store/typedHooks';
-import { setIsError, setMessage, setUser } from '../../store/userSlice';
+import { setUser } from '../../store/userSlice';
 import userRequests from '../../api/userAPI/userRequests';
 import { getLikedBooks, getUserCart } from '../../store/userStaffSlice';
 
@@ -39,13 +39,9 @@ const FormLogin: React.FC = () => {
       localStorage.setItem('refresh', response.data.token_data.refresh);
       await dispatch(getLikedBooks());
       await dispatch(getUserCart());
-      dispatch(setIsError(false));
       navigate(fromPage, { replace: true });
     } catch (err) {
       console.log(err);
-      dispatch(setIsError(true));
-      dispatch(setMessage('User not found'));
-      setTimeout(() => dispatch(setIsError(false)), 3000);
     }
   };
 

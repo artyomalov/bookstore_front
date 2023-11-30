@@ -10,7 +10,7 @@ import {
   UserPurchasesType,
   PurchaseItemType,
 } from '../types/userStaffTypes';
-import { RootState } from '.';
+import { AppDispatch, RootState } from '.';
 
 export const getLikedBooks = createAsyncThunk<
   UserLikedListType,
@@ -30,20 +30,23 @@ export const getLikedBooks = createAsyncThunk<
 export const addToLiked = createAsyncThunk<
   UserLikedType,
   { bookSlug: string; inList: boolean },
-  { rejectValue: Error | AxiosError; state: RootState }
->('userStaff/addToLiked', async (params, { rejectWithValue, getState }) => {
-  try {
-    const userLikedId = getState().user.user.userLikedId;
-    const response = await userStaffRequests.addToLiked(
-      userLikedId,
-      params.bookSlug,
-      params.inList
-    );
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(error());
+  { rejectValue: Error | AxiosError; state: RootState; dispatch: AppDispatch }
+>(
+  'userStaff/addToLiked',
+  async (params, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const userLikedId = getState().user.user.userLikedId;
+      const response = await userStaffRequests.addToLiked(
+        userLikedId,
+        params.bookSlug,
+        params.inList
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error());
+    }
   }
-});
+);
 
 export const getUserCart = createAsyncThunk<
   CartType,

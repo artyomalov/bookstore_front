@@ -5,7 +5,7 @@ import { FormikValues, useFormik } from 'formik';
 import { validationSchemaUserProfile } from '../../validationSchemas/loginSignupSchema';
 import StyledProfileDataContainer from './Profile.style';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
-import { setIsError, setMessage, updateUserData } from '../../store/userSlice';
+import { updateUserData } from '../../store/userSlice';
 import authMail from '../../assets/img/auth_mail.svg';
 import authHide from '../../assets/img/auth_hide.svg';
 import userProfileAddPhoto from '../../assets/img/user_profile_add_photo.svg';
@@ -14,7 +14,6 @@ import userProfileLogo from '../../assets/img/user_profile_input.svg';
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-  const errorMessage = useAppSelector((state) => state.user.message);
 
   const [changeDataFlag, setChangeDataFlag] = React.useState(false);
   const [changePasswordFlag, setChangePasswordFlag] = React.useState(false);

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledHeader = styled.div`
   width: ${(props) => props.theme.mainWidth};
-  margin: 0 auto;
+  margin: 24px auto 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;

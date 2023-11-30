@@ -44,5 +44,7 @@ export const selectIsCartItemsExist = createSelector(
   (cartItems) => (cartItems.length > 0 ? true : false)
 );
 
+export const selectUserPurchisesList = (state: RootState) =>
+  state.user.user.userPurchasesId;
 
-export const selectUserPurchisesList = (state: RootState)=>state.user.user.userPurchasesId
+export const selectNotificationData = (state: RootState) => state.notifications;

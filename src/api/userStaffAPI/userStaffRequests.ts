@@ -59,11 +59,11 @@ const updateCartItemQuantity = (id: number, increase: boolean) => {
 };
 
 const getUserPurchases = (id: number) => {
-  return axiosInstanceUserStaff.get<UserPurchasesType>(`/purchases_list/${id}`);
+  return axiosInstanceUserStaff.get<UserPurchasesType>(`/purchases/${id}`);
 };
 
 const purchaseBooks = (id: number, cartItemsIds: number[]) => {
-  return axiosInstanceUserStaff.put<PurchaseItemType>(`/purchase/${id}`, [
+  return axiosInstanceUserStaff.put<PurchaseItemType>(`/purchases/${id}`, [
     cartItemsIds,
   ]);
 };
