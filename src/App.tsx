@@ -1,5 +1,5 @@
-import { unwrapResult } from '@reduxjs/toolkit'
-import React from 'react';
+import { unwrapResult } from '@reduxjs/toolkit';
+import React, { CSSProperties } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/mainLayout/MainLayout';
 import Main from './pages/main/Main';
@@ -9,7 +9,6 @@ import RequireAuth from './serviceComponents/RequireAuth';
 import Profile from './pages/profile/Profile';
 import { useAppDispatch } from './store/typedHooks';
 import { getUser } from './store/userSlice';
-import ImageGrid from './skeletons/mainSkeleton';
 import Cart from './pages/cart/Cart';
 import Liked from './pages/liked/Liked';
 import { getGenres } from './store/filtersSlice';
@@ -19,6 +18,15 @@ import Book from './pages/book/Book';
 import { getLikedBooks, getUserCart } from './store/userStaffSlice';
 import Purchases from './pages/purchases/Purchases';
 import Search from './pages/search/Search';
+import ClipLoader from 'react-spinners/ClipLoader';
+import MoonLoader from 'react-spinners/MoonLoader';
+import GridLoader from 'react-spinners/GridLoader';
+
+const override: CSSProperties = {
+  display: 'block',
+  margin: '0 auto',
+  borderColor: 'red',
+};
 
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = React.useState(false);
@@ -94,10 +102,23 @@ const App: React.FC = () => {
     </Routes>
   );
 
-  return isInitialized ? appOrError : <ImageGrid />;
+  return isInitialized ? (
+    appOrError
+  ) : (
+      <GridLoader
+        color="#344966"
+        loading={true}
+        cssOverride={{
+          display: 'block',
+          margin: '28vh auto',
+          borderColor: '#344966',
+        }}
+        size={120}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        speedMultiplier={0.4}
+      />
+  );
 };
 
 export default App;
-function getCart(): any {
-  throw new Error('Function not implemented.');
-}

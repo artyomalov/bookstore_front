@@ -7,6 +7,7 @@ const StyledBanner = styled.div`
 
   .banner__image-frame {
     width: 100%;
+    height: 400px;
     border-radius: ${(props) => props.theme.borderRadius};
     overflow: hidden;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const range = (start: number, end: number) => {
+export const createRange = (start: number, end: number) => {
   let length = end - start + 1;
   /*
         Create an array of certain length and set the elements within it from
@@ -26,7 +26,7 @@ export const usePagination = (
         paginationComponent, we return the range [1..totalPageCount]
       */
     if (totalPageNumbers >= totalPageCount) {
-      return range(1, totalPageCount);
+      return createRange(1, totalPageCount);
     }
 
     /*
@@ -52,7 +52,7 @@ export const usePagination = (
       */
     if (!shouldShowLeftDots && shouldShowRightDots) {
       let leftItemCount = 3 + 2 * siblingCount;
-      let leftRange = range(1, leftItemCount);
+      let leftRange = createRange(1, leftItemCount);
 
       return [...leftRange, DOTS, totalPageCount];
     }
@@ -62,7 +62,7 @@ export const usePagination = (
       */
     if (shouldShowLeftDots && !shouldShowRightDots) {
       let rightItemCount = 3 + 2 * siblingCount;
-      let rightRange = range(
+      let rightRange = createRange(
         totalPageCount - rightItemCount + 1,
         totalPageCount
       );
@@ -73,7 +73,7 @@ export const usePagination = (
           Case 4: Both left and right dots to be shown
       */
     if (shouldShowLeftDots && shouldShowRightDots) {
-      let middleRange = range(leftSiblingIndex, rightSiblingIndex);
+      let middleRange = createRange(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
   }, [totalPageCount, siblingCount, currentPage]);

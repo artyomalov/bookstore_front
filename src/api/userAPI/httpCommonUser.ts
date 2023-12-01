@@ -22,10 +22,11 @@ axiosInstanceUser.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const { response, config } = error;
+    console.log('error')
     try {
       const refreshToken: string | null = localStorage.getItem('refresh');
       if (refreshToken !== null) {
+        const { response, config } = error;
         if (response.status === 401) {
           {
             const res = await axios.post(

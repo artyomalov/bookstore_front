@@ -35,15 +35,12 @@ const getUser = () => {
 const updateUserData = (updatedUserData: UpdateUserDataType) => {
   const data = new FormData();
   data.append('email', updatedUserData.email);
-  data.append('full_name', updatedUserData.fullName);
+  data.append('fullName', updatedUserData.fullName);
   data.append('avatar', updatedUserData.avatar);
-  data.append('old_password', updatedUserData.oldPassword);
-  data.append('new_password', updatedUserData.newPassword);
-  // console.log(updatedUserData);
-  console.log(data);
-  
+  data.append('oldPassword', updatedUserData.oldPassword);
+  data.append('newPassword', updatedUserData.newPassword);
+
   return axiosInstanceUser.put<UserType>('/profile/', data);
-  // return axiosInstanceUser.put<UserType>('/profile/', updateUserData);
 };
 
 type UpdatePasswordType = {

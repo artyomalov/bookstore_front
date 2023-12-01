@@ -10,6 +10,7 @@ import BookCommentsList from '../bookCommentsList/BookCommentsList';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import { showNotification } from '../../store/notificationSlice';
 import { notificationType } from '../../types/notificationTypes';
+import { GridLoader } from 'react-spinners';
 type Props = {
   slug: string;
   bookId: number;
@@ -57,7 +58,19 @@ const BookComments: React.FC<Props> = (props) => {
       <>
         <h2 className="comment-list-title">Comments</h2>
         {commentsList === null ? (
-          <h1>loading...</h1>
+          <GridLoader
+          color="#344966"
+          loading={true}
+          cssOverride={{
+            display: 'block',
+            margin: '38px auto 132px auto',
+            borderColor: '#344966',
+          }}
+          size={70}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          speedMultiplier={0.4}
+        />
         ) : (
           <BookCommentsList commentsList={commentsList} />
         )}

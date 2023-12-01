@@ -10,24 +10,23 @@ import authMail from '../../assets/img/auth_mail.svg';
 import authHide from '../../assets/img/auth_hide.svg';
 import userProfileAddPhoto from '../../assets/img/user_profile_add_photo.svg';
 import userProfileLogo from '../../assets/img/user_profile_input.svg';
+import mediaBaseUrl from '../../const/mediaBaseUrl';
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
 
-  const [changeDataFlag, setChangeDataFlag] = React.useState(false);
-  const [changePasswordFlag, setChangePasswordFlag] = React.useState(false);
-  const [changeAvatarFlag, setChangeAvatarFlag] = React.useState(false);
-  const [userAvatar, setUserAvatar] = React.useState(user.avatar);
-
-  // .replace('data:', '')
-  // .replace(/^.+,/, '');
-
+  const [changeDataFlag, setChangeDataFlag] = React.useState<boolean>(false);
+  const [changePasswordFlag, setChangePasswordFlag] =
+    React.useState<boolean>(false);
+  const [changeAvatarFlag, setChangeAvatarFlag] =
+    React.useState<boolean>(false);
+  const initialUserAvatar = mediaBaseUrl+user.avatar
   const formik = useFormik({
     initialValues: {
-      avatar: user.avatar,
-      fullName: user.fullName,
       email: user.email,
+      fullName: user.fullName,
+      avatar: initialUserAvatar,
       oldPassword: '',
       newPassword: '',
       repeatPassword: '',
@@ -37,7 +36,7 @@ const Profile: React.FC = () => {
       const updatedUserData: {
         email: string;
         fullName: string;
-        avatar: string | null;
+        avatar: string;
         oldPassword: string;
         newPassword: string;
       } = {
@@ -48,7 +47,7 @@ const Profile: React.FC = () => {
         newPassword: values.newPassword,
       };
 
-      await dispatch(updateUserData(updatedUserData)).unwrap();
+      await dispatch(updateUserData(updatedUserData));
       setChangeDataFlag(false);
       setChangePasswordFlag(false);
       setChangeAvatarFlag(false);
@@ -76,12 +75,10 @@ const Profile: React.FC = () => {
       reader.onload = () => {
         if (reader.result !== null && typeof reader.result === 'string') {
           const base64String = reader.result;
-          setUserAvatar(base64String);
-          // formik.setFieldValue('avatar', base64String);
+          formik.setFieldValue('avatar', base64String);
         }
+        setChangeAvatarFlag(true);
       };
-      setChangeAvatarFlag(true);
-      formik.setFieldValue('avatar', e.currentTarget.files[0]);
     }
   };
   return (
@@ -90,7 +87,7 @@ const Profile: React.FC = () => {
         <div className="user-page__avatar">
           <img
             className="user-page__avatar-image"
-            src={userAvatar}
+            src={formik.values.avatar}
             alt="avatar_image"
           />
           <label className="user-page__add-photo-icon-container">
