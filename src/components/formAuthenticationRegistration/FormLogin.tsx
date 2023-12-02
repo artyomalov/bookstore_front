@@ -10,6 +10,8 @@ import { useAppDispatch } from '../../store/typedHooks';
 import { setUser } from '../../store/userSlice';
 import userRequests from '../../api/userAPI/userRequests';
 import { getLikedBooks, getUserCart } from '../../store/userStaffSlice';
+import { showNotification } from '../../store/notificationSlice';
+import { notificationType } from '../../types/notificationTypes';
 
 const logIn = 'Log in';
 
@@ -30,15 +32,38 @@ const FormLogin: React.FC = () => {
         values.email,
         values.password
       );
-
       dispatch(setUser(response.data.user_data));
       localStorage.setItem('access', response.data.token_data.access);
       localStorage.setItem('refresh', response.data.token_data.refresh);
       await dispatch(getLikedBooks());
       await dispatch(getUserCart());
       navigate(fromPage, { replace: true });
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      if (
+        err.response.data.error === 'Password is not valid' &&
+        err.response.status === 401
+      ) {
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: err.response.data.error,
+            type: notificationType.Error,
+          })
+        );
+      }
+      if (
+        err.response.data.error === 'User does not exist' &&
+        err.response.status === 404
+      ) {
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: err.response.data.error,
+            type: notificationType.Error,
+          })
+        );
+      }
     }
   };
 

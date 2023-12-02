@@ -3,7 +3,8 @@ import filtersRequests from '../api/filtersApi/filtersRequersts';
 import { GenreType } from '../types/bookTypes';
 import { AxiosError } from 'axios';
 import { AppDispatch } from '.';
-import { showStandartErrorNotification } from './notificationSlice';
+import { showNotification } from './notificationSlice';
+import { notificationType } from '../types/notificationTypes';
 
 export const getGenres = createAsyncThunk<
   GenreType[],
@@ -12,12 +13,18 @@ export const getGenres = createAsyncThunk<
 >('genres/getGenres', async function (_, { rejectWithValue, dispatch }) {
   try {
     const response = await filtersRequests.getGengres();
-    if (response.status > 299) {
+    if (response.status !== 200) {
       throw new Error("can't load data");
     }
     return response.data;
   } catch (error: any) {
-    dispatch(showStandartErrorNotification);
+    dispatch(
+      showNotification({
+        isVisible: true,
+        text: 'Internal server error. Please reload the page.',
+        type: notificationType.Error,
+      })
+    );
     return rejectWithValue(error());
   }
 });

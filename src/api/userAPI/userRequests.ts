@@ -4,6 +4,7 @@ import {
   CreateUserType,
   UpdateUserDataType,
 } from '../../types/userTypes';
+import { AxiosError } from 'axios';
 
 type SigninResponseType = {
   token_data: {
@@ -11,6 +12,7 @@ type SigninResponseType = {
     refresh: string;
   };
   user_data: UserType;
+  error?: string;
 };
 
 const createUser = (createUserData: CreateUserType) => {
@@ -22,7 +24,7 @@ const createUser = (createUserData: CreateUserType) => {
 };
 
 const signInUser = (email: string, password: string) => {
-  return axiosInstanceUser.post<SigninResponseType>(`/signin/`, {
+  return axiosInstanceUser.post<any>(`/signin/`, {
     email,
     password,
   });

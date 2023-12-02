@@ -1,5 +1,5 @@
 export enum notificationType {
-  Sucsess = 'green',
-  Warn = 'yellow',
-  Error = 'red',
+  Sucsess = '#bfcc94',
+  Warn = '#db9a56',
+  Error = '#de5624',
 }

@@ -3,10 +3,11 @@ import StyledCatalogBookList from './CatalogBookList.style';
 import CatalogBookItem from '../catalogBookItem/CatalogBookItem';
 import { GetBooksResponseType } from '../../types/bookTypes';
 import CatalogPagination from '../catalogPagination/CatalogPagination';
-import { showStandartErrorNotification } from '../../store/notificationSlice';
+import { showNotification } from '../../store/notificationSlice';
 import { useAppDispatch } from '../../store/typedHooks';
 import GridLoader from 'react-spinners/GridLoader';
 import { createRange } from '../../services/usePagination';
+import { notificationType } from '../../types/notificationTypes';
 
 type Props = {
   serverRequestCallback: (
@@ -27,7 +28,13 @@ const CatalogBookList: React.FC<Props> = (props) => {
           setResponseData(data);
         }
       } catch (error) {
-        dispatch(showStandartErrorNotification);
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: 'Internal server error. Please reload the page.',
+            type: notificationType.Error,
+          })
+        );
         console.log(error);
       }
     })();

@@ -23,7 +23,14 @@ const Banner: React.FC<Props> = (props) => {
       <div className="banner__text-container">
         <h2 className="banner__title">{props.titleText}</h2>
         <p className="banner__slogan">{props.sloganText}</p>
-        <button className="banner__button">{props.buttonText}</button>
+        <button
+          className="banner__button"
+          onClick={() =>
+            window.scrollTo({ left: 0, top: 638, behavior: 'smooth' })
+          }
+        >
+          {props.buttonText}
+        </button>
       </div>
     </StyledBanner>
   );

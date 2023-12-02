@@ -5,7 +5,8 @@ import bookRequersts from '../../api/bookAPI/bookRequests';
 import { useLocation } from 'react-router';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
 import { useAppDispatch } from '../../store/typedHooks';
-import { showStandartErrorNotification } from '../../store/notificationSlice';
+import { showNotification } from '../../store/notificationSlice';
+import { notificationType } from '../../types/notificationTypes';
 
 const Search: React.FC = () => {
   // console.log('render');
@@ -22,11 +23,24 @@ const Search: React.FC = () => {
     try {
       const response = await bookRequersts.searchBooks(ref.current, page);
       if (response.data.books.length === 0) {
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: "Sorry, this book diesn't exist",
+            type: notificationType.Warn,
+          })
+        );
         setBooksFound(false);
       }
       return response.data;
     } catch (error) {
-      dispatch(showStandartErrorNotification);
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
       console.log(error);
     }
   };

@@ -22,12 +22,14 @@ axiosInstanceUser.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log('error')
     try {
       const refreshToken: string | null = localStorage.getItem('refresh');
       if (refreshToken !== null) {
         const { response, config } = error;
-        if (response.status === 401) {
+        if (
+          response.status === 401 &&
+          response.data.error !== 'Password is not valid'
+        ) {
           {
             const res = await axios.post(
               'http://localhost:8000/api/v1/user/token/refresh/',
@@ -40,8 +42,9 @@ axiosInstanceUser.interceptors.response.use(
           return await axiosInstanceUser(config);
         }
       }
+      return Promise.reject(error);
     } catch (error) {
-      
+      console.log(error);
       return Promise.reject(error);
     }
   }

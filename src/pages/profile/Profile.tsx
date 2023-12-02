@@ -11,6 +11,8 @@ import authHide from '../../assets/img/auth_hide.svg';
 import userProfileAddPhoto from '../../assets/img/user_profile_add_photo.svg';
 import userProfileLogo from '../../assets/img/user_profile_input.svg';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
+import { showNotification } from '../../store/notificationSlice';
+import { notificationType } from '../../types/notificationTypes';
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +23,7 @@ const Profile: React.FC = () => {
     React.useState<boolean>(false);
   const [changeAvatarFlag, setChangeAvatarFlag] =
     React.useState<boolean>(false);
-  const initialUserAvatar = mediaBaseUrl+user.avatar
+  const initialUserAvatar = mediaBaseUrl + user.avatar;
   const formik = useFormik({
     initialValues: {
       email: user.email,
@@ -48,6 +50,7 @@ const Profile: React.FC = () => {
       };
 
       await dispatch(updateUserData(updatedUserData));
+
       setChangeDataFlag(false);
       setChangePasswordFlag(false);
       setChangeAvatarFlag(false);
@@ -88,13 +91,13 @@ const Profile: React.FC = () => {
           <img
             className="user-page__avatar-image"
             src={formik.values.avatar}
-            alt="avatar_image"
+            alt="avatar"
           />
           <label className="user-page__add-photo-icon-container">
             <img
               src={userProfileAddPhoto}
               className="user-page__add-photo-icon"
-              alt="addPhoto"
+              alt="add avatar"
             />
             <input
               type="file"
@@ -103,7 +106,6 @@ const Profile: React.FC = () => {
               onChange={setAvatarHandler}
             />
           </label>
-          {/* <FormInputCross /> */}
         </div>
         <div className="user-page__text-form">
           <div className="user-page__header-container">

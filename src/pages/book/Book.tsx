@@ -13,7 +13,8 @@ import { updateUserCart } from '../../store/userStaffSlice';
 import { selectIfUserExists } from '../../store/selectors';
 import CatalogAddToFavoriteCheckBox from '../../components/catalogAddToFavoriteCheckBox/CatalogAddToFavoriteCheckBox';
 import bookRequersts from '../../api/bookAPI/bookRequests';
-import { showStandartErrorNotification } from '../../store/notificationSlice';
+import { showNotification } from '../../store/notificationSlice';
+import { notificationType } from '../../types/notificationTypes';
 
 const Book: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +27,13 @@ const Book: React.FC = () => {
       const response = await bookRequersts.getSimularBooks(book.slug);
       return response.data;
     } catch (error) {
-      dispatch(showStandartErrorNotification);
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
       console.log(error);
     }
   }, [book.slug]);
@@ -86,6 +93,7 @@ const Book: React.FC = () => {
                   price={paperbackPrice}
                   onClickHandler={addToCartButtonClickHandler}
                   coverType="paperback"
+                  bookSlug={book.slug}
                 />
               </div>
             </div>
@@ -96,6 +104,7 @@ const Book: React.FC = () => {
                   price={hardcoverPrice}
                   onClickHandler={addToCartButtonClickHandler}
                   coverType="hardcover"
+                  bookSlug={book.slug}
                 />
               </div>
             </div>

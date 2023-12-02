@@ -6,8 +6,9 @@ import {
   UpdateDeleteUserPasswordType,
 } from '../types/userTypes';
 import { AxiosError } from 'axios';
-import { showStandartErrorNotification } from './notificationSlice';
+import { showNotification } from './notificationSlice';
 import { AppDispatch } from '.';
+import { notificationType } from '../types/notificationTypes';
 
 export const getUser = createAsyncThunk<
   UserType,
@@ -42,12 +43,22 @@ export const updateUserData = createAsyncThunk<
   async function (updatedUserData, { rejectWithValue, dispatch }) {
     try {
       const response = await userRequests.updateUserData(updatedUserData);
-      if (response.status !== 200) {
-        throw new Error(response.statusText);
-      }
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Your data has been updated',
+          type: notificationType.Sucsess,
+        })
+      );
       return response.data;
     } catch (error: any) {
-      dispatch(showStandartErrorNotification);
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
       return rejectWithValue(error);
     }
   }

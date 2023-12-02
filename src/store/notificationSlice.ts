@@ -35,16 +35,5 @@ const notificationSlice = createSlice({
   },
 });
 
-
-//Because this functions is been used in plenty places of the code, it was saved as separate function to avoid code duplication
-export const showStandartErrorNotification = () =>
-  showNotification({
-    isVisible: true,
-    text: 'Internal server error. Please reload the page.',
-    type: notificationType.Error,
-  });
-
-
-
 export default notificationSlice.reducer;
 export const { showNotification, hideNotification } = notificationSlice.actions;

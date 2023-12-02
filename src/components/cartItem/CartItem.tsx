@@ -9,18 +9,30 @@ import {
   updateCartItemQuantity,
   updateUserCart,
 } from '../../store/userStaffSlice';
-import { showStandartErrorNotification } from '../../store/notificationSlice';
+import { showNotification } from '../../store/notificationSlice';
+import { notificationType } from '../../types/notificationTypes';
 
 const CartItem: React.FC<CartItemType> = React.memo((props) => {
   const dispatch = useAppDispatch();
   const changeCartItemCount = async (increase: boolean) => {
-    await dispatch(
-      updateCartItemQuantity({ id: props.id, increase: increase })
+    dispatch(
+      showNotification({
+        isVisible: true,
+        text: 'Internal server error. Please reload the page.',
+        type: notificationType.Error,
+      })
     );
   };
 
   const deleteItemHandler = async () => {
     await dispatch(updateUserCart({ cartItemId: props.id }));
+    dispatch(
+      showNotification({
+        isVisible: true,
+        text: 'Book has been deleted from your cart',
+        type: notificationType.Warn,
+      })
+    );
   };
 
   return (

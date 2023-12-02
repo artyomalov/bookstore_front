@@ -12,7 +12,9 @@ const Notification: React.FC = () => {
   }, [notificationData, dispatch]);
 
   return notificationData.isVisible ? (
-    <StyledNotification>{notificationData.text}</StyledNotification>
+    <StyledNotification notificationtype={notificationData.type}>
+      {notificationData.text}
+    </StyledNotification>
   ) : null;
 };
 

@@ -9,9 +9,10 @@ import PurchaseItem from '../purchaseItem/PurchaseItem';
 import { PurchaseItemType } from '../../types/userStaffTypes';
 import userStaffRequests from '../../api/userStaffAPI/userStaffRequests';
 import UserStaffEmpty from '../userStaffEmpty/UserStaffEmpty';
-import { showStandartErrorNotification } from '../../store/notificationSlice';
+import { showNotification } from '../../store/notificationSlice';
 import GridLoader from 'react-spinners/GridLoader';
 import { createRange } from '../../services/usePagination';
+import { notificationType } from '../../types/notificationTypes';
 
 const PurchasesList: React.FC = () => {
   const [purchasesList, setPurchasesList] = React.useState<
@@ -27,7 +28,13 @@ const PurchasesList: React.FC = () => {
         );
         if (response.data) setPurchasesList(response.data.purchases);
       } catch (error) {
-        dispatch(showStandartErrorNotification);
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: 'Internal server error. Please reload the page.',
+            type: notificationType.Error,
+          })
+        );
         console.log(error);
       }
     })();

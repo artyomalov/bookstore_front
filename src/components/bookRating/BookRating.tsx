@@ -5,10 +5,7 @@ import BookStarRating from '../bookStarRating/BookStarRating';
 import bookRequersts from '../../api/bookAPI/bookRequests';
 import { selectUserId } from '../../store/selectors';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
-import {
-  showNotification,
-  showStandartErrorNotification,
-} from '../../store/notificationSlice';
+import { showNotification } from '../../store/notificationSlice';
 import { notificationType } from '../../types/notificationTypes';
 
 type Props = {
@@ -25,7 +22,13 @@ const BookRating: React.FC<Props> = (props) => {
         const response = await bookRequersts.getTotalRate(props.bookId);
         setAverageRating(response.data.averageRating);
       } catch (error) {
-        dispatch(showStandartErrorNotification);
+        dispatch(
+          showNotification({
+            isVisible: true,
+            text: 'Internal server error. Please reload the page.',
+            type: notificationType.Error,
+          })
+        );
         console.log(error);
       }
     })();
@@ -42,8 +45,21 @@ const BookRating: React.FC<Props> = (props) => {
       );
       setAverageRating(response.data.averageRate);
       previosRateRef.current = newRate;
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Thank you for your rate',
+          type: notificationType.Sucsess,
+        })
+      );
     } catch (error) {
-      dispatch(showStandartErrorNotification);
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
       console.log(error);
     }
   };

@@ -8,7 +8,8 @@ import { validationSchemaSignUp } from '../../validationSchemas/loginSignupSchem
 import userRequests from '../../api/userAPI/userRequests';
 import { useLocation, useNavigate } from 'react-router';
 import { useAppDispatch } from '../../store/typedHooks';
-import { showStandartErrorNotification } from '../../store/notificationSlice';
+import { showNotification } from '../../store/notificationSlice';
+import { notificationType } from '../../types/notificationTypes';
 const Signup = 'Sign up';
 
 const FormSignUp: React.FC = () => {
@@ -29,10 +30,22 @@ const FormSignUp: React.FC = () => {
         password: values.password,
         confirmPassword: values.repeatPassword,
       });
-
       navigate('/login', { replace: true });
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'User has been created sucsessully. Please log in.',
+          type: notificationType.Sucsess,
+        })
+      );
     } catch (error) {
-      dispatch(showStandartErrorNotification);
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Internal server error. Please reload the page.',
+          type: notificationType.Error,
+        })
+      );
       console.log(error);
     }
   };

@@ -7,7 +7,7 @@ import cartItemDelete from '../../assets/img/cart_item_delete.svg';
 import { useAppDispatch } from '../../store/typedHooks';
 import { Link } from 'react-router-dom';
 
-const PurchaseItem: React.FC<PurchaseItemType> = (props) => {
+const PurchaseItem: React.FC<PurchaseItemType> = React.memo((props) => {
   return (
     <StyledPurchaseItem>
       <Link to={`/book/${props.slug}`}>
@@ -32,6 +32,6 @@ const PurchaseItem: React.FC<PurchaseItemType> = (props) => {
       </div>
     </StyledPurchaseItem>
   );
-};
+});
 
 export default PurchaseItem;
