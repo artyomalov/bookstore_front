@@ -130,16 +130,13 @@ export const updateUserCart = createAsyncThunk<
         id: cartId,
         cartItemId: cartItemId,
       });
-      if (response.statusText !== 'OK') {
-        dispatch(
-          showNotification({
-            isVisible: true,
-            text: 'Internal server error. Please reload the page.',
-            type: notificationType.Error,
-          })
-        );
-        throw new Error(response.statusText);
-      }
+      dispatch(
+        showNotification({
+          isVisible: true,
+          text: 'Book has been deleted from your cart',
+          type: notificationType.Warn,
+        })
+      );
       return response.data;
     } catch (error: any) {
       dispatch(

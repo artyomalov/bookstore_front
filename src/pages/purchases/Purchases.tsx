@@ -1,6 +1,6 @@
 import React from 'react';
 import StyledPurchases from './Purchases.style';
-import PurchasesList from '../../components/purchasesList/PurchasesList';
+import PurchasesList from '../../components/userStaffPurchasesList/UserStaffPurchasesList';
 const Purchases: React.FC = () => {
   return (
     <StyledPurchases>

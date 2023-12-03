@@ -6,6 +6,7 @@ import paramsSerializer from '../../services/paramsSerializer';
 import { GetBooksResponseType } from '../../types/bookTypes';
 
 const getBooks = (filtersData: GetBooksParamsType, page: number) => {
+  
   const params = paramsSerializer({ ...filtersData, page });
 
   return axiosInstanceBook.get<GetBooksResponseType>(`/list?${params}`);

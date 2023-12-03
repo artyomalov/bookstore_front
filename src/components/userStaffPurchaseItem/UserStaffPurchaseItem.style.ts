@@ -19,13 +19,13 @@ const StyledPurchaseItem = styled.div`
     margin-left: 20px;
   }
   .purchase-item__book-title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .purchase-item__price,
   .purchase-item__quantity {
     margin-top: 60px;
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     color: ${(props) => props.theme.colorDark};
   }
   .purchase-item__quantity {

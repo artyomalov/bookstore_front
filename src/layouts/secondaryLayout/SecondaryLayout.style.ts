@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyleSecondaryLayout = styled.div`
-  width: ${(props)=>props.theme.mainWidth};
+  width: ${(props)=>props.theme.widthFor1440};
   /* min-height: 51vh; */
   margin: 0 auto;
   margin-top: 100px;

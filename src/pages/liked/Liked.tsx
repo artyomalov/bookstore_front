@@ -13,8 +13,8 @@ const Favorite: React.FC = () => {
       >
         <UserStaffLikedList />
         <UserStaffEmpty
-          staff="favorite"
-          text1="Add items to favoririte to store them."
+          title="You haven't got liked books"
+          text1="Add books to favoririte to keep them for the future."
           text2="Also you can go to the catalogue."
         />
       </ConditionalRenderServiceComponent>

@@ -11,6 +11,9 @@ const StyledCatalogBookList = styled.div`
   .catalog-book-list__book-item-container {
     margin-bottom: 60px;
   }
+  .catalog-book-list__empty-container{
+    margin-top: 100px;
+  }
 `;
 
 export default StyledCatalogBookList;

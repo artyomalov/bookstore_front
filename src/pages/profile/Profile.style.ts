@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 const StyledProfileDataContainer = styled.form`
   display: flex;
-  width: ${(props) => props.theme.mainWidth};
+  width: ${(props) => props.theme.widthFor1440};
   margin: 0 auto;
   justify-content: flex-start;
   align-items: flex-start;
@@ -69,8 +69,8 @@ const StyledProfileDataContainer = styled.form`
   }
 
   .user-page__header {
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-size: ${(props) => props.theme.fontSize20};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
 
   .user-page__change-data-button {
@@ -79,7 +79,7 @@ const StyledProfileDataContainer = styled.form`
     border: none;
     color: #8d9f4f;
     font-size: ${(props) => props.theme.fontSize16};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     cursor: pointer;
   }
 

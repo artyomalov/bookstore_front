@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 
 const textStyle = css`
   color: ${(props) => props.theme.colorLight};
-  font-size: ${(props) => props.theme.fontSizeNormal};
-  font-weight: ${(props) => props.theme.fontWeightNormal};
+  font-size: ${(props) => props.theme.fontSize20};
+  font-weight: ${(props) => props.theme.fontWeightMedium};
 `;
 
 const linkCss = css`
@@ -22,7 +22,7 @@ const StyledFooter = styled.div`
   margin-top: 110px;
 
   .footer__container {
-    width: ${(props) => props.theme.mainWidth};
+    width: ${(props) => props.theme.widthFor1440};
     margin: 0 auto;
     padding-top: 73px;
     display: flex;

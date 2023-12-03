@@ -58,8 +58,8 @@ const StyledFormInputUser = styled.div<FormInputType>`
     display: inline-block;
     opacity: ${(props) => (props.value.length > 0 ? 1 : 0)};
     position: absolute;
-    font-weight: ${(props) => props.theme.fontWeightNormal};
-    font-size: ${(props)=>props.theme.fontSizeLittle};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
+    font-size: ${(props)=>props.theme.fontSize14};
     top: 8px;
     left: 84px;
     font-size: 14px;
@@ -68,8 +68,8 @@ const StyledFormInputUser = styled.div<FormInputType>`
 
   .form-input__explanation {
     margin-top: 9px;
-    font-size: ${(props) => props.theme.fontSizeLittle};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-size: ${(props) => props.theme.fontSize14};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
 `;
 

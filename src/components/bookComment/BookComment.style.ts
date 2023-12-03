@@ -25,12 +25,12 @@ const StyledBookComment = styled.li`
   }
   .comment__left-comment-time {
     font-size: 12px;
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     color: ${(props) => props.theme.colorDarkGray};
   }
   .comment__comment-text {
     font-size: ${(props) => props.theme.fontSize16};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     color: ${(props) => props.theme.colorDarkBlue};
   }
 `;

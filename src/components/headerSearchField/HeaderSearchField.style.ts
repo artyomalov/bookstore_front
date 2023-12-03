@@ -14,7 +14,7 @@ const StyledHeaderSearchField = styled.div`
     padding-left: 2%;
     background: none;
     border: none;
-    font-size: ${(props) => props.theme.fontSizeNormal};
+    font-size: ${(props) => props.theme.fontSize20};
     font-weight: ${(props) => props.theme.fontWeightThin};
 
     &:focus {

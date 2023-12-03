@@ -54,9 +54,9 @@ const Search: React.FC = () => {
         </>
       ) : (
         <UserStaffEmpty
-          staff="search"
-          text1="We coudn't find this book, sorry."
-          text2="Please try again."
+          title="We coudn't find this book, sorry."
+          text1="Please check the spelling of your request and try again"
+          text2="Also you can go to the catalogue."
         />
       )}
     </StyledSearch>

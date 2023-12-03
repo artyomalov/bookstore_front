@@ -1,7 +1,7 @@
 import React from 'react';
-import StyledCartItemList from './CartItemList.style';
+import StyledCartItemList from './UserStaffCartItemList.style';
 import { CartItemType } from '../../types/userStaffTypes';
-import CartItem from '../cartItem/CartItem';
+import CartItem from '../userStaffCartItem/UserStaffCartItem';
 import { useAppSelector } from '../../store/typedHooks';
 import { selectUserCartItemsList } from '../../store/selectors';
 

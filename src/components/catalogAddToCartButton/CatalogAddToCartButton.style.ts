@@ -17,7 +17,7 @@ const StyledCatalogAddToCartButton = styled.button<StyledProps>`
   border-radius: ${(props) => props.theme.borderRadius};
   cursor: pointer;
   font-weight: ${(props) => props.theme.fontWeightThin};
-  font-size: ${(props) => props.theme.fontSizeNormal};
+  font-size: ${(props) => props.theme.fontSize20};
   &:hover {
     background-color: ${(props) => props.theme.colorDarkGray};
   }

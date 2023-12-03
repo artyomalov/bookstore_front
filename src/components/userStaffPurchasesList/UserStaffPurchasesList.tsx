@@ -1,11 +1,11 @@
 import React from 'react';
-import StyledPurchasesList from './PurchasesList.style';
+import StyledPurchasesList from './UserStaffPurchasesList.style';
 import { useAppDispatch, useAppSelector } from '../../store/typedHooks';
 import {
   selectLikedList,
   selectUserPurchisesList,
 } from '../../store/selectors';
-import PurchaseItem from '../purchaseItem/PurchaseItem';
+import PurchaseItem from '../userStaffPurchaseItem/UserStaffPurchaseItem';
 import { PurchaseItemType } from '../../types/userStaffTypes';
 import userStaffRequests from '../../api/userStaffAPI/userStaffRequests';
 import UserStaffEmpty from '../userStaffEmpty/UserStaffEmpty';
@@ -48,9 +48,9 @@ const PurchasesList: React.FC = () => {
       </StyledPurchasesList>
     ) : (
       <UserStaffEmpty
-        staff="purchases list"
+        title="You purchases list is empty"
         text1="All your purchases will be shown here."
-        text2="Also you can go to the catalogue."
+        text2="You can go to the catalog select something."
       />
     )
   ) : (

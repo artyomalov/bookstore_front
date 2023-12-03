@@ -9,7 +9,7 @@ const StyledStyledBookComments = styled.ul`
     margin-top: 60px;
   }
   .comment-list-title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
     margin-bottom: 50px;
   }

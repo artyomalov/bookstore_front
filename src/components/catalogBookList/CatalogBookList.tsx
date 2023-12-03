@@ -8,6 +8,7 @@ import { useAppDispatch } from '../../store/typedHooks';
 import GridLoader from 'react-spinners/GridLoader';
 import { createRange } from '../../services/usePagination';
 import { notificationType } from '../../types/notificationTypes';
+import UserStaffEmpty from '../userStaffEmpty/UserStaffEmpty';
 
 type Props = {
   serverRequestCallback: (
@@ -38,53 +39,66 @@ const CatalogBookList: React.FC<Props> = (props) => {
         console.log(error);
       }
     })();
-  }, [page]);
+  }, [page, props.serverRequestCallback]);
+  // UserStaffEmpty
 
   return (
     <StyledCatalogBookList>
       {responseData !== null ? (
+        responseData.books.length === 0 ? (
+          <div className="catalog-book-list__empty-container">
+            <UserStaffEmpty
+              title="Sorry, there is no book match you filter's settings"
+              text1={'Please update the serarch and try again'}
+              text2={''}
+            />
+          </div>
+        ) : (
+          <>
+            <div className="catalog-book-list__books-container">
+              {responseData.books.map((book) => (
+                <div
+                  key={book.id}
+                  className="catalog-book-list__book-item-container"
+                >
+                  <CatalogBookItem {...book} />
+                </div>
+              ))}
+            </div>
+            {responseData.pagesCount === 1 ? null : (
+              <CatalogPagination
+                paginationData={{
+                  pagesCount: responseData.pagesCount,
+                  hasNext: responseData.hasNext,
+                  hasPrevious: responseData.hasPrevious,
+                }}
+                page={page}
+                setPage={setPage}
+              />
+            )}
+          </>
+        )
+      ) : (
         <>
           <div className="catalog-book-list__books-container">
-            {responseData.books.map((book) => (
-              <div
-                key={book.id}
-                className="catalog-book-list__book-item-container"
-              >
-                <CatalogBookItem {...book} />
-              </div>
+            {createRange(1, 4).map((item) => (
+              <GridLoader
+                key={item}
+                color="#344966"
+                loading={true}
+                cssOverride={{
+                  display: 'block',
+                  margin: '38px 50px 132px 50px',
+                  borderColor: '#344966',
+                }}
+                size={50}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                speedMultiplier={0.4}
+              />
             ))}
           </div>
-          {responseData.pagesCount === 1 ? null : (
-            <CatalogPagination
-              paginationData={{
-                pagesCount: responseData.pagesCount,
-                hasNext: responseData.hasNext,
-                hasPrevious: responseData.hasPrevious,
-              }}
-              page={page}
-              setPage={setPage}
-            />
-          )}
         </>
-      ) : (
-        <div className="catalog-book-list__books-container">
-          {createRange(1, 4).map((item) => (
-            <GridLoader
-              key={item}
-              color="#344966"
-              loading={true}
-              cssOverride={{
-                display: 'block',
-                margin: '38px 50px 132px 50px',
-                borderColor: '#344966',
-              }}
-              size={50}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-              speedMultiplier={0.4}
-            />
-          ))}
-        </div>
       )}
     </StyledCatalogBookList>
   );

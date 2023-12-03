@@ -12,8 +12,8 @@ const StyledHeaderLoginSignUpButton = styled.div`
   .button__auth-link {
     color: #f0f4ef;
     text-decoration: none;
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-size: ${(props) => props.theme.fontSize16};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
 
     &:hover,
     &:visited,

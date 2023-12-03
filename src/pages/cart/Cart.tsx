@@ -1,9 +1,9 @@
 import React from 'react';
 import UserStaffEmpty from '../../components/userStaffEmpty/UserStaffEmpty';
 import StyledCart from './Cart.style';
-import CartItemList from '../../components/cartItemList/CartItemList';
+import CartItemList from '../../components/userStaffCartItemList/UserStaffCartItemList';
 import { Link } from 'react-router-dom';
-import CartItemTotalCount from '../../components/cartItemTotalCount/CartItemTotalCount';
+import CartItemTotalCount from '../../components/userStaffCartItemTotalCount/UserStaffCartItemTotalCount';
 import { useAppDispatch } from '../../store/typedHooks';
 import { selectIsCartItemsExist } from '../../store/selectors';
 import ConditionalRenderServiceComponent from '../../serviceComponents/ConditionalRenderServiceComponent';
@@ -33,7 +33,7 @@ const Cart: React.FC = () => {
           </div>
         </>
         <UserStaffEmpty
-          staff="cart"
+          title="Your cart is empty"
           text1="Add items to cart to make a purchase."
           text2="Also you can go to the catalogue."
         />

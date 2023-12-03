@@ -7,7 +7,7 @@ const StyledLayoutContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: ${(props) => props.theme.mainWidth};
+    width: ${(props) => props.theme.widthFor1440};
     height: 50px;
     margin: 0 auto;
     background-color: #a8836d;

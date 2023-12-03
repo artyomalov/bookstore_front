@@ -2,7 +2,12 @@ import styled from 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    mainWidth: string;
+    mediaMaxWidth: string;
+    mediaMaxWidth834: string;
+    mediaMaxWidth320: string;
+    widthFor1440: string;
+    widthFor834: string;
+    widthFor320: string;
     colorDark: string;
     colorDarkBlue: string;
     colorLight: string;
@@ -11,14 +16,16 @@ declare module 'styled-components' {
     colorGreen: string;
     colorWhite: string;
     fontWeightThin: number;
-    fontWeightNormal: number;
+    fontWeightMedium: number;
     fontWeightSemiBold: number;
     fontWeightBold: number;
-    fontSizeLittle: string;
+    fontSize14: string;
     fontSize16: string;
-    fontSizeMedium: string;
-    fontSizeNormal: string;
+    fontSize18: string;
+    fontSize20: string;
     fontSize22: string;
+    fontSize27: string;
+    fontSize32: string;
     fontSize36: string;
     fontSize40: string;
     borderRadius: string;

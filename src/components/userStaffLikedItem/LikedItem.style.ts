@@ -19,7 +19,7 @@ const StyledCLikedItem = styled.div`
     margin-left: 20px;
   }
   .liked-item__book-title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .liked-item__delete-button {
@@ -31,7 +31,7 @@ const StyledCLikedItem = styled.div`
   .liked-item__price {
     margin-top: 50px;
     font-size: ${(props) => props.theme.fontSize36};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     color: ${(props) => props.theme.colorDark};
   }
 `;

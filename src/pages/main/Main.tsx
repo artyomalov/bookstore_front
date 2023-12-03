@@ -4,10 +4,8 @@ import Banner from '../../components/catalogBanner/CatalogBanner';
 import banner from '../../assets/img/banner.svg';
 import FilterCatalogHeader from '../../components/filterCatalogHeader/FilterCatalogHeader';
 import CatalogBannerSecondary from '../../components/catalogBannerSecondary/CatalogBannerSecondary';
-import CatalogBookList from '../../components/catalogBookList/CatalogBookList';
 import { useAppSelector } from '../../store/typedHooks';
 import { selectIfUserExists } from '../../store/selectors';
-import bookRequersts from '../../api/bookAPI/bookRequests';
 import Catalog from '../../components/catalog/Catalog';
 
 const Main: React.FC = () => {

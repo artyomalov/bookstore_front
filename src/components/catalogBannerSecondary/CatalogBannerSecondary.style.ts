@@ -26,13 +26,13 @@ const StyledCatalogBannerSecondary = styled.div`
   }
   .catalog-banner-secondary__title {
     margin-bottom: 10px;
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .catalog-banner-secondary {
     margin-bottom: 50px;
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-size: ${(props) => props.theme.fontSize20};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
 `;
 

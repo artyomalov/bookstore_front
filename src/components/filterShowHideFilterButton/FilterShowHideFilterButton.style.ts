@@ -20,7 +20,7 @@ const StyledFilterShowHideFilterButton = styled.button<StyledFilterShowHideFilte
       : props.theme.colorDark};
   border: none;
   border-radius: ${(props) => props.theme.borderRadius};
-  font-size: ${(props) => props.theme.fontSizeMedium};
+  font-size: ${(props) => props.theme.fontSize18};
   cursor: pointer;
 
   .button__arrow {

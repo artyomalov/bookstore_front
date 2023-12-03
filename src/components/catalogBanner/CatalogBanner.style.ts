@@ -21,15 +21,15 @@ const StyledBanner = styled.div`
     left: 108px;
   }
   .banner__title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
     color: ${(props) => props.theme.colorDark};
   }
   .banner__slogan {
     width: 217px;
     height: 80px;
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-size: ${(props) => props.theme.fontSize20};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
   .banner__button {
     width: 230px;
@@ -39,8 +39,31 @@ const StyledBanner = styled.div`
     border-radius: ${(props) => props.theme.borderRadius};
     background-color: ${(props) => props.theme.colorDarkBlue};
     color: ${(props) => props.theme.colorLight};
+    font-size: ${(props) => props.theme.fontSize16};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     cursor: pointer;
   }
+  @media (max-width: ${(props) => props.theme.mediaMaxWidth834}) {
+      margin: 45px auto 0 auto;
+      
+      .banner__image-frame {
+      }
+      .banner__text-container {
+        position: absolute;
+        top: 45px;
+        left: 40px;
+      }
+      .banner__title {
+        font-size: ${(props) => props.theme.fontSize32};
+        font-weight: ${(props) => props.theme.fontWeightBold};
+      }
+      .banner__slogan {
+        width: 217px;
+        height: 48px;
+        font-size: ${(props) => props.theme.fontSize16};
+        font-weight: ${(props) => props.theme.fontWeightMedium};
+      }
+    }
 `;
 
 export default StyledBanner;

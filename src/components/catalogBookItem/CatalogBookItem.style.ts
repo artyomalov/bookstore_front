@@ -18,8 +18,8 @@ const StyledCatalogBookItem = styled.div<StyledProps>`
   }
   .catalog-book-item__book-title {
     margin-top: 30px;
-    font-size: ${(props) => props.theme.fontSizeNormal};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-size: ${(props) => props.theme.fontSize20};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     overflow: hidden;
     white-space: nowrap;
   }
@@ -43,7 +43,7 @@ const StyledCatalogBookItem = styled.div<StyledProps>`
     border-radius: ${(props) => props.theme.borderRadius};
     cursor: pointer;
     font-weight: ${(props) => props.theme.fontWeightThin};
-    font-size: ${(props) => props.theme.fontSizeNormal};
+    font-size: ${(props) => props.theme.fontSize20};
     &:hover {
       background-color: ${(props) => props.theme.colorDarkGray};
     }

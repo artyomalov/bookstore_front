@@ -19,7 +19,7 @@ const StyledCartItem = styled.div`
     margin-left: 20px;
   }
   .cart-item__book-title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .cart-item__actions-container {
@@ -68,7 +68,7 @@ const StyledCartItem = styled.div`
   .cart-item__price {
     margin-top: 50px;
     font-size: ${(props) => props.theme.fontSize36};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     color: ${(props) => props.theme.colorDark};
   }
   .cart-item__delete-button {

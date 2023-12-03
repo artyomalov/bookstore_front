@@ -55,7 +55,7 @@ const StyledBookStarRating = styled.div`
 
   .book-rating__text {
     font-size: ${(props) => props.theme.fontSize16};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     color: ${(props) => props.theme.colorDarkGray};
   }
   .book-rating__button:hover .book-rating__text {

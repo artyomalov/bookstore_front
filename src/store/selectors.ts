@@ -36,6 +36,11 @@ export const selectIsLikedItemsExist = createSelector(
 export const selectUserCartItemsList = (state: RootState) =>
   state.userStaff.userCart.cartItemsList;
 
+export const selectCartItemsLength = (state: RootState) => {
+  const cartItemsList = state.userStaff.userCart.cartItemsList;
+  return cartItemsList.length;
+};
+
 export const selectUserCartTotalCount = (state: RootState) =>
   state.userStaff.userCart.cartItemsTotalSum;
 

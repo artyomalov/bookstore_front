@@ -16,12 +16,12 @@ const StyledEmpty = styled.div`
     margin-left: 100px;
   }
   .empty__title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize27};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
   .empty__text {
     font-size: ${(props) => props.theme.fontSize22};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     margin-top: 20px;
     &:last-of-type {
       margin-top: 0;
@@ -37,7 +37,7 @@ const StyledEmpty = styled.div`
     color: ${(props) => props.theme.colorLight};
     text-decoration: none;
     font-size: ${(props) => props.theme.fontSize16};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     border-radius: ${(props) => props.theme.borderRadius};
     text-align: center;
   }

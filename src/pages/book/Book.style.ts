@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledBook = styled.main`
-  width: ${(props) => props.theme.mainWidth};
+  width: ${(props) => props.theme.widthFor1440};
   margin: 0 auto;
   /* position: relative; */
   .book__container {
@@ -32,7 +32,7 @@ const StyledBook = styled.main`
     width: 50%;
   }
   .book__title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
   }
 
@@ -55,7 +55,7 @@ const StyledBook = styled.main`
     margin-top: 30px;
     color: ${(props) => props.theme.colorDarkBlue};
     font-size: ${(props) => props.theme.fontSize16};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
   .book__add-to-cart-container {
     display: flex;
@@ -79,7 +79,7 @@ const StyledBook = styled.main`
   }
 
   .book__recommendations-title {
-    font-size: ${(props) => props.theme.fontSize44};
+    font-size: ${(props) => props.theme.fontSize40};
     font-weight: ${(props) => props.theme.fontWeightBold};
     margin-top: 110px;
     margin-bottom: 50px;

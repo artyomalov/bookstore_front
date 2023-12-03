@@ -16,7 +16,7 @@ const StyledCatalogNewBestsellerIcon = styled.div<StyledProps>`
   text-align: center;
   font-size: ${(props) => props.theme.fontSize16};
   font-style: italic;
-  font-weight: ${(props) => props.theme.fontWeightNormal};
+  font-weight: ${(props) => props.theme.fontWeightMedium};
   position: absolute;
   left: 20px;
   bottom: 20px;

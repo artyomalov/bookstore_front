@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledCartItem from './CartItem.style';
+import StyledCartItem from './UserStaffCartItem.style';
 import { CartItemType } from '../../types/userStaffTypes';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import CatalogAuthorsList from '../catalogAuthorsList/CatalogAuthorsList';
@@ -9,30 +9,21 @@ import {
   updateCartItemQuantity,
   updateUserCart,
 } from '../../store/userStaffSlice';
-import { showNotification } from '../../store/notificationSlice';
-import { notificationType } from '../../types/notificationTypes';
 
 const CartItem: React.FC<CartItemType> = React.memo((props) => {
   const dispatch = useAppDispatch();
   const changeCartItemCount = async (increase: boolean) => {
-    dispatch(
-      showNotification({
-        isVisible: true,
-        text: 'Internal server error. Please reload the page.',
-        type: notificationType.Error,
-      })
-    );
+    try {
+      await dispatch(
+        updateCartItemQuantity({ id: props.id, increase: increase })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteItemHandler = async () => {
     await dispatch(updateUserCart({ cartItemId: props.id }));
-    dispatch(
-      showNotification({
-        isVisible: true,
-        text: 'Book has been deleted from your cart',
-        type: notificationType.Warn,
-      })
-    );
   };
 
   return (

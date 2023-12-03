@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledPurchaseItem from './PurchaseItem.style';
+import StyledPurchaseItem from './UserStaffPurchaseItem.style';
 import { PurchaseItemType } from '../../types/userStaffTypes';
 import mediaBaseUrl from '../../const/mediaBaseUrl';
 import CatalogAuthorsList from '../catalogAuthorsList/CatalogAuthorsList';

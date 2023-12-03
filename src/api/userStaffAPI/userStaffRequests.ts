@@ -63,9 +63,9 @@ const getUserPurchases = (id: number) => {
 };
 
 const purchaseBooks = (id: number, cartItemsIds: number[]) => {
-  return axiosInstanceUserStaff.put<PurchaseItemType>(`/purchases/${id}`, [
+  return axiosInstanceUserStaff.put<PurchaseItemType>(`/purchases/${id}`, {
     cartItemsIds,
-  ]);
+  });
 };
 
 const userStaffRequests = {

@@ -10,7 +10,7 @@ const StyledError = styled.main`
   .error__message {
     color: ${(props) => props.theme.colorDarkBlue};
     font-size: 30px;
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     text-align: center;
   }
   .error__link {
@@ -23,7 +23,7 @@ const StyledError = styled.main`
     color: ${(props) => props.theme.colorLight};
     text-decoration: none;
     font-size: 24px;
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
     border-radius: ${(props) => props.theme.borderRadius};
     text-align: center;
   }

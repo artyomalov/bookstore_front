@@ -17,7 +17,7 @@ const StyledStarRating = styled.div`
   .catalog-star-rating__rate-count {
     color: ${(props) => props.theme.colorDarkGray};
     font-size: ${(props) => props.theme.fontSize16};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
 `;
 export default StyledStarRating;

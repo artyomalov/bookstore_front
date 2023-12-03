@@ -5,7 +5,7 @@ const StyledCommentsList = styled.ul`
   list-style: none;
   .book-comments-list__title {
     font-size: ${(props) => props.theme.fontSize22};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
 `;
 export default StyledCommentsList;

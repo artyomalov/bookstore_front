@@ -78,7 +78,7 @@ const StyledFormInput = styled.div<FormInputType>`
     padding-left: 2%; 
     background: none;
     border: none;
-    font-size: ${(props) => props.theme.fontSizeNormal};
+    font-size: ${(props) => props.theme.fontSize20};
     font-weight: ${(props) => props.theme.fontWeightThin};
     font-size: ${(props) => props.theme.fontSize16};
 
@@ -95,8 +95,8 @@ const StyledFormInput = styled.div<FormInputType>`
 
   .form-input__explanation {
     margin-top: 9px;
-    font-size: ${(props) => props.theme.fontSizeLittle};
-    font-weight: ${(props) => props.theme.fontWeightNormal};
+    font-size: ${(props) => props.theme.fontSize14};
+    font-weight: ${(props) => props.theme.fontWeightMedium};
   }
 `;
 
